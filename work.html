@@ -103,242 +103,249 @@
   <div class="work-main">
     <div class="work-main-inner">
 
-      <!-- ----------------------------------------
-           FILTER BAR
-           ---------------------------------------- -->
-      <div class="work-filter-bar" role="tablist" aria-label="Filter projects by category">
-        <div class="filter-bar">
-          <button class="filter-btn active" data-filter="all"        role="tab" aria-selected="true">All</button>
-          <button class="filter-btn"        data-filter="branding"   role="tab" aria-selected="false">Branding</button>
-          <button class="filter-btn"        data-filter="web"        role="tab" aria-selected="false">Web Development</button>
-          <button class="filter-btn"        data-filter="uiux"       role="tab" aria-selected="false">UI/UX</button>
-          <button class="filter-btn"        data-filter="marketing"  role="tab" aria-selected="false">Marketing Design</button>
-          <button class="filter-btn"        data-filter="motion"     role="tab" aria-selected="false">Motion Graphics</button>
-        </div>
-      </div>
+      <!-- ============================================ -->
+      <!-- STICKY BOUNDARY WRAPPER                      -->
+      <!-- ============================================ -->
+      <div class="work-grid-wrapper">
 
-      <!-- ----------------------------------------
-           PROJECT GRID
-           ---------------------------------------- -->
-      <div class="work-page-grid" id="project-grid">
-
-        <!-- PROJECT 01 — Branding (wide) -->
-        <div class="project-item wide" data-category="branding" data-reveal>
-          <a href="#" class="project-card" aria-label="Apex Brand Identity — Branding project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/apex-wide/1200/675" alt="Apex Brand Identity" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Branding</span>
-              <h3 class="card-title">Apex — Complete Brand Identity</h3>
-              <p class="card-sub">Logo system · Colour palette · Brand guidelines · Mockups</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
+        <!-- ----------------------------------------
+             FILTER BAR
+             ---------------------------------------- -->
+        <div class="work-filter-bar" role="tablist" aria-label="Filter projects by category">
+          <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all"        role="tab" aria-selected="true">All</button>
+            <button class="filter-btn"        data-filter="branding"   role="tab" aria-selected="false">Branding</button>
+            <button class="filter-btn"        data-filter="web"        role="tab" aria-selected="false">Web Development</button>
+            <button class="filter-btn"        data-filter="uiux"       role="tab" aria-selected="false">UI/UX</button>
+            <button class="filter-btn"        data-filter="marketing"  role="tab" aria-selected="false">Marketing Design</button>
+            <button class="filter-btn"        data-filter="motion"     role="tab" aria-selected="false">Motion Graphics</button>
+          </div>
         </div>
 
-        <!-- PROJECT 02 — Web Development -->
-        <div class="project-item" data-category="web" data-reveal data-delay="2">
-          <a href="#" class="project-card" aria-label="Luminal Website — Web Development project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/luminal-web/800/600" alt="Luminal Website" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Web Development</span>
-              <h3 class="card-title">Luminal — Website</h3>
-              <p class="card-sub">Custom codebase · GSAP animations · Fully responsive</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+        <!-- ----------------------------------------
+             PROJECT GRID
+             ---------------------------------------- -->
+        <div class="work-page-grid" id="project-grid">
 
-        <!-- PROJECT 03 — UI/UX (tall) -->
-        <div class="project-item tall" data-category="uiux" data-reveal>
-          <a href="#" class="project-card" aria-label="Dossier App — UI/UX Design project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/dossier-tall/800/1067" alt="Dossier App UI/UX" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">UI/UX Design</span>
-              <h3 class="card-title">Dossier — Mobile App</h3>
-              <p class="card-sub">Research · Wireframes · High-fidelity UI · Prototype</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 01 — Branding (wide) -->
+          <div class="project-item wide" data-category="branding" data-reveal>
+            <a href="#" class="project-card" aria-label="Apex Brand Identity — Branding project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/apex-wide/1200/675" alt="Apex Brand Identity" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Branding</span>
+                <h3 class="card-title">Apex — Complete Brand Identity</h3>
+                <p class="card-sub">Logo system · Colour palette · Brand guidelines · Mockups</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 04 — Web Development -->
-        <div class="project-item" data-category="web" data-reveal data-delay="2">
-          <a href="#" class="project-card" aria-label="Vortex Website — Web Development project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/vortex-web/800/600" alt="Vortex Website" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Web Development</span>
-              <h3 class="card-title">Vortex — Landing Page</h3>
-              <p class="card-sub">WordPress · Elementor · Custom PHP · SEO optimised</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 02 — Web Development -->
+          <div class="project-item" data-category="web" data-reveal data-delay="2">
+            <a href="#" class="project-card" aria-label="Luminal Website — Web Development project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/luminal-web/800/600" alt="Luminal Website" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Web Development</span>
+                <h3 class="card-title">Luminal — Website</h3>
+                <p class="card-sub">Custom codebase · GSAP animations · Fully responsive</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 05 — Motion Graphics (wide) -->
-        <div class="project-item wide" data-category="motion" data-reveal>
-          <a href="#" class="project-card" aria-label="Vanta Motion Reel — Motion Graphics project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/vanta-wide/1200/675" alt="Vanta Motion Reel" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Motion Graphics</span>
-              <h3 class="card-title">Vanta — Motion Identity</h3>
-              <p class="card-sub">Logo animation · Brand motion system · After Effects</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 03 — UI/UX (tall) -->
+          <div class="project-item tall" data-category="uiux" data-reveal>
+            <a href="#" class="project-card" aria-label="Dossier App — UI/UX Design project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/dossier-tall/800/1067" alt="Dossier App UI/UX" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">UI/UX Design</span>
+                <h3 class="card-title">Dossier — Mobile App</h3>
+                <p class="card-sub">Research · Wireframes · High-fidelity UI · Prototype</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 06 — Branding -->
-        <div class="project-item" data-category="branding" data-reveal>
-          <a href="#" class="project-card" aria-label="Mesh Co Brand Identity — Branding project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/mesh-co/800/600" alt="Mesh Co Brand Identity" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Branding</span>
-              <h3 class="card-title">Mesh Co. — Visual Identity</h3>
-              <p class="card-sub">Logo · Typography · Brand system · Art direction</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 04 — Web Development -->
+          <div class="project-item" data-category="web" data-reveal data-delay="2">
+            <a href="#" class="project-card" aria-label="Vortex Website — Web Development project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/vortex-web/800/600" alt="Vortex Website" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Web Development</span>
+                <h3 class="card-title">Vortex — Landing Page</h3>
+                <p class="card-sub">WordPress · Elementor · Custom PHP · SEO optimised</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 07 — Marketing Design -->
-        <div class="project-item" data-category="marketing" data-reveal data-delay="2">
-          <a href="#" class="project-card" aria-label="Nova Launch Campaign — Marketing Design project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/nova-mkt/800/600" alt="Nova Launch Campaign" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Marketing Design</span>
-              <h3 class="card-title">Nova — Launch Campaign</h3>
-              <p class="card-sub">Social creatives · Digital ads · Campaign system</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 05 — Motion Graphics (wide) -->
+          <div class="project-item wide" data-category="motion" data-reveal>
+            <a href="#" class="project-card" aria-label="Vanta Motion Reel — Motion Graphics project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/vanta-wide/1200/675" alt="Vanta Motion Reel" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Motion Graphics</span>
+                <h3 class="card-title">Vanta — Motion Identity</h3>
+                <p class="card-sub">Logo animation · Brand motion system · After Effects</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 08 — UI/UX -->
-        <div class="project-item" data-category="uiux" data-reveal data-delay="3">
-          <a href="#" class="project-card" aria-label="Forma Dashboard — UI/UX Design project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/forma-ui/800/600" alt="Forma Dashboard UI" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">UI/UX Design</span>
-              <h3 class="card-title">Forma — SaaS Dashboard</h3>
-              <p class="card-sub">Design system · User flows · Interface design</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 06 — Branding -->
+          <div class="project-item" data-category="branding" data-reveal>
+            <a href="#" class="project-card" aria-label="Mesh Co Brand Identity — Branding project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/mesh-co/800/600" alt="Mesh Co Brand Identity" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Branding</span>
+                <h3 class="card-title">Mesh Co. — Visual Identity</h3>
+                <p class="card-sub">Logo · Typography · Brand system · Art direction</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 09 — Marketing Design (wide) -->
-        <div class="project-item wide" data-category="marketing" data-reveal>
-          <a href="#" class="project-card" aria-label="Klave Pitch Deck — Marketing Design project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/klave-deck/1200/675" alt="Klave Pitch Deck" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Marketing Design</span>
-              <h3 class="card-title">Klave — Investor Pitch Deck</h3>
-              <p class="card-sub">Presentation design · Data visualisation · Brand alignment</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 07 — Marketing Design -->
+          <div class="project-item" data-category="marketing" data-reveal data-delay="2">
+            <a href="#" class="project-card" aria-label="Nova Launch Campaign — Marketing Design project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/nova-mkt/800/600" alt="Nova Launch Campaign" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Marketing Design</span>
+                <h3 class="card-title">Nova — Launch Campaign</h3>
+                <p class="card-sub">Social creatives · Digital ads · Campaign system</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 10 — Motion Graphics -->
-        <div class="project-item" data-category="motion" data-reveal data-delay="2">
-          <a href="#" class="project-card" aria-label="Solace Motion — Motion Graphics project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/solace-motion/800/600" alt="Solace Motion Graphics" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Motion Graphics</span>
-              <h3 class="card-title">Solace — Social Motion Pack</h3>
-              <p class="card-sub">Animated social assets · Reels · Story templates</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 08 — UI/UX -->
+          <div class="project-item" data-category="uiux" data-reveal data-delay="3">
+            <a href="#" class="project-card" aria-label="Forma Dashboard — UI/UX Design project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/forma-ui/800/600" alt="Forma Dashboard UI" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">UI/UX Design</span>
+                <h3 class="card-title">Forma — SaaS Dashboard</h3>
+                <p class="card-sub">Design system · User flows · Interface design</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 11 — Web Development -->
-        <div class="project-item" data-category="web" data-reveal data-delay="3">
-          <a href="#" class="project-card" aria-label="Crest Studio Website — Web Development project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/crest-web/800/600" alt="Crest Studio Website" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Web Development</span>
-              <h3 class="card-title">Crest Studio — Portfolio Site</h3>
-              <p class="card-sub">Custom HTML/CSS/JS · Scroll animations · CMS integration</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 09 — Marketing Design (wide) -->
+          <div class="project-item wide" data-category="marketing" data-reveal>
+            <a href="#" class="project-card" aria-label="Klave Pitch Deck — Marketing Design project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/klave-deck/1200/675" alt="Klave Pitch Deck" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Marketing Design</span>
+                <h3 class="card-title">Klave — Investor Pitch Deck</h3>
+                <p class="card-sub">Presentation design · Data visualisation · Brand alignment</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-        <!-- PROJECT 12 — Branding -->
-        <div class="project-item" data-category="branding" data-reveal>
-          <a href="#" class="project-card" aria-label="Rova Brand Identity — Branding project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/rova-brand/800/600" alt="Rova Brand Identity" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Branding</span>
-              <h3 class="card-title">Rova — Brand Refresh</h3>
-              <p class="card-sub">Identity redesign · Brand strategy · Asset library</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
+          <!-- PROJECT 10 — Motion Graphics -->
+          <div class="project-item" data-category="motion" data-reveal data-delay="2">
+            <a href="#" class="project-card" aria-label="Solace Motion — Motion Graphics project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/solace-motion/800/600" alt="Solace Motion Graphics" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Motion Graphics</span>
+                <h3 class="card-title">Solace — Social Motion Pack</h3>
+                <p class="card-sub">Animated social assets · Reels · Story templates</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
 
-      </div><!-- /#project-grid -->
+          <!-- PROJECT 11 — Web Development -->
+          <div class="project-item" data-category="web" data-reveal data-delay="3">
+            <a href="#" class="project-card" aria-label="Crest Studio Website — Web Development project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/crest-web/800/600" alt="Crest Studio Website" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Web Development</span>
+                <h3 class="card-title">Crest Studio — Portfolio Site</h3>
+                <p class="card-sub">Custom HTML/CSS/JS · Scroll animations · CMS integration</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
+
+          <!-- PROJECT 12 — Branding -->
+          <div class="project-item" data-category="branding" data-reveal>
+            <a href="#" class="project-card" aria-label="Rova Brand Identity — Branding project">
+              <div class="card-img">
+                <img src="https://picsum.photos/seed/rova-brand/800/600" alt="Rova Brand Identity" loading="lazy">
+              </div>
+              <div class="card-overlay">
+                <span class="card-tag">Branding</span>
+                <h3 class="card-title">Rova — Brand Refresh</h3>
+                <p class="card-sub">Identity redesign · Brand strategy · Asset library</p>
+              </div>
+              <span class="card-cs-badge">Case Study</span>
+              <div class="card-view-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+            </a>
+          </div>
+
+        </div><!-- /#project-grid -->
+        
+      </div><!-- /.work-grid-wrapper -->
 
       <!-- ----------------------------------------
            BOTTOM ROW: ENQUIRY PROMPT

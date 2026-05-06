@@ -66,20 +66,51 @@
   margin: 0 auto;
 }
 
-/* Filter bar sticky */
-.work-filter-bar {
-  position: sticky;
-  top: 72px;
-  z-index: 50;
-  background: rgba(5, 5, 8, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 18px 0;
-  margin-bottom: 52px;
-  border-bottom: 1px solid var(--border);
+/* NEW: Establishes the boundary for the sticky filter */
+.work-grid-wrapper {
+  position: relative;
 }
 
-/* Project grid layout for work page */
+/* ----------------------------------------
+   FILTER BAR (CHAMELEON GLASS EFFECT)
+   ---------------------------------------- */
+.work-filter-bar {
+  position: sticky;
+  top: 72px; /* Locks right under your nav */
+  z-index: 50;
+  
+  /* Illusion: Matches #050508 background perfectly but masks scrolling images */
+  background: rgba(5, 5, 8, 0.96) !important; 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  
+  padding: 16px 0;
+  margin-bottom: 40px;
+}
+
+/* Clean up the inner button container and FORCE wrapping */
+.work-filter-bar .filter-bar {
+  background: transparent !important; 
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  
+  display: flex !important;
+  flex-wrap: wrap !important; /* GUARANTEES stacking on all screen sizes */
+  gap: 10px;
+  width: 100%;
+}
+
+/* Ensure buttons don't shrink weirdly */
+.work-filter-bar .filter-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ----------------------------------------
+   PROJECT GRID
+   ---------------------------------------- */
 .work-page-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -154,6 +185,16 @@
   .work-page-grid .project-item.wide { grid-column: span 1; }
   .work-page-grid .project-item.wide .card-img { aspect-ratio: 4/3; }
   .work-page-grid .project-item.tall .card-img  { aspect-ratio: 4/3; }
-  .work-filter-bar { top: 62px; overflow-x: auto; padding-bottom: 0; }
+  
+  /* Mobile sticky height & tighter gaps */
+  .work-filter-bar { 
+    top: 60px; 
+    padding: 12px 0;
+  }
+  
+  .work-filter-bar .filter-bar {
+    gap: 8px !important;
+  }
+  
   .work-more-row { flex-direction: column; align-items: flex-start; }
 }
