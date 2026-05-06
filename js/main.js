@@ -445,3 +445,29 @@ function setActiveNavLink() {
     }
   });
 }
+
+// ==============================================================
+// GLOBAL: SCROLL TO TOP BUTTON
+// ==============================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const scrollBtn = document.getElementById("scrollToTop");
+
+  if (scrollBtn) {
+    // 1. Toggle visibility based on scroll depth
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        scrollBtn.classList.add("is-visible");
+      } else {
+        scrollBtn.classList.remove("is-visible");
+      }
+    });
+
+    // 2. Smooth scroll to top on click
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  }
+});

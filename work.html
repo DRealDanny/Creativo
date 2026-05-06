@@ -21,169 +21,7 @@
   <!-- ============================================ -->
   <!-- PAGE: WORK — STYLES                          -->
   <!-- ============================================ -->
-  <style>
-
-    /* ----------------------------------------
-       WORK PAGE HERO
-       ---------------------------------------- */
-    .work-hero {
-      padding: 200px var(--pad) 96px;
-      position: relative;
-    }
-
-    .work-hero-inner {
-      max-width: var(--container);
-      margin: 0 auto;
-    }
-
-    .work-hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fade-in 0.8s ease 0.1s forwards;
-    }
-
-    .work-hero-line {
-      width: 38px; height: 1px;
-      background: var(--blue);
-    }
-
-    .work-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(72px, 11vw, 170px);
-      line-height: 0.88;
-      letter-spacing: 0.01em;
-      margin-bottom: 44px;
-      opacity: 0;
-      animation: fade-up 1s ease 0.2s both;
-    }
-
-    .work-hero h1 em {
-      font-style: normal;
-      color: var(--blue);
-      -webkit-text-stroke: 0px;
-    }
-
-    .work-hero-sub {
-      max-width: 560px;
-      opacity: 0;
-      animation: fade-up 0.9s ease 0.45s both;
-    }
-
-    .work-hero-bottom {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent 5%, var(--border) 50%, transparent 95%);
-    }
-
-    /* ----------------------------------------
-       WORK MAIN SECTION
-       ---------------------------------------- */
-    .work-main {
-      padding: 72px var(--pad) var(--section);
-    }
-
-    .work-main-inner {
-      max-width: var(--container);
-      margin: 0 auto;
-    }
-
-    /* Filter bar sticky */
-    .work-filter-bar {
-      position: sticky;
-      top: 72px;
-      z-index: 50;
-      background: rgba(5, 5, 8, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 18px 0;
-      margin-bottom: 52px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* Project grid layout for work page */
-    .work-page-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    /* Wide card spans 2 columns */
-    .work-page-grid .project-item.wide {
-      grid-column: span 2;
-    }
-
-    .work-page-grid .project-item.wide .card-img {
-      aspect-ratio: 16 / 9;
-    }
-
-    /* Tall card — optional vertical emphasis */
-    .work-page-grid .project-item.tall .card-img {
-      aspect-ratio: 3 / 4;
-    }
-
-    /* Case study badge on cards */
-    .card-cs-badge {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      background: rgba(5,5,8,0.82);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 5px 12px;
-      font-family: var(--font-heading);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    /* "More" teaser row at bottom */
-    .work-more-row {
-      margin-top: 80px;
-      padding-top: 52px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .work-more-label {
-      font-family: var(--font-heading);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    /* ----------------------------------------
-       RESPONSIVE — WORK PAGE
-       ---------------------------------------- */
-    @media (max-width: 1024px) {
-      .work-page-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .work-page-grid .project-item.wide {
-        grid-column: span 2;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .work-hero { padding: 160px var(--pad) 72px; }
-      .work-page-grid { grid-template-columns: 1fr; }
-      .work-page-grid .project-item.wide { grid-column: span 1; }
-      .work-page-grid .project-item.wide .card-img { aspect-ratio: 4/3; }
-      .work-page-grid .project-item.tall .card-img  { aspect-ratio: 4/3; }
-      .work-filter-bar { top: 62px; overflow-x: auto; padding-bottom: 0; }
-      .work-more-row { flex-direction: column; align-items: flex-start; }
-    }
-
-  </style>
+  <link rel="stylesheet" href="css/work.css">
 </head>
 <body>
 
@@ -281,13 +119,10 @@
 
       <!-- ----------------------------------------
            PROJECT GRID
-           Each .project-item has data-category for filter
-           REPLACE: Swap images, titles, and descriptions with your real project content
            ---------------------------------------- -->
       <div class="work-page-grid" id="project-grid">
 
         <!-- PROJECT 01 — Branding (wide) -->
-        <!-- REPLACE: Your strongest branding project goes here -->
         <div class="project-item wide" data-category="branding" data-reveal>
           <a href="#" class="project-card" aria-label="Apex Brand Identity — Branding project">
             <div class="card-img">
@@ -306,7 +141,6 @@
         </div>
 
         <!-- PROJECT 02 — Web Development -->
-        <!-- REPLACE: Your best web dev project goes here -->
         <div class="project-item" data-category="web" data-reveal data-delay="2">
           <a href="#" class="project-card" aria-label="Luminal Website — Web Development project">
             <div class="card-img">
@@ -325,7 +159,6 @@
         </div>
 
         <!-- PROJECT 03 — UI/UX (tall) -->
-        <!-- REPLACE: Your best UI/UX project goes here -->
         <div class="project-item tall" data-category="uiux" data-reveal>
           <a href="#" class="project-card" aria-label="Dossier App — UI/UX Design project">
             <div class="card-img">
@@ -344,7 +177,6 @@
         </div>
 
         <!-- PROJECT 04 — Web Development -->
-        <!-- REPLACE: Second web development project -->
         <div class="project-item" data-category="web" data-reveal data-delay="2">
           <a href="#" class="project-card" aria-label="Vortex Website — Web Development project">
             <div class="card-img">
@@ -363,7 +195,6 @@
         </div>
 
         <!-- PROJECT 05 — Motion Graphics (wide) -->
-        <!-- REPLACE: Your motion graphics / reel project -->
         <div class="project-item wide" data-category="motion" data-reveal>
           <a href="#" class="project-card" aria-label="Vanta Motion Reel — Motion Graphics project">
             <div class="card-img">
@@ -382,7 +213,6 @@
         </div>
 
         <!-- PROJECT 06 — Branding -->
-        <!-- REPLACE: Second branding project -->
         <div class="project-item" data-category="branding" data-reveal>
           <a href="#" class="project-card" aria-label="Mesh Co Brand Identity — Branding project">
             <div class="card-img">
@@ -401,7 +231,6 @@
         </div>
 
         <!-- PROJECT 07 — Marketing Design -->
-        <!-- REPLACE: Your best marketing/campaign project -->
         <div class="project-item" data-category="marketing" data-reveal data-delay="2">
           <a href="#" class="project-card" aria-label="Nova Launch Campaign — Marketing Design project">
             <div class="card-img">
@@ -420,7 +249,6 @@
         </div>
 
         <!-- PROJECT 08 — UI/UX -->
-        <!-- REPLACE: Second UI/UX project -->
         <div class="project-item" data-category="uiux" data-reveal data-delay="3">
           <a href="#" class="project-card" aria-label="Forma Dashboard — UI/UX Design project">
             <div class="card-img">
@@ -439,7 +267,6 @@
         </div>
 
         <!-- PROJECT 09 — Marketing Design (wide) -->
-        <!-- REPLACE: Second marketing design project -->
         <div class="project-item wide" data-category="marketing" data-reveal>
           <a href="#" class="project-card" aria-label="Klave Pitch Deck — Marketing Design project">
             <div class="card-img">
@@ -458,7 +285,6 @@
         </div>
 
         <!-- PROJECT 10 — Motion Graphics -->
-        <!-- REPLACE: Second motion project -->
         <div class="project-item" data-category="motion" data-reveal data-delay="2">
           <a href="#" class="project-card" aria-label="Solace Motion — Motion Graphics project">
             <div class="card-img">
@@ -477,7 +303,6 @@
         </div>
 
         <!-- PROJECT 11 — Web Development -->
-        <!-- REPLACE: Third web development project -->
         <div class="project-item" data-category="web" data-reveal data-delay="3">
           <a href="#" class="project-card" aria-label="Crest Studio Website — Web Development project">
             <div class="card-img">
@@ -496,7 +321,6 @@
         </div>
 
         <!-- PROJECT 12 — Branding -->
-        <!-- REPLACE: Third branding project -->
         <div class="project-item" data-category="branding" data-reveal>
           <a href="#" class="project-card" aria-label="Rova Brand Identity — Branding project">
             <div class="card-img">
@@ -581,6 +405,20 @@
   <!-- ============================================ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="js/main.js"></script>
+
+  <!-- ============================================ -->
+  <!-- PAGE: WORK — SCRIPTS                         -->
+  <!-- ============================================ -->
+  <script src="js/work.js"></script>
+
+  <!-- ============================================ -->
+  <!-- GLOBAL: SCROLL TO TOP BUTTON                 -->
+  <!-- ============================================ -->
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
 
 </body>
 </html>

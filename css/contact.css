@@ -1,0 +1,158 @@
+/* ----------------------------------------
+   CONTACT HERO
+   ---------------------------------------- */
+.contact-hero {
+  padding: 200px var(--pad) 100px;
+  position: relative;
+}
+
+.contact-hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.contact-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fade-in 0.8s ease 0.1s forwards;
+}
+
+.contact-hero-hline {
+  width: 38px; height: 1px;
+  background: var(--blue);
+}
+
+.contact-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 11vw, 170px);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  margin-bottom: 0;
+  opacity: 0;
+  animation: fade-up 1s ease 0.2s both;
+}
+
+.contact-hero h1 em {
+  font-style: normal;
+  color: var(--blue);
+}
+
+.contact-hero-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, var(--border) 50%, transparent 95%);
+}
+
+/* ----------------------------------------
+   FORM SUBMIT BUTTON STATE
+   ---------------------------------------- */
+.form-submit {
+  align-self: flex-start;
+}
+
+.form-submit.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.form-submit.success {
+  background: #1a8a3a;
+}
+
+/* ----------------------------------------
+   AVAILABILITY BADGE
+   ---------------------------------------- */
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(26, 138, 58, 0.10);
+  border: 1px solid rgba(26, 138, 58, 0.25);
+  border-radius: 100px;
+  padding: 8px 18px;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.55s both;
+}
+
+.availability-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #2ecc71;
+  animation: pulse-dot 2s ease infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.35); opacity: 0.75; }
+}
+
+.availability-text {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #2ecc71;
+}
+
+/* ----------------------------------------
+   RESPONSE TIME BOX
+   ---------------------------------------- */
+.response-box {
+  padding: 20px 22px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.response-box-icon {
+  width: 34px; height: 34px;
+  background: var(--blue-dim);
+  border: 1px solid var(--blue-border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--blue-light);
+}
+
+.response-box-text p:first-child {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.response-box-text p:last-child {
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* ----------------------------------------
+   DIVIDER IN CONTACT INFO
+   ---------------------------------------- */
+.contact-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ----------------------------------------
+   RESPONSIVE — CONTACT PAGE
+   ---------------------------------------- */
+@media (max-width: 768px) {
+  .contact-hero { padding: 160px var(--pad) 72px; }
+}

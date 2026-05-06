@@ -1,20 +1,19 @@
 /**
  * ==============================================================
  * CREATIVO CREATES
- * Home Page Specific Scripts
+ * Services Page Specific Scripts
  * ==============================================================
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Ensure GSAP is loaded before firing any homepage-specific animations
+    // Ensure GSAP is loaded before firing any specific animations
     if (typeof gsap !== 'undefined') {
         
-        // Example: Homepage Hero Timeline
-        // const homeTl = gsap.timeline();
-        // homeTl.to('.hero-title', { ... });
+        // Example: Staggered animation for service blocks
+        // gsap.from('.service-block', { ... });
         
-        console.log("Home.js loaded and ready for Creativo animations.");
+        console.log("Services.js loaded and ready.");
 
     } else {
         console.warn("GSAP is not loaded.");

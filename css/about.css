@@ -1,0 +1,86 @@
+/* ----------------------------------------
+   ABOUT PAGE HERO
+   ---------------------------------------- */
+.about-hero {
+  padding: 200px var(--pad) 100px;
+  position: relative;
+}
+
+.about-hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.about-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fade-in 0.8s ease 0.1s forwards;
+}
+
+.about-hero-line {
+  width: 38px; height: 1px;
+  background: var(--blue);
+}
+
+.about-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 11vw, 170px);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fade-up 1s ease 0.2s both;
+}
+
+.about-hero h1 em {
+  font-style: normal;
+  color: var(--blue);
+}
+
+.about-hero-sub {
+  max-width: 600px;
+  opacity: 0;
+  animation: fade-up 0.9s ease 0.45s both;
+}
+
+.about-hero-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, var(--border) 50%, transparent 95%);
+}
+
+/* ----------------------------------------
+   CV DOWNLOAD BUTTON
+   ---------------------------------------- */
+.cv-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 12px 22px;
+  border-radius: 4px;
+  transition: all var(--t-fast);
+  margin-top: 28px;
+}
+
+.cv-download:hover {
+  border-color: var(--blue-border);
+  color: var(--blue-light);
+}
+
+/* ----------------------------------------
+   RESPONSIVE — ABOUT PAGE
+   ---------------------------------------- */
+@media (max-width: 768px) {
+  .about-hero { padding: 160px var(--pad) 72px; }
+}

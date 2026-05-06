@@ -21,96 +21,7 @@
   <!-- ============================================ -->
   <!-- PAGE: ABOUT — STYLES                         -->
   <!-- ============================================ -->
-  <style>
-
-    /* ----------------------------------------
-       ABOUT PAGE HERO
-       ---------------------------------------- */
-    .about-hero {
-      padding: 200px var(--pad) 100px;
-      position: relative;
-    }
-
-    .about-hero-inner {
-      max-width: var(--container);
-      margin: 0 auto;
-    }
-
-    .about-hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fade-in 0.8s ease 0.1s forwards;
-    }
-
-    .about-hero-line {
-      width: 38px; height: 1px;
-      background: var(--blue);
-    }
-
-    .about-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(72px, 11vw, 170px);
-      line-height: 0.88;
-      letter-spacing: 0.01em;
-      margin-bottom: 40px;
-      opacity: 0;
-      animation: fade-up 1s ease 0.2s both;
-    }
-
-    .about-hero h1 em {
-      font-style: normal;
-      color: var(--blue);
-    }
-
-    .about-hero-sub {
-      max-width: 600px;
-      opacity: 0;
-      animation: fade-up 0.9s ease 0.45s both;
-    }
-
-    .about-hero-bottom {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent 5%, var(--border) 50%, transparent 95%);
-    }
-
-    /* ----------------------------------------
-       CV DOWNLOAD BUTTON
-       ---------------------------------------- */
-    .cv-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-heading);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 12px 22px;
-      border-radius: 4px;
-      transition: all var(--t-fast);
-      margin-top: 28px;
-    }
-
-    .cv-download:hover {
-      border-color: var(--blue-border);
-      color: var(--blue-light);
-    }
-
-    /* ----------------------------------------
-       RESPONSIVE — ABOUT PAGE
-       ---------------------------------------- */
-    @media (max-width: 768px) {
-      .about-hero { padding: 160px var(--pad) 72px; }
-    }
-
-  </style>
+  <link rel="stylesheet" href="css/about.css">
 </head>
 <body>
 
@@ -204,7 +115,6 @@
             I don't just design things. I build the visual logic behind brands that mean something.
           </h2>
 
-          <!-- REPLACE: Fill in your own personal story in these paragraphs -->
           <p class="t-body-lg">
             I'm Creativo — a multidisciplinary creative professional based in Lagos, Nigeria. My work lives at the intersection of strategy, design, and code. I've spent years sharpening the craft of making brands not just look good, but work — at every touchpoint, across every channel.
           </p>
@@ -217,7 +127,6 @@
             I work with ambitious brands — businesses that understand that design is not decoration, it is infrastructure. If you're building something that needs to mean something to the people it serves, that's the kind of work I want to be part of.
           </p>
 
-          <!-- REPLACE: Link your actual CV file here -->
           <a href="#" class="cv-download magnetic" download aria-label="Download Creativo's CV">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M8 2v8M8 10L5 7M8 10l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -230,7 +139,6 @@
         <div class="about-photo-wrap" data-reveal data-reveal="right">
           <div class="about-photo">
             <div class="about-photo-inner">
-              <!-- REPLACE: Swap with your own professional photo -->
               <img src="https://picsum.photos/seed/creativo-portrait/600/750" alt="Creativo — Brand Structuralist" loading="lazy">
             </div>
             <div class="about-badge">
@@ -261,8 +169,6 @@
       </div>
 
       <div class="discipline-list" role="list">
-
-        <!-- REPLACE: Each discipline-desc is your personal approach statement for that area -->
 
         <div class="discipline-item" role="listitem" data-reveal>
           <p class="discipline-num">01</p>
@@ -313,7 +219,6 @@
         </h2>
       </div>
 
-      <!-- REPLACE: Add or remove tools as needed per your actual stack -->
       <div class="tools-grid" data-reveal>
 
         <div class="tools-group">
@@ -368,7 +273,6 @@
   <section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);" aria-label="Stats">
     <div class="container">
       <div class="stats-bar">
-        <!-- REPLACE: Update with your real numbers -->
         <div class="stat-item" data-reveal>
           <div class="stat-number" data-count="60" data-suffix="+">0<em>+</em></div>
           <p class="stat-label">Projects Delivered</p>
@@ -456,6 +360,20 @@
   <!-- ============================================ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="js/main.js"></script>
+
+  <!-- ============================================ -->
+  <!-- PAGE: ABOUT — SCRIPTS                        -->
+  <!-- ============================================ -->
+  <script src="js/about.js"></script>
+
+  <!-- ============================================ -->
+  <!-- GLOBAL: SCROLL TO TOP BUTTON                 -->
+  <!-- ============================================ -->
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
 
 </body>
 </html>
