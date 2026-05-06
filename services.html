@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Creativo Creates</title>
+  <meta name="description" content="Brand Identity, UI/UX Design, Web Development, Marketing Design and Motion Graphics services by Creativo — the Brand Structuralist.">
+
+  <!-- ============================================ -->
+  <!-- FONTS                                        -->
+  <!-- ============================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+
+  <!-- ============================================ -->
+  <!-- GLOBAL STYLESHEET                            -->
+  <!-- ============================================ -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ============================================ -->
+  <!-- PAGE: SERVICES — STYLES                      -->
+  <!-- ============================================ -->
+  <style>
+
+    /* ----------------------------------------
+       SERVICES HERO
+       ---------------------------------------- */
+    .services-hero {
+      padding: 200px var(--pad) 100px;
+      position: relative;
+    }
+
+    .services-hero-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .services-hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fade-in 0.8s ease 0.1s forwards;
+    }
+
+    .services-hero-eline {
+      width: 38px; height: 1px;
+      background: var(--blue);
+    }
+
+    .services-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 11vw, 170px);
+      line-height: 0.88;
+      letter-spacing: 0.01em;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fade-up 1s ease 0.2s both;
+    }
+
+    .services-hero h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .services-hero-sub {
+      max-width: 600px;
+      opacity: 0;
+      animation: fade-up 0.9s ease 0.45s both;
+    }
+
+    .services-hero-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 5%, var(--border) 50%, transparent 95%);
+    }
+
+    /* ----------------------------------------
+       RESPONSIVE — SERVICES PAGE
+       ---------------------------------------- */
+    @media (max-width: 768px) {
+      .services-hero { padding: 160px var(--pad) 72px; }
+
+      .service-block {
+        padding: 40px 0;
+      }
+
+      .service-name { font-size: 24px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- GLOBAL: NOISE TEXTURE OVERLAY                -->
+  <!-- ============================================ -->
+  <div class="noise-layer" aria-hidden="true"></div>
+
+  <!-- ============================================ -->
+  <!-- GLOBAL: CUSTOM CURSOR                        -->
+  <!-- ============================================ -->
+  <div class="cursor-dot"  aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ============================================ -->
+  <!-- GLOBAL: AMBIENT ORB GLOW BACKGROUND          -->
+  <!-- ============================================ -->
+  <div class="orb-container" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- NAVIGATION                                   -->
+  <!-- ============================================ -->
+  <nav class="nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo">Creativo<span>.</span></a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html"    class="nav-link">Home</a></li>
+      <li><a href="work.html"     class="nav-link">Work</a></li>
+      <li><a href="about.html"    class="nav-link">About</a></li>
+      <li><a href="services.html" class="nav-link active">Services</a></li>
+      <li><a href="contact.html"  class="nav-link">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta magnetic">Let's Talk</a>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ============================================ -->
+  <!-- MOBILE NAVIGATION OVERLAY                    -->
+  <!-- ============================================ -->
+  <div class="nav-mobile" role="dialog" aria-modal="true" aria-label="Mobile menu">
+    <a href="index.html"    class="nav-link">Home</a>
+    <a href="work.html"     class="nav-link">Work</a>
+    <a href="about.html"    class="nav-link">About</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="contact.html"  class="nav-link">Contact</a>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- SECTION: SERVICES HERO                       -->
+  <!-- ============================================ -->
+  <section class="services-hero" aria-labelledby="services-page-heading">
+    <div class="services-hero-inner">
+
+      <div class="services-hero-eyebrow">
+        <span class="services-hero-eline" aria-hidden="true"></span>
+        <span class="t-label">What I Offer</span>
+      </div>
+
+      <h1 id="services-page-heading">
+        From first<br>sketch to<br><em>final pixel.</em>
+      </h1>
+
+      <p class="t-body-lg services-hero-sub">
+        Full-spectrum creative execution across five disciplines. Every service is built to deliver work that is intentional, polished, and built to last.
+      </p>
+
+    </div>
+    <div class="services-hero-bottom" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION: SERVICE BLOCKS                      -->
+  <!-- ============================================ -->
+  <section class="section" aria-labelledby="service-list-heading">
+    <div class="container">
+      <h2 class="sr-only" id="service-list-heading">Services List</h2>
+
+      <!-- ----------------------------------------
+           SERVICE 01 — BRAND IDENTITY
+           ---------------------------------------- -->
+      <div class="service-block" data-reveal>
+        <div class="service-num" aria-hidden="true">01</div>
+
+        <div class="service-body">
+          <h3 class="service-name">Brand Identity</h3>
+          <p class="service-desc">
+            For businesses that want to be remembered. I build complete visual identity systems — not just logos. From brand positioning and strategy to logo systems, colour and typography, comprehensive brand guidelines, and real-world application across every touchpoint. Every element is intentional. Every decision is documented.
+          </p>
+          <a href="contact.html" class="service-link">
+            Start a Brand Project
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="service-deliverables">
+          <h5>Deliverables</h5>
+          <ul>
+            <li>Logo system (primary, secondary, icon mark)</li>
+            <li>Colour palette & typography system</li>
+            <li>Brand strategy & positioning</li>
+            <li>Brand guidelines document</li>
+            <li>Brand asset design</li>
+            <li>Mockups & real-world application</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ----------------------------------------
+           SERVICE 02 — UI/UX DESIGN
+           ---------------------------------------- -->
+      <div class="service-block" data-reveal>
+        <div class="service-num" aria-hidden="true">02</div>
+
+        <div class="service-body">
+          <h3 class="service-name">UI/UX Design</h3>
+          <p class="service-desc">
+            Interfaces that feel inevitable. I design digital products grounded in user research and business logic — from wireframes and prototypes to full design systems and handoff-ready files. The goal is always the same: make the right action the obvious one.
+          </p>
+          <a href="contact.html" class="service-link">
+            Start a UI/UX Project
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="service-deliverables">
+          <h5>Deliverables</h5>
+          <ul>
+            <li>User research & audience profiling</li>
+            <li>Wireframes & user flows</li>
+            <li>High-fidelity UI design</li>
+            <li>Interactive prototypes</li>
+            <li>Design system components</li>
+            <li>Developer handoff files</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ----------------------------------------
+           SERVICE 03 — WEB DEVELOPMENT
+           ---------------------------------------- -->
+      <div class="service-block" data-reveal>
+        <div class="service-num" aria-hidden="true">03</div>
+
+        <div class="service-body">
+          <h3 class="service-name">Web Development</h3>
+          <p class="service-desc">
+            Websites that don't just look good — they work. I build custom websites with clean code, considered motion, and performance baked in. From fully custom HTML/CSS/JS codebases to WordPress and Elementor builds, every site is developed without shortcuts. Because shortcuts show up eventually.
+          </p>
+          <a href="contact.html" class="service-link">
+            Start a Web Project
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="service-deliverables">
+          <h5>Deliverables</h5>
+          <ul>
+            <li>Custom HTML/CSS/JS codebase</li>
+            <li>WordPress & Elementor builds</li>
+            <li>Fully responsive (mobile, tablet, desktop)</li>
+            <li>GSAP & scroll animations</li>
+            <li>Performance-optimised</li>
+            <li>Handoff or ongoing maintenance</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ----------------------------------------
+           SERVICE 04 — MARKETING DESIGN
+           ---------------------------------------- -->
+      <div class="service-block" data-reveal>
+        <div class="service-num" aria-hidden="true">04</div>
+
+        <div class="service-body">
+          <h3 class="service-name">Marketing Design</h3>
+          <p class="service-desc">
+            Design that moves product and shifts perception. Social media graphics, campaign visuals, digital ads, pitch decks, flyers, and print. Every piece is built to earn attention in a world that scrolls past everything. Marketing design is not decoration — it's a conversion tool.
+          </p>
+          <a href="contact.html" class="service-link">
+            Start a Marketing Project
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="service-deliverables">
+          <h5>Deliverables</h5>
+          <ul>
+            <li>Social media graphics & templates</li>
+            <li>Digital advertising creatives</li>
+            <li>Campaign visual systems</li>
+            <li>Pitch decks & presentations</li>
+            <li>Flyers, banners & print design</li>
+            <li>Brand-aligned content templates</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ----------------------------------------
+           SERVICE 05 — MOTION GRAPHICS
+           ---------------------------------------- -->
+      <div class="service-block" data-reveal>
+        <div class="service-num" aria-hidden="true">05</div>
+
+        <div class="service-body">
+          <h3 class="service-name">Motion Graphics</h3>
+          <p class="service-desc">
+            Stories told in motion. Logo animations, explainer videos, social content, After Effects work. The best animations don't make you say "wow" — they make you understand something you couldn't before. When an idea needs movement to be fully understood, this is where it comes to life.
+          </p>
+          <a href="contact.html" class="service-link">
+            Start a Motion Project
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="service-deliverables">
+          <h5>Deliverables</h5>
+          <ul>
+            <li>Logo animations</li>
+            <li>Explainer videos</li>
+            <li>Social media motion content</li>
+            <li>Brand motion guidelines</li>
+            <li>Animated story/reel templates</li>
+            <li>After Effects project files</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION: HOW I WORK — THE PROCESS            -->
+  <!-- ============================================ -->
+  <section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);" aria-labelledby="process-heading">
+    <div class="container">
+      <div class="edge-glow" aria-hidden="true"></div>
+
+      <div class="section-header">
+        <div class="section-label" data-reveal>
+          <span class="t-label">The Process</span>
+        </div>
+        <div class="flex-between" data-reveal data-delay="2">
+          <h2 class="t-h1" id="process-heading" style="max-width:480px;">
+            How I work. No surprises.
+          </h2>
+          <p class="t-body" style="max-width:340px;">
+            Four stages. Clear communication at every step. You always know where we are and what's next.
+          </p>
+        </div>
+      </div>
+
+      <div class="process-grid">
+
+        <div class="process-step" data-reveal>
+          <div class="process-num" aria-hidden="true">01</div>
+          <h3 class="process-title">Discover</h3>
+          <p class="process-desc">Understanding your business, your audience, your goals, and your gap. Before a single pixel is placed, we get aligned on what the work needs to achieve and who it needs to speak to.</p>
+        </div>
+
+        <div class="process-step" data-reveal data-delay="2">
+          <div class="process-num" aria-hidden="true">02</div>
+          <h3 class="process-title">Define</h3>
+          <p class="process-desc">Shaping the strategy, the creative direction, and the deliverables. This is where ambiguity becomes clarity — and where we agree on what success looks like before the work begins.</p>
+        </div>
+
+        <div class="process-step" data-reveal data-delay="3">
+          <div class="process-num" aria-hidden="true">03</div>
+          <h3 class="process-title">Design</h3>
+          <p class="process-desc">Crafting the work with precision, creativity, and intention at every step. Revisions are part of the process. The goal is to get it right — not just done.</p>
+        </div>
+
+        <div class="process-step" data-reveal data-delay="4">
+          <div class="process-num" aria-hidden="true">04</div>
+          <h3 class="process-title">Deliver</h3>
+          <p class="process-desc">Handing over production-ready files, a live build, or final assets — with full documentation and support. The project isn't done until you're confident with what you have.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION: CTA BANNER                          -->
+  <!-- ============================================ -->
+  <section class="cta-banner" aria-label="Call to Action">
+    <div class="container" style="position:relative; z-index:1;">
+      <div data-reveal>
+        <span class="t-label" style="display:block; margin-bottom:18px;">Ready to Start?</span>
+        <h2 class="t-hero">Got a project?<br>Let's make<br>it real.</h2>
+        <div class="cta-actions">
+          <a href="contact.html" class="btn btn-primary magnetic">
+            <span>Start a Conversation</span>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="work.html" class="btn btn-outline magnetic">See My Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- FOOTER                                       -->
+  <!-- ============================================ -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Creativo<span>.</span></a>
+          <p class="footer-tagline">Brand Structuralist</p>
+          <p>Design that thinks. Work that lasts.<br>Based in Lagos, Nigeria.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="work.html">Work</a>
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="footer-connect">
+          <a href="mailto:hello@creativocreates.live" class="footer-email">hello@creativocreates.live</a>
+          <div class="footer-socials">
+            <a href="https://instagram.com/creativocreates" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://pinterest.com/creativocreates" class="footer-social" aria-label="Pinterest" target="_blank" rel="noopener noreferrer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.85 0 3.1-2.36 3.1-5.15 0-2.13-1.43-3.62-3.47-3.62-2.36 0-3.74 1.77-3.74 3.6 0 .71.27 1.47.62 1.89.06.08.07.14.05.22-.06.25-.2.8-.23.91-.04.15-.13.18-.3.11-1.12-.52-1.82-2.17-1.82-3.49 0-2.84 2.06-5.45 5.94-5.45 3.12 0 5.55 2.22 5.55 5.19 0 3.1-1.95 5.59-4.65 5.59-.91 0-1.76-.47-2.05-1.03l-.56 2.08c-.2.78-.75 1.76-1.12 2.35.84.26 1.74.4 2.67.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            </a>
+            <a href="https://behance.net/creativocreates" class="footer-social" aria-label="Behance" target="_blank" rel="noopener noreferrer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029H23.726zm-7.686-8c1.934 0 3.81 1.148 3.96 3.7H15c.188-2.6 2.116-3.7 1.04-3.7zM7.005 12.315c0 1.375-.43 2.08 1.096-3.667 1.096H0V7h2.753c1.563 0 2.787.344 3.67 1.033.884.69 1.327 1.7 1.327 3.03.025.41 0 .85-.025 1.251h-3.9c.018 1.06.365 1.71.897 2.1.532.39 1.27.51 2.215.51.39 0 .776-.045 1.11-.137l.952-.29v2.82z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© <span class="footer-year"></span> <span>Creativo Creates</span>. All Rights Reserved.</p>
+        <p class="footer-made">Built with <em>intention</em>. Designed in Lagos.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================ -->
+  <!-- SCRIPTS                                      -->
+  <!-- ============================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Creativo Creates</title>
+  <meta name="description" content="Get in touch with Creativo — Brand Structuralist based in Lagos. Ready to start a project? Let's talk.">
+
+  <!-- ============================================ -->
+  <!-- FONTS                                        -->
+  <!-- ============================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+
+  <!-- ============================================ -->
+  <!-- GLOBAL STYLESHEET                            -->
+  <!-- ============================================ -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ============================================ -->
+  <!-- PAGE: CONTACT — STYLES                       -->
+  <!-- ============================================ -->
+  <style>
+
+    /* ----------------------------------------
+       CONTACT HERO
+       ---------------------------------------- */
+    .contact-hero {
+      padding: 200px var(--pad) 100px;
+      position: relative;
+    }
+
+    .contact-hero-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .contact-hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fade-in 0.8s ease 0.1s forwards;
+    }
+
+    .contact-hero-hline {
+      width: 38px; height: 1px;
+      background: var(--blue);
+    }
+
+    .contact-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 11vw, 170px);
+      line-height: 0.88;
+      letter-spacing: 0.01em;
+      margin-bottom: 0;
+      opacity: 0;
+      animation: fade-up 1s ease 0.2s both;
+    }
+
+    .contact-hero h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .contact-hero-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 5%, var(--border) 50%, transparent 95%);
+    }
+
+    /* ----------------------------------------
+       FORM SUBMIT BUTTON STATE
+       ---------------------------------------- */
+    .form-submit {
+      align-self: flex-start;
+    }
+
+    .form-submit.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .form-submit.success {
+      background: #1a8a3a;
+    }
+
+    /* ----------------------------------------
+       AVAILABILITY BADGE
+       ---------------------------------------- */
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(26, 138, 58, 0.10);
+      border: 1px solid rgba(26, 138, 58, 0.25);
+      border-radius: 100px;
+      padding: 8px 18px;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fade-up 0.8s ease 0.55s both;
+    }
+
+    .availability-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #2ecc71;
+      animation: pulse-dot 2s ease infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.35); opacity: 0.75; }
+    }
+
+    .availability-text {
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #2ecc71;
+    }
+
+    /* ----------------------------------------
+       RESPONSE TIME BOX
+       ---------------------------------------- */
+    .response-box {
+      padding: 20px 22px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .response-box-icon {
+      width: 34px; height: 34px;
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--blue-light);
+    }
+
+    .response-box-text p:first-child {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .response-box-text p:last-child {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    /* ----------------------------------------
+       DIVIDER IN CONTACT INFO
+       ---------------------------------------- */
+    .contact-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ----------------------------------------
+       RESPONSIVE — CONTACT PAGE
+       ---------------------------------------- */
+    @media (max-width: 768px) {
+      .contact-hero { padding: 160px var(--pad) 72px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- GLOBAL: NOISE TEXTURE OVERLAY                -->
+  <!-- ============================================ -->
+  <div class="noise-layer" aria-hidden="true"></div>
+
+  <!-- ============================================ -->
+  <!-- GLOBAL: CUSTOM CURSOR                        -->
+  <!-- ============================================ -->
+  <div class="cursor-dot"  aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ============================================ -->
+  <!-- GLOBAL: AMBIENT ORB GLOW BACKGROUND          -->
+  <!-- ============================================ -->
+  <div class="orb-container" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- NAVIGATION                                   -->
+  <!-- ============================================ -->
+  <nav class="nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo">Creativo<span>.</span></a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html"    class="nav-link">Home</a></li>
+      <li><a href="work.html"     class="nav-link">Work</a></li>
+      <li><a href="about.html"    class="nav-link">About</a></li>
+      <li><a href="services.html" class="nav-link">Services</a></li>
+      <li><a href="contact.html"  class="nav-link active">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta magnetic">Let's Talk</a>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ============================================ -->
+  <!-- MOBILE NAVIGATION OVERLAY                    -->
+  <!-- ============================================ -->
+  <div class="nav-mobile" role="dialog" aria-modal="true" aria-label="Mobile menu">
+    <a href="index.html"    class="nav-link">Home</a>
+    <a href="work.html"     class="nav-link">Work</a>
+    <a href="about.html"    class="nav-link">About</a>
+    <a href="services.html" class="nav-link">Services</a>
+    <a href="contact.html"  class="nav-link">Contact</a>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- SECTION: CONTACT HERO                        -->
+  <!-- ============================================ -->
+  <section class="contact-hero" aria-labelledby="contact-heading">
+    <div class="contact-hero-inner">
+
+      <div class="contact-hero-eyebrow">
+        <span class="contact-hero-hline" aria-hidden="true"></span>
+        <span class="t-label">Get In Touch</span>
+      </div>
+
+      <h1 id="contact-heading">
+        Got a<br>project?<br>Let's make<br>it <em>real.</em>
+      </h1>
+
+    </div>
+    <div class="contact-hero-bottom" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION: CONTACT FORM + INFO                 -->
+  <!-- ============================================ -->
+  <section class="section" aria-label="Contact form and information">
+    <div class="container">
+      <div class="edge-glow" aria-hidden="true"></div>
+
+      <!-- Availability status -->
+      <div class="availability-badge" aria-label="Currently available for new projects">
+        <span class="availability-dot" aria-hidden="true"></span>
+        <span class="availability-text">Available for New Projects</span>
+      </div>
+
+      <div class="contact-layout" data-reveal>
+
+        <!-- ----------------------------------------
+             CONTACT FORM
+             ---------------------------------------- -->
+        <div>
+          <div class="section-label" style="margin-bottom:18px;">
+            <span class="t-label">Send a Message</span>
+          </div>
+          <p class="t-body" style="margin-bottom:36px;">
+            Fill in the form below and I'll get back to you within 24 hours. The more detail you share, the better I can understand your project from the start.
+          </p>
+
+          <!-- NOTE: Replace action="#" with your form handler endpoint (Formspree, Netlify Forms, etc.) -->
+          <form class="contact-form" id="contactForm" action="#" method="POST" novalidate aria-label="Contact form">
+
+            <!-- Row 1: Name + Email -->
+            <div class="form-row">
+
+              <div class="form-group">
+                <label class="form-label" for="name">Full Name <span style="color:var(--blue)">*</span></label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                  autocomplete="name"
+                  aria-required="true">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address <span style="color:var(--blue)">*</span></label>
+                <input
+                  class="form-input"
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  required
+                  autocomplete="email"
+                  aria-required="true">
+              </div>
+
+            </div>
+
+            <!-- Row 2: Project Type + Budget -->
+            <div class="form-row">
+
+              <div class="form-group">
+                <label class="form-label" for="project-type">Project Type <span style="color:var(--blue)">*</span></label>
+                <select class="form-select" id="project-type" name="project_type" required aria-required="true">
+                  <option value="" disabled selected>Select a service</option>
+                  <option value="branding">Brand Identity</option>
+                  <option value="uiux">UI/UX Design</option>
+                  <option value="web">Web Development</option>
+                  <option value="marketing">Marketing Design</option>
+                  <option value="motion">Motion Graphics</option>
+                  <option value="multiple">Multiple Services</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="budget">Budget Range <span style="color:var(--text-muted); font-weight:400; letter-spacing:0;">(Optional)</span></label>
+                <select class="form-select" id="budget" name="budget" aria-required="false">
+                  <option value="" disabled selected>Estimated budget</option>
+                  <option value="under-500">Under $500</option>
+                  <option value="500-1000">$500 – $1,000</option>
+                  <option value="1000-3000">$1,000 – $3,000</option>
+                  <option value="3000-5000">$3,000 – $5,000</option>
+                  <option value="5000+">$5,000+</option>
+                  <option value="discuss">Let's discuss</option>
+                </select>
+              </div>
+
+            </div>
+
+            <!-- Message -->
+            <div class="form-group">
+              <label class="form-label" for="message">Tell Me About Your Project <span style="color:var(--blue)">*</span></label>
+              <textarea
+                class="form-textarea"
+                id="message"
+                name="message"
+                placeholder="Describe your project, goals, timeline, and anything else that feels relevant. The more context, the better."
+                required
+                aria-required="true"
+                rows="6"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary form-submit magnetic" id="submitBtn" aria-label="Send your message">
+              <span id="submitText">Send Message</span>
+              <svg id="submitIcon" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+          </form>
+        </div>
+
+        <!-- ----------------------------------------
+             CONTACT SIDEBAR INFO
+             ---------------------------------------- -->
+        <aside class="contact-info" aria-label="Contact details">
+
+          <!-- Direct email -->
+          <div class="contact-info-block">
+            <h5>Email Direct</h5>
+            <!-- REPLACE: Update with your real email address -->
+            <a href="mailto:hello@creativocreates.live">hello@creativocreates.live</a>
+          </div>
+
+          <div class="contact-divider" aria-hidden="true"></div>
+
+          <!-- WhatsApp -->
+          <div class="contact-info-block">
+            <h5>WhatsApp</h5>
+            <!-- REPLACE: Update with your real WhatsApp number (include country code, no spaces) -->
+            <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer">
+              Chat on WhatsApp →
+            </a>
+          </div>
+
+          <div class="contact-divider" aria-hidden="true"></div>
+
+          <!-- Social -->
+          <div class="contact-info-block">
+            <h5>Find Me On</h5>
+
+            <a href="https://instagram.com/creativocreates" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <span class="social-icon" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="5"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+              </span>
+              @creativocreates
+            </a>
+
+            <a href="https://pinterest.com/creativocreates" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+              <span class="social-icon" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.85 0 3.1-2.36 3.1-5.15 0-2.13-1.43-3.62-3.47-3.62-2.36 0-3.74 1.77-3.74 3.6 0 .71.27 1.47.62 1.89.06.08.07.14.05.22-.06.25-.2.8-.23.91-.04.15-.13.18-.3.11-1.12-.52-1.82-2.17-1.82-3.49 0-2.84 2.06-5.45 5.94-5.45 3.12 0 5.55 2.22 5.55 5.19 0 3.1-1.95 5.59-4.65 5.59-.91 0-1.76-.47-2.05-1.03l-.56 2.08c-.2.78-.75 1.76-1.12 2.35.84.26 1.74.4 2.67.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+                </svg>
+              </span>
+              creativocreates
+            </a>
+
+            <a href="https://behance.net/creativocreates" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Behance">
+              <span class="social-icon" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029H23.726zm-7.686-8c1.934 0 3.81 1.148 3.96 3.7H15c.188-2.6 2.116-3.7 1.04-3.7zM7.005 12.315c0 1.375-.43 2.43-1.285 3.16-.858.73-2.08 1.096-3.667 1.096H0V7h2.753c1.563 0 2.787.344 3.67 1.033.884.69 1.327 1.7 1.327 3.03.025.41 0 .85-.025 1.251h-3.9c.018 1.06.365 1.71.897 2.1.532.39 1.27.51 2.215.51.39 0 .776-.045 1.11-.137l.952-.29v2.82z"/>
+                </svg>
+              </span>
+              creativocreates
+            </a>
+
+          </div>
+
+          <div class="contact-divider" aria-hidden="true"></div>
+
+          <!-- Response time -->
+          <div class="response-box">
+            <span class="response-box-icon" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <div class="response-box-text">
+              <p>Response Time</p>
+              <p>I typically reply within <strong>24 hours</strong> on weekdays.</p>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- FOOTER                                       -->
+  <!-- ============================================ -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Creativo<span>.</span></a>
+          <p class="footer-tagline">Brand Structuralist</p>
+          <p>Design that thinks. Work that lasts.<br>Based in Lagos, Nigeria.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="work.html">Work</a>
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="footer-connect">
+          <a href="mailto:hello@creativocreates.live" class="footer-email">hello@creativocreates.live</a>
+          <div class="footer-socials">
+            <a href="https://instagram.com/creativocreates" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://pinterest.com/creativocreates" class="footer-social" aria-label="Pinterest" target="_blank" rel="noopener noreferrer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.85 0 3.1-2.36 3.1-5.15 0-2.13-1.43-3.62-3.47-3.62-2.36 0-3.74 1.77-3.74 3.6 0 .71.27 1.47.62 1.89.06.08.07.14.05.22-.06.25-.2.8-.23.91-.04.15-.13.18-.3.11-1.12-.52-1.82-2.17-1.82-3.49 0-2.84 2.06-5.45 5.94-5.45 3.12 0 5.55 2.22 5.55 5.19 0 3.1-1.95 5.59-4.65 5.59-.91 0-1.76-.47-2.05-1.03l-.56 2.08c-.2.78-.75 1.76-1.12 2.35.84.26 1.74.4 2.67.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            </a>
+            <a href="https://behance.net/creativocreates" class="footer-social" aria-label="Behance" target="_blank" rel="noopener noreferrer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029H23.726zm-7.686-8c1.934 0 3.81 1.148 3.96 3.7H15c.188-2.6 2.116-3.7 1.04-3.7zM7.005 12.315c0 1.375-.43 2.43-1.285 3.16-.858.73-2.08 1.096-3.667 1.096H0V7h2.753c1.563 0 2.787.344 3.67 1.033.884.69 1.327 1.7 1.327 3.03.025.41 0 .85-.025 1.251h-3.9c.018 1.06.365 1.71.897 2.1.532.39 1.27.51 2.215.51.39 0 .776-.045 1.11-.137l.952-.29v2.82z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© <span class="footer-year"></span> <span>Creativo Creates</span>. All Rights Reserved.</p>
+        <p class="footer-made">Built with <em>intention</em>. Designed in Lagos.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================ -->
+  <!-- SCRIPTS                                      -->
+  <!-- ============================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- ============================================ -->
+  <!-- PAGE: CONTACT — FORM SCRIPT                  -->
+  <!-- ============================================ -->
+  <script>
+    /* ----------------------------------------
+       CONTACT FORM SUBMIT HANDLER
+       NOTE: Replace the fetch URL with your
+       actual form endpoint (Formspree etc.)
+       ---------------------------------------- */
+    const form       = document.getElementById('contactForm');
+    const submitBtn  = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const submitIcon = document.getElementById('submitIcon');
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Validate required fields
+        const required = form.querySelectorAll('[required]');
+        let isValid = true;
+
+        required.forEach(field => {
+          if (!field.value.trim()) {
+            field.style.borderColor = '#ff4d4d';
+            isValid = false;
+          } else {
+            field.style.borderColor = '';
+          }
+        });
+
+        if (!isValid) return;
+
+        // Loading state
+        submitBtn.classList.add('loading');
+        submitText.textContent = 'Sending…';
+
+        // Simulate sending (replace with real fetch to your form handler)
+        // Example Formspree: fetch('https://formspree.io/f/YOUR_FORM_ID', { method:'POST', body: new FormData(form) })
+        await new Promise(resolve => setTimeout(resolve, 1800));
+
+        // Success state
+        submitBtn.classList.remove('loading');
+        submitBtn.classList.add('success');
+        submitText.textContent = 'Message Sent!';
+        submitIcon.innerHTML = `<path d="M2 8l4 4 8-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+        form.reset();
+
+        // Reset button after 5 seconds
+        setTimeout(() => {
+          submitBtn.classList.remove('success');
+          submitText.textContent = 'Send Message';
+          submitIcon.innerHTML = `<path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+        }, 5000);
+      });
+
+      // Live validation: clear red border on input
+      form.querySelectorAll('input, textarea, select').forEach(field => {
+        field.addEventListener('input', () => {
+          field.style.borderColor = '';
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
