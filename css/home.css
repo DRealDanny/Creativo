@@ -19,6 +19,7 @@
   grid-template-columns: 1fr auto;
   align-items: flex-end;
   gap: 40px;
+  position: relative; /* Added to anchor the absolute positioned canvas */
 }
 
 .hero-eyebrow {
@@ -47,7 +48,7 @@
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(86px, 13.5vw, 210px);
+  font-size: clamp(72px, 09vw, 150px);
   line-height: 0.87;
   letter-spacing: 0.01em;
   margin-bottom: 38px;
@@ -93,6 +94,32 @@
   height: 1px;
   background: linear-gradient(90deg, transparent 5%, var(--blue) 50%, transparent 95%);
   opacity: 0.28;
+}
+
+/* ----------------------------------------
+   HERO VISUAL (3D WIREFRAME)
+   ---------------------------------------- */
+.hero-visual {
+  position: absolute;
+  right: -2%; /* Nudged slightly right so it doesn't crowd the text */
+  top: 35%; /* Moved up from 45% */
+  transform: translateY(-50%);
+  width: 55vw; 
+  max-width: 700px; /* Increased from 600px */
+  height: 700px; /* Increased from 600px */
+  opacity: 0;
+  animation: fade-in 1.5s ease 0.6s forwards; 
+  pointer-events: none; 
+  z-index: -1; 
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.hero-visual canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 650px; /* Increased from 500px */
 }
 
 /* ----------------------------------------
@@ -232,6 +259,11 @@
   .about-strip { grid-template-columns: 1fr; gap: 44px; }
   .hero-inner  { grid-template-columns: 1fr; }
   .hero-scroll { display: none; }
+  
+  /* Hide the 3D visual on smaller screens */
+  .hero-visual {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
