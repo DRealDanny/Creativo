@@ -84,3 +84,52 @@
 @media (max-width: 768px) {
   .about-hero { padding: 160px var(--pad) 72px; }
 }
+
+/* ----------------------------------------
+   TOOLS MOBILE ACCORDION (Correct Spacing)
+   ---------------------------------------- */
+.tools-arrow {
+  display: none; /* Hidden on desktop */
+}
+
+@media (max-width: 768px) {
+  /* 1. Stack the grid into 1 column with a tighter gap */
+  .tools-grid {
+    grid-template-columns: 1fr;
+    gap: 16px; 
+  }
+
+  /* 2. Format the heading to tap nicely without leaving huge empty margins */
+  .tools-group h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0; /* Removes the ugly blank space when closed */
+    padding: 12px 0;  /* Clean tap area, no borders */
+  }
+
+  .tools-arrow {
+    display: block; 
+    transition: transform 0.3s ease;
+  }
+
+  /* 3. Hide the list, and add a little breathing room for when it opens */
+  .tools-list {
+    display: none; 
+    padding-top: 8px;
+    padding-bottom: 16px;
+  }
+
+  /* 4. When open, force it to stack vertically exactly like it did before */
+  .tools-group.open .tools-list {
+    display: flex; 
+    flex-direction: column; 
+    animation: fade-in 0.3s ease forwards;
+  }
+
+  .tools-group.open .tools-arrow {
+    transform: rotate(180deg);
+    color: var(--blue);
+  }
+}

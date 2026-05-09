@@ -6,48 +6,27 @@
   <title>About — Creativo Creates</title>
   <meta name="description" content="Meet Creativo — a Brand Structuralist based in Lagos, Nigeria, designing systems and experiences that make brands impossible to ignore.">
 
-  <!-- ============================================ -->
-  <!-- FONTS                                        -->
-  <!-- ============================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
 
-  <!-- ============================================ -->
-  <!-- GLOBAL STYLESHEET                            -->
-  <!-- ============================================ -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- ============================================ -->
-  <!-- PAGE: ABOUT — STYLES                         -->
-  <!-- ============================================ -->
   <link rel="stylesheet" href="css/about.css">
 </head>
 <body>
 
-  <!-- ============================================ -->
-  <!-- GLOBAL: NOISE TEXTURE OVERLAY                -->
-  <!-- ============================================ -->
   <div class="noise-layer" aria-hidden="true"></div>
 
-  <!-- ============================================ -->
-  <!-- GLOBAL: CUSTOM CURSOR                        -->
-  <!-- ============================================ -->
   <div class="cursor-dot"  aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
 
-  <!-- ============================================ -->
-  <!-- GLOBAL: AMBIENT ORB GLOW BACKGROUND          -->
-  <!-- ============================================ -->
   <div class="orb-container" aria-hidden="true">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- NAVIGATION                                   -->
-  <!-- ============================================ -->
   <nav class="nav" aria-label="Main navigation">
     <a href="index.html" class="nav-logo">Creativo<span>.</span></a>
     <ul class="nav-links" role="list">
@@ -63,9 +42,6 @@
     </button>
   </nav>
 
-  <!-- ============================================ -->
-  <!-- MOBILE NAVIGATION OVERLAY                    -->
-  <!-- ============================================ -->
   <div class="nav-mobile" role="dialog" aria-modal="true" aria-label="Mobile menu">
     <a href="index.html"    class="nav-link">Home</a>
     <a href="work.html"     class="nav-link">Work</a>
@@ -74,9 +50,6 @@
     <a href="contact.html"  class="nav-link">Contact</a>
   </div>
 
-  <!-- ============================================ -->
-  <!-- SECTION: ABOUT HERO                          -->
-  <!-- ============================================ -->
   <section class="about-hero" aria-labelledby="about-heading">
     <div class="about-hero-inner">
 
@@ -97,15 +70,11 @@
     <div class="about-hero-bottom" aria-hidden="true"></div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- SECTION: STORY + PHOTO                       -->
-  <!-- ============================================ -->
   <section class="section" aria-labelledby="story-heading">
     <div class="container">
 
       <div class="about-story-grid">
 
-        <!-- Story column -->
         <div class="about-story-col" data-reveal>
           <div class="section-label" style="margin-bottom:22px;">
             <span class="t-label">My Story</span>
@@ -135,7 +104,6 @@
           </a>
         </div>
 
-        <!-- Photo column — sticky -->
         <div class="about-photo-wrap" data-reveal data-reveal="right">
           <div class="about-photo">
             <div class="about-photo-inner">
@@ -152,9 +120,6 @@
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- SECTION: DISCIPLINE STATEMENTS               -->
-  <!-- ============================================ -->
   <section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);" aria-labelledby="disciplines-heading">
     <div class="container">
       <div class="edge-glow" aria-hidden="true"></div>
@@ -204,9 +169,6 @@
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- SECTION: TOOLS & STACK                       -->
-  <!-- ============================================ -->
   <section class="section" aria-labelledby="tools-heading">
     <div class="container">
 
@@ -222,8 +184,12 @@
       <div class="tools-grid" data-reveal>
 
         <div class="tools-group">
-          <h4>Creative & Visual Design</h4>
-          <ul>
+          <h4 class="tools-accordion-btn">Creative & Visual Design
+            <svg class="tools-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </h4>
+          <ul class="tools-list">
             <li class="tool-item">Figma</li>
             <li class="tool-item">Adobe Photoshop</li>
             <li class="tool-item">Adobe Illustrator</li>
@@ -235,8 +201,12 @@
         </div>
 
         <div class="tools-group">
-          <h4>Web & Development</h4>
-          <ul>
+          <h4 class="tools-accordion-btn">Web & Development
+            <svg class="tools-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </h4>
+          <ul class="tools-list">
             <li class="tool-item">HTML &amp; CSS</li>
             <li class="tool-item">JavaScript</li>
             <li class="tool-item">PHP</li>
@@ -249,8 +219,12 @@
         </div>
 
         <div class="tools-group">
-          <h4>UI/UX & Prototyping</h4>
-          <ul>
+          <h4 class="tools-accordion-btn">UI/UX & Prototyping
+            <svg class="tools-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </h4>
+          <ul class="tools-list">
             <li class="tool-item">Figma (Design Systems)</li>
             <li class="tool-item">Figma Prototyping</li>
             <li class="tool-item">User Flow Mapping</li>
@@ -266,9 +240,6 @@
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- SECTION: STATS                               -->
-  <!-- ============================================ -->
   <section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);" aria-label="Stats">
     <div class="container">
       <div class="stats-bar">
@@ -292,9 +263,6 @@
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- SECTION: CTA BANNER                          -->
-  <!-- ============================================ -->
   <section class="cta-banner" aria-label="Call to Action">
     <div class="container" style="position:relative; z-index:1;">
       <div data-reveal>
@@ -313,9 +281,6 @@
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- FOOTER                                       -->
-  <!-- ============================================ -->
   <footer class="footer" aria-label="Site footer">
     <div class="footer-glow" aria-hidden="true"></div>
     <div class="container">
@@ -354,20 +319,11 @@
     </div>
   </footer>
 
-  <!-- ============================================ -->
-  <!-- SCRIPTS                                      -->
-  <!-- ============================================ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- ============================================ -->
-  <!-- PAGE: ABOUT — SCRIPTS                        -->
-  <!-- ============================================ -->
   <script src="js/about.js"></script>
 
-  <!-- ============================================ -->
-  <!-- GLOBAL: SCROLL TO TOP BUTTON                 -->
-  <!-- ============================================ -->
   <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 19V5M5 12l7-7 7 7"/>
