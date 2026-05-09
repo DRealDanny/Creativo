@@ -66,46 +66,107 @@
   margin: 0 auto;
 }
 
-/* NEW: Establishes the boundary for the sticky filter */
-.work-grid-wrapper {
-  position: relative;
-}
-
 /* ----------------------------------------
-   FILTER BAR (CHAMELEON GLASS EFFECT)
+   FILTER BAR (CUSTOM DROPDOWN UI)
    ---------------------------------------- */
 .work-filter-bar {
-  position: sticky;
-  top: 72px; /* Locks right under your nav */
-  z-index: 50;
-  
-  /* Illusion: Matches #050508 background perfectly but masks scrolling images */
-  background: rgba(5, 5, 8, 0.96) !important; 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
-  
-  padding: 16px 0;
+  position: relative; /* NOT sticky, flows naturally */
+  padding: 0 0 24px 0;
+  border-bottom: 1px solid var(--border);
   margin-bottom: 40px;
 }
 
-/* Clean up the inner button container and FORCE wrapping */
-.work-filter-bar .filter-bar {
-  background: transparent !important; 
-  border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  
-  display: flex !important;
-  flex-wrap: wrap !important; /* GUARANTEES stacking on all screen sizes */
-  gap: 10px;
+.filter-dropdown-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
-/* Ensure buttons don't shrink weirdly */
-.work-filter-bar .filter-btn {
-  flex-shrink: 0;
-  white-space: nowrap;
+.filter-label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.custom-dropdown {
+  position: relative;
+  min-width: 180px;
+}
+
+/* The clickable area (All + Arrow) */
+.dropdown-trigger {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;
+  outline: none;
+}
+
+.dropdown-arrow {
+  color: var(--text-muted);
+  transition: transform var(--t-fast);
+}
+
+/* Arrow flips up when menu is open */
+.custom-dropdown.open .dropdown-arrow {
+  transform: rotate(180deg);
+  color: var(--blue);
+}
+
+/* The hidden menu that pops out */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 8px 0;
+  margin: 0;
+  list-style: none;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  
+  /* Hidden state */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity var(--t-fast), transform var(--t-fast), visibility var(--t-fast);
+}
+
+/* Revealed state */
+.custom-dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 14px;
+  transition: color var(--t-fast), background var(--t-fast);
+}
+
+.dropdown-item:hover, 
+.dropdown-item.active {
+  color: var(--text);
+  background: var(--surface-2);
 }
 
 /* ----------------------------------------
@@ -185,16 +246,6 @@
   .work-page-grid .project-item.wide { grid-column: span 1; }
   .work-page-grid .project-item.wide .card-img { aspect-ratio: 4/3; }
   .work-page-grid .project-item.tall .card-img  { aspect-ratio: 4/3; }
-  
-  /* Mobile sticky height & tighter gaps */
-  .work-filter-bar { 
-    top: 60px; 
-    padding: 12px 0;
-  }
-  
-  .work-filter-bar .filter-bar {
-    gap: 8px !important;
-  }
   
   .work-more-row { flex-direction: column; align-items: flex-start; }
 }
