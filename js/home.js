@@ -75,5 +75,50 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         animate();
+
+        // Ensure the canvas stays centered if the container is resized
+        window.addEventListener('resize', () => {
+            // Update renderer logic here if needed for responsive canvas
+        });
     }
+
+    // --------------------------------------------------------
+    // SHOWREEL VIDEO MODAL (NEW)
+    // --------------------------------------------------------
+    const openBtn = document.getElementById('openShowreel');
+    const closeBtn = document.getElementById('closeModal');
+    const overlay = document.getElementById('modalOverlay');
+    const modal = document.getElementById('videoModal');
+    const placeholder = document.getElementById('videoPlaceholder');
+
+    // Replace 123456789 with your actual Vimeo Video ID once uploaded
+    const vimeoID = "1190772295"; 
+    const videoURL = `https://player.vimeo.com/video/${vimeoID}?autoplay=1&title=0&byline=0&portrait=0&badge=0`;
+
+    const toggleModal = (show) => {
+        if (!modal || !placeholder) return;
+        
+        modal.setAttribute('aria-hidden', !show);
+        
+        if (show) {
+            // Inject Vimeo iframe only when opening to keep page speed fast
+            placeholder.innerHTML = `<iframe src="${videoURL}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+            document.body.style.overflow = 'hidden'; // Prevents background scrolling
+        } else {
+            placeholder.innerHTML = ''; // Removes iframe to stop the video immediately
+            document.body.style.overflow = ''; // Resumes scrolling
+        }
+    };
+
+    // Click Events
+    openBtn?.addEventListener('click', () => toggleModal(true));
+    closeBtn?.addEventListener('click', () => toggleModal(false));
+    overlay?.addEventListener('click', () => toggleModal(false));
+
+    // Keyboard Event: Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal?.getAttribute('aria-hidden') === 'false') {
+            toggleModal(false);
+        }
+    });
 });
