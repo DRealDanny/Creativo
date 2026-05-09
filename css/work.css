@@ -58,7 +58,7 @@
    WORK MAIN SECTION
    ---------------------------------------- */
 .work-main {
-  padding: 72px var(--pad) var(--section);
+  padding: 72px var(--pad) 40px; /* Adjusted bottom padding so it meets the CTA smoothly */
 }
 
 .work-main-inner {
@@ -70,7 +70,7 @@
    FILTER BAR (CUSTOM DROPDOWN UI)
    ---------------------------------------- */
 .work-filter-bar {
-  position: relative; /* NOT sticky, flows naturally */
+  position: relative; 
   padding: 0 0 24px 0;
   border-bottom: 1px solid var(--border);
   margin-bottom: 40px;
@@ -97,7 +97,6 @@
   min-width: 180px;
 }
 
-/* The clickable area (All + Arrow) */
 .dropdown-trigger {
   display: flex;
   justify-content: flex-end;
@@ -120,13 +119,11 @@
   transition: transform var(--t-fast);
 }
 
-/* Arrow flips up when menu is open */
 .custom-dropdown.open .dropdown-arrow {
   transform: rotate(180deg);
   color: var(--blue);
 }
 
-/* The hidden menu that pops out */
 .dropdown-menu {
   position: absolute;
   top: calc(100% + 8px);
@@ -141,14 +138,12 @@
   z-index: 100;
   box-shadow: 0 10px 30px rgba(0,0,0,0.8);
   
-  /* Hidden state */
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
   transition: opacity var(--t-fast), transform var(--t-fast), visibility var(--t-fast);
 }
 
-/* Revealed state */
 .custom-dropdown.open .dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -170,30 +165,22 @@
 }
 
 /* ----------------------------------------
-   PROJECT GRID
+   PROJECT GRID (UNIFORM SIZING)
    ---------------------------------------- */
 .work-page-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3 Columns on Desktop */
   gap: 22px;
 }
 
-/* Wide card spans 2 columns */
-.work-page-grid .project-item.wide {
-  grid-column: span 2;
+/* Force every image to perfectly match a 4/3 ratio */
+.work-page-grid .project-item .card-img {
+  aspect-ratio: 4 / 3 !important; 
 }
 
-.work-page-grid .project-item.wide .card-img {
-  aspect-ratio: 16 / 9;
-}
-
-/* Tall card — optional vertical emphasis */
-.work-page-grid .project-item.tall .card-img {
-  aspect-ratio: 3 / 4;
-}
-
-/* Case study badge on cards */
+/* Case study badge on cards - HIDDEN FOR NOW AS REQUESTED */
 .card-cs-badge {
+  display: none;
   position: absolute;
   top: 16px;
   left: 16px;
@@ -209,43 +196,34 @@
   color: var(--text-muted);
 }
 
-/* "More" teaser row at bottom */
-.work-more-row {
-  margin-top: 80px;
-  padding-top: 52px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.work-more-label {
-  font-family: var(--font-heading);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
 /* ----------------------------------------
    RESPONSIVE — WORK PAGE
    ---------------------------------------- */
 @media (max-width: 1024px) {
   .work-page-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .work-page-grid .project-item.wide {
-    grid-column: span 2;
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns on Tablet */
   }
 }
 
 @media (max-width: 768px) {
   .work-hero { padding: 160px var(--pad) 72px; }
-  .work-page-grid { grid-template-columns: 1fr; }
-  .work-page-grid .project-item.wide { grid-column: span 1; }
-  .work-page-grid .project-item.wide .card-img { aspect-ratio: 4/3; }
-  .work-page-grid .project-item.tall .card-img  { aspect-ratio: 4/3; }
   
-  .work-more-row { flex-direction: column; align-items: flex-start; }
+  .work-page-grid { 
+    grid-template-columns: 1fr; /* 1 Column on Mobile */
+  }
+  
+  /* MOBILE DROPDOWN TEXT SIZE TWEAKS */
+  .dropdown-trigger {
+    font-size: 13px;
+    padding: 6px 0;
+  }
+
+  .filter-label {
+    font-size: 10px;
+  }
+
+  .dropdown-item {
+    font-size: 13px;
+    padding: 10px 16px;
+  }
 }

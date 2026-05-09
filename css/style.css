@@ -1638,6 +1638,19 @@ hr.divider {
 
 @media (max-width: 768px) {
 
+  /* ----------------------------------------
+     CTA BANNER: MOBILE TWEAKS
+     ---------------------------------------- */
+  .cta-banner .btn {
+    padding: 12px 28px; /* Slims down the top/bottom and left/right spacing */
+    font-size: 13px; /* Scales down the text */
+  }
+
+  .cta-banner .btn svg {
+    width: 13px; /* Scales down the arrow icon to match the text */
+    height: 13px;
+  }
+  
   :root {
     --section: 72px;
     --pad:     22px;
@@ -1783,3 +1796,4 @@ hr.divider {
     height: 44px;
   }
 }
+
