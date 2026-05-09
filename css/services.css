@@ -65,3 +65,45 @@
 
   .service-name { font-size: 24px; }
 }
+
+/* ----------------------------------------
+   DELIVERABLES MOBILE ACCORDION
+   ---------------------------------------- */
+.deliverables-arrow {
+  display: none; /* Hidden on desktop */
+}
+
+@media (max-width: 768px) {
+  .service-deliverables h5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0; 
+    padding: 12px 0;
+  }
+
+  .deliverables-arrow {
+    display: block; 
+    transition: transform 0.3s ease;
+  }
+
+  /* Hide the list, and add a little breathing room for when it opens */
+  .service-deliverables ul {
+    display: none; 
+    padding-top: 8px;
+    padding-bottom: 16px;
+  }
+
+  /* When open, force it to stack vertically */
+  .service-deliverables.open ul {
+    display: flex; 
+    flex-direction: column; 
+    animation: fade-in 0.3s ease forwards;
+  }
+
+  .service-deliverables.open .deliverables-arrow {
+    transform: rotate(180deg);
+    color: var(--blue);
+  }
+}
