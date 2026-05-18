@@ -46,6 +46,7 @@
   height: 1px;
   background: var(--blue);
   flex-shrink: 0;
+  display: none;
 }
 
 .hero-title {

@@ -15,6 +15,15 @@
   margin: 0 auto;
 }
 
+.page-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fade-in 0.8s ease 0.1s forwards;
+}
+
 .contact-hero h1 {
   font-family: var(--font-display);
   font-size: clamp(72px, 8vw, 170px);
