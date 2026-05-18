@@ -1047,6 +1047,12 @@ input, textarea, select {
   transform: translate(0, 0);
 }
 
+@media (min-width: 1025px) {
+  .footer-contact-col {
+    padding-left: 150px
+  }
+}
+
 /* Contact column */
 .footer-contact-item {
   display: flex;
