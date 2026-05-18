@@ -122,7 +122,10 @@
     text-align: center;
   }
 
-  .stat-number { font-size: 48px; margin-bottom: 8px; }
+  .stat-label {
+    font-size: 7.5px;
+    letter-spacing: 0.07em;
+  }
 
   /* ── ABOUT: TOOLS GRID — single col on mobile ── */
   .tools-grid {
