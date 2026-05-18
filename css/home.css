@@ -1,6 +1,11 @@
-/* ----------------------------------------
-   HERO SECTION
-   ---------------------------------------- */
+/* ============================================================
+   HOME PAGE — home.css
+   Covers: Hero, WorkGridHome, AboutStrip, ServicesSnap
+   ============================================================ */
+
+
+/* ── HERO ── */
+
 .hero {
   min-height: 100vh;
   display: flex;
@@ -19,7 +24,12 @@
   grid-template-columns: 1fr auto;
   align-items: flex-end;
   gap: 40px;
-  position: relative; /* Added to anchor the absolute positioned canvas */
+  position: relative;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-eyebrow {
@@ -35,20 +45,12 @@
   width: 38px;
   height: 1px;
   background: var(--blue);
-}
-
-.hero-eyebrow-text {
-  font-family: var(--font-heading);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--blue);
+  flex-shrink: 0;
 }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(72px, 09vw, 150px);
+  font-size: clamp(72px, 9vw, 150px);
   line-height: 0.87;
   letter-spacing: 0.01em;
   margin-bottom: 38px;
@@ -60,7 +62,7 @@
   flex-wrap: nowrap;
 }
 
-.hero-title .accent { color: var(--blue); }
+.hero-title-line.accent { color: var(--blue); }
 
 .hero-subtitle {
   font-size: 17px;
@@ -68,8 +70,6 @@
   max-width: 480px;
   line-height: 1.78;
   margin-bottom: 46px;
-  opacity: 0;
-  animation: fade-up 0.9s ease 0.8s both;
 }
 
 .hero-actions {
@@ -77,15 +77,59 @@
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  opacity: 0;
-  animation: fade-up 0.9s ease 1.0s both;
 }
 
+/* Three.js canvas */
+#heroCanvas {
+  position: absolute;
+  right: -2%;
+  top: 35%;
+  transform: translateY(-50%);
+  width: 55vw;
+  max-width: 700px;
+  height: 700px;
+  opacity: 0;
+  animation: fade-in 1.5s ease 0.6s forwards;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#heroCanvas canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 650px;
+}
+
+/* Scroll indicator */
 .hero-scroll {
   align-self: flex-end;
   padding-bottom: 4px;
-  opacity: 0;
-  animation: fade-in 0.8s ease 1.5s both;
+}
+
+.hero-scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-scroll-indicator span {
+  font-family: var(--font-heading);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  writing-mode: vertical-lr;
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, var(--blue), transparent);
+  animation: scroll-pulse 2.2s ease infinite;
 }
 
 .hero-bottom-line {
@@ -96,100 +140,23 @@
   opacity: 0.28;
 }
 
-/* ----------------------------------------
-   HERO VISUAL (3D WIREFRAME)
-   ---------------------------------------- */
-.hero-visual {
-  position: absolute;
-  right: -2%; /* Nudged slightly right so it doesn't crowd the text */
-  top: 35%; /* Moved up from 45% */
-  transform: translateY(-50%);
-  width: 55vw; 
-  max-width: 700px; /* Increased from 600px */
-  height: 700px; /* Increased from 600px */
-  opacity: 0;
-  animation: fade-in 1.5s ease 0.6s forwards; 
-  pointer-events: none; 
-  z-index: -1; 
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
 
-.hero-visual canvas {
-  width: 100% !important;
-  height: auto !important;
-  max-width: 650px; /* Increased from 500px */
-}
+/* ── WORK GRID HOME — uniform 3×3 ── */
 
-/* ----------------------------------------
-   SERVICES SNAPSHOT GRID
-   ---------------------------------------- */
-.services-snap-grid {
+.work-grid-home {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  overflow: hidden;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
 }
 
-.snap-item {
-  background: var(--bg);
-  padding: 38px 26px;
-  transition: background var(--t-med);
-  position: relative;
+/* Subtle row rhythm: rows 1 & 3 slightly wider cards, row 2 taller */
+.work-grid-home .project-card:nth-child(n+4):nth-child(-n+6) .card-img {
+  aspect-ratio: 3/4;
 }
 
-.snap-item:hover {
-  background: var(--surface);
-}
 
-.snap-glyph {
-  font-size: 22px;
-  margin-bottom: 18px;
-  color: var(--text-dim);
-  transition: color var(--t-med);
-  display: block;
-}
+/* ── ABOUT STRIP ── */
 
-.snap-item:hover .snap-glyph { color: var(--blue); }
-
-.snap-title {
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-
-.snap-desc {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.62;
-}
-
-.snap-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 18px;
-  font-family: var(--font-heading);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--blue);
-  opacity: 0;
-  transition: opacity var(--t-med);
-}
-
-.snap-item:hover .snap-cta { opacity: 1; }
-
-/* ----------------------------------------
-   ABOUT STRIP
-   ---------------------------------------- */
 .about-strip {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -197,7 +164,7 @@
   align-items: center;
 }
 
-.big-pull-quote {
+.about-pull-quote {
   font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 62px);
   line-height: 1.04;
@@ -205,12 +172,12 @@
   margin-bottom: 26px;
 }
 
-.big-pull-quote em {
+.about-pull-quote em {
   font-style: normal;
   color: var(--blue);
 }
 
-.about-strip-visual {
+.about-visual {
   position: relative;
   height: 420px;
   border-radius: var(--r-lg);
@@ -219,7 +186,7 @@
   border: 1px solid var(--border);
 }
 
-.about-strip-visual::before {
+.about-visual::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -228,13 +195,13 @@
     radial-gradient(circle at 78% 20%, rgba(32,96,255,0.07) 0%, transparent 50%);
 }
 
-.about-strip-badge {
+.about-badge {
   position: absolute;
   bottom: 26px;
   left: 26px;
 }
 
-.strip-label {
+.about-badge-role {
   font-family: var(--font-heading);
   font-size: 10px;
   font-weight: 700;
@@ -243,7 +210,7 @@
   color: var(--blue);
 }
 
-.strip-name {
+.about-badge-name {
   font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 800;
@@ -251,144 +218,63 @@
   margin-top: 3px;
 }
 
-/* ----------------------------------------
-   RESPONSIVE — HOME PAGE
-   ---------------------------------------- */
-@media (max-width: 1024px) {
-  .services-snap-grid { grid-template-columns: repeat(3, 1fr); }
-  .about-strip { grid-template-columns: 1fr; gap: 44px; }
-  .hero-inner  { grid-template-columns: 1fr; }
-  .hero-scroll { display: none; }
-  
-  /* Hide the 3D visual on smaller screens */
-  .hero-visual {
-    display: none;
-  }
-}
 
-@media (max-width: 768px) {
-  .hero-title { font-size: clamp(68px, 20vw, 110px); }
-  .services-snap-grid { grid-template-columns: 1fr 1fr; }
-}
+/* ── SERVICES SNAP ── */
 
-@media (max-width: 480px) {
-  .services-snap-grid { grid-template-columns: 1fr; }
-}
-
-/* ----------------------------------------
-   VIDEO MODAL: THEATER MODE
-   ---------------------------------------- */
-.video-modal {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
-}
-
-.video-modal[aria-hidden="false"] {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Overlay sits behind everything — position:absolute so it
-   doesn't join the flex layout and push modal-content off-center */
-.modal-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-/* The video box — centered, 78vw wide, locked to 16:9 */
-.modal-content {
-  position: relative;
-  width: 78vw;
-  max-width: 1100px;
-  aspect-ratio: 16 / 9;
-  max-height: 88vh;
-  z-index: 1; /* sits above the overlay */
-}
-
-.video-container {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
   overflow: hidden;
 }
 
-/* THIS was the main culprit — placeholder had no size so iframe collapsed */
-#videoPlaceholder {
-  width: 100%;
-  height: 100%;
+.service-item {
+  background: var(--bg);
+  padding: 48px 36px;
+  transition: background var(--t-med);
+  position: relative;
 }
 
-#videoPlaceholder iframe {
-  width: 100% !important;
-  height: 100% !important;
-  border: none;
+.service-item:hover { background: var(--surface); }
+
+.service-glyph {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: var(--text-dim);
+  transition: color var(--t-med);
   display: block;
 }
 
-/* Close button floats just above the video box */
-.modal-close {
-  position: absolute;
-  top: -50px;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #fff;
-  font-size: 22px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.25s ease, border-color 0.25s ease;
-  backdrop-filter: blur(4px);
+.service-item:hover .service-glyph { color: var(--blue); }
+
+.service-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
 }
 
-.modal-close:hover {
-  background: var(--blue);
-  border-color: var(--blue);
+.service-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 20px;
 }
 
-/* ----------------------------------------
-   MOBILE TWEAKS
-   ---------------------------------------- */
-@media (max-width: 768px) {
-  #openShowreel {
-    padding: 18px 22px !important; /* Mobile Bottom Padding */
-    font-size: 11px !important;
-    gap: 8px !important;
-    width: fit-content !important;
-    white-space: nowrap !important;
-    display: inline-flex !important;
-    align-items: center !important;
-  }
-
-  #openShowreel svg {
-    width: 12px !important;
-    height: 12px !important;
-  }
-
-  /* Go wider on phones since screen space is tight */
-  .modal-content {
-    width: 92vw;
-  }
-
-  .modal-close {
-    top: -44px;
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-  }
+.service-cta {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  opacity: 0;
+  transition: opacity var(--t-med);
+  display: inline-block;
 }
+
+.service-item:hover .service-cta { opacity: 1; }

@@ -1,375 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Work — Creativo Creates</title>
-  <meta name="description" content="The portfolio of Creativo — Brand Identity, UI/UX, Web Development, Motion Graphics & Marketing Design projects.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/style.css">
-
-  <link rel="stylesheet" href="css/work.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Selected work across branding, web development, and video editing — Creativo Creates." />
+  <title>Work — Creativo</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/work.css" />
+  <link rel="stylesheet" href="css/tablet-res.css" />
+  <link rel="stylesheet" href="css/mobile-res.css" />
 </head>
 <body>
 
-  <div class="noise-layer" aria-hidden="true"></div>
-
-  <div class="cursor-dot"  aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
-
+  <div class="noise-layer" aria-hidden="true"></div>
   <div class="orb-container" aria-hidden="true">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
   </div>
 
   <nav class="nav" aria-label="Main navigation">
     <a href="index.html" class="nav-logo">Creativo<span>.</span></a>
     <ul class="nav-links" role="list">
       <li><a href="index.html"    class="nav-link">Home</a></li>
-      <li><a href="work.html"     class="nav-link active">Work</a></li>
+      <li><a href="work.html"     class="nav-link">Work</a></li>
       <li><a href="about.html"    class="nav-link">About</a></li>
       <li><a href="services.html" class="nav-link">Services</a></li>
       <li><a href="contact.html"  class="nav-link">Contact</a></li>
     </ul>
-    <a href="contact.html" class="nav-cta magnetic">Let's Talk</a>
-    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="contact.html" class="nav-cta">Let's Talk</a>
+    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false"><i class="ri-menu-line"></i></button>
   </nav>
 
-  <div class="nav-mobile" role="dialog" aria-modal="true" aria-label="Mobile menu">
-    <a href="index.html"    class="nav-link">Home</a>
-    <a href="work.html"     class="nav-link">Work</a>
-    <a href="about.html"    class="nav-link">About</a>
-    <a href="services.html" class="nav-link">Services</a>
-    <a href="contact.html"  class="nav-link">Contact</a>
+  <div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <button class="mobile-close" aria-label="Close navigation menu"><i class="ri-close-line"></i></button>
+    <nav class="mobile-links">
+      <a href="index.html"    class="mobile-link">Home</a>
+      <a href="work.html"     class="mobile-link">Work</a>
+      <a href="about.html"    class="mobile-link">About</a>
+      <a href="services.html" class="mobile-link">Services</a>
+      <a href="contact.html"  class="mobile-link">Contact</a>
+    </nav>
+    <div class="mobile-social">
+      <hr class="mobile-divider" />
+      <span class="mobile-social-label">Social</span>
+      <div class="mobile-social-icons">
+        <a href="https://instagram.com/creativocreates" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="mobile-social-icon"><i class="ri-instagram-line"></i></a>
+        <a href="https://behance.net/creativocreates"   target="_blank" rel="noopener noreferrer" aria-label="Behance"   class="mobile-social-icon"><i class="ri-behance-line"></i></a>
+        <a href="https://pinterest.com/creativocreates" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" class="mobile-social-icon"><i class="ri-pinterest-line"></i></a>
+      </div>
+    </div>
   </div>
+  <div class="nav-backdrop" aria-hidden="true"></div>
 
-  <section class="work-hero" aria-labelledby="work-page-heading">
-    <div class="work-hero-inner">
+  <main style="overflow-x:hidden;">
 
-      <div class="work-hero-eyebrow">
-        <span class="work-hero-line" aria-hidden="true"></span>
-        <span class="t-label">Selected Projects</span>
+    <!-- HERO -->
+    <section class="work-hero" aria-labelledby="work-heading">
+      <div class="work-hero-inner">
+        <div class="page-eyebrow">
+          <span class="page-eyebrow-line" aria-hidden="true"></span>
+          <span class="t-label">Selected Projects</span>
+        </div>
+        <h1 id="work-heading">Three<br />disciplines.<br /><em>One</em> standard.</h1>
+        <p class="t-body-lg work-hero-sub">Every project here is a case of problem-solving, craft, and intentional execution — from the first brief to the final pixel.</p>
       </div>
+      <div class="page-hero-bottom" aria-hidden="true"></div>
+    </section>
 
-      <h1 id="work-page-heading">
-        Five<br>disciplines.<br><em>One</em> standard.
-      </h1>
+    <!-- WORK GRID -->
+    <div class="work-main">
+      <div class="work-main-inner">
 
-      <p class="t-body-lg work-hero-sub">
-        Every project here is a case of problem-solving, craft, and intentional execution — from the first brief to the final pixel.
-      </p>
-
-    </div>
-    <div class="work-hero-bottom" aria-hidden="true"></div>
-  </section>
-
-  <div class="work-main">
-    <div class="work-main-inner">
-
-      <div class="work-filter-bar">
-        <div class="filter-dropdown-container">
-          
-          <span class="filter-label">Filter by type</span>
-          
-          <div class="custom-dropdown" id="work-filter">
-            <button class="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
-              <span class="dropdown-selected">All</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-arrow">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            
-            <ul class="dropdown-menu" role="listbox">
-              <li class="dropdown-item active" data-filter="all" role="option">All</li>
-              <li class="dropdown-item" data-filter="branding" role="option">Branding</li>
-              <li class="dropdown-item" data-filter="web" role="option">Web Development</li>
-              <li class="dropdown-item" data-filter="uiux" role="option">UI/UX</li>
-              <li class="dropdown-item" data-filter="marketing" role="option">Marketing Design</li>
-              <li class="dropdown-item" data-filter="motion" role="option">Motion Graphics</li>
-            </ul>
+        <div class="filter-bar">
+          <div class="filter-container">
+            <span class="filter-label">Filter by type</span>
+            <div class="filter-dropdown" id="work-filter">
+              <button class="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="dropdown-trigger-text">All</span>
+                <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+              </button>
+              <ul class="dropdown-menu" role="listbox">
+                <li class="dropdown-item active" data-filter="All"              role="option">All</li>
+                <li class="dropdown-item"         data-filter="Branding"        role="option">Branding</li>
+                <li class="dropdown-item"         data-filter="Web Development" role="option">Web Development</li>
+                <li class="dropdown-item"         data-filter="Video Editing"   role="option">Video Editing</li>
+              </ul>
+            </div>
           </div>
-
-        </div>
-      </div>
-
-      <div class="work-page-grid" id="project-grid">
-
-        <div class="project-item" data-category="branding" data-reveal>
-          <a href="#" class="project-card" aria-label="Apex Brand Identity — Branding project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/apex-wide/1200/675" alt="Apex Brand Identity" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Branding</span>
-              <h3 class="card-title">Apex — Complete Brand Identity</h3>
-              <p class="card-sub">Logo system · Colour palette · Brand guidelines · Mockups</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
         </div>
 
-        <div class="project-item" data-category="web" data-reveal data-delay="2">
-          <a href="#" class="project-card" aria-label="Luminal Website — Web Development project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/luminal-web/800/600" alt="Luminal Website" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Web Development</span>
-              <h3 class="card-title">Luminal — Website</h3>
-              <p class="card-sub">Custom codebase · GSAP animations · Fully responsive</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="uiux" data-reveal>
-          <a href="#" class="project-card" aria-label="Dossier App — UI/UX Design project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/dossier-tall/800/1067" alt="Dossier App UI/UX" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">UI/UX Design</span>
-              <h3 class="card-title">Dossier — Mobile App</h3>
-              <p class="card-sub">Research · Wireframes · High-fidelity UI · Prototype</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="web" data-reveal data-delay="2">
-          <a href="#" class="project-card" aria-label="Vortex Website — Web Development project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/vortex-web/800/600" alt="Vortex Website" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Web Development</span>
-              <h3 class="card-title">Vortex — Landing Page</h3>
-              <p class="card-sub">WordPress · Elementor · Custom PHP · SEO optimised</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="motion" data-reveal>
-          <a href="#" class="project-card" aria-label="Vanta Motion Reel — Motion Graphics project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/vanta-wide/1200/675" alt="Vanta Motion Reel" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Motion Graphics</span>
-              <h3 class="card-title">Vanta — Motion Identity</h3>
-              <p class="card-sub">Logo animation · Brand motion system · After Effects</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="branding" data-reveal>
-          <a href="#" class="project-card" aria-label="Mesh Co Brand Identity — Branding project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/mesh-co/800/600" alt="Mesh Co Brand Identity" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Branding</span>
-              <h3 class="card-title">Mesh Co. — Visual Identity</h3>
-              <p class="card-sub">Logo · Typography · Brand system · Art direction</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="marketing" data-reveal data-delay="2">
-          <a href="#" class="project-card" aria-label="Nova Launch Campaign — Marketing Design project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/nova-mkt/800/600" alt="Nova Launch Campaign" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Marketing Design</span>
-              <h3 class="card-title">Nova — Launch Campaign</h3>
-              <p class="card-sub">Social creatives · Digital ads · Campaign system</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="uiux" data-reveal data-delay="3">
-          <a href="#" class="project-card" aria-label="Forma Dashboard — UI/UX Design project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/forma-ui/800/600" alt="Forma Dashboard UI" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">UI/UX Design</span>
-              <h3 class="card-title">Forma — SaaS Dashboard</h3>
-              <p class="card-sub">Design system · User flows · Interface design</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="marketing" data-reveal>
-          <a href="#" class="project-card" aria-label="Klave Pitch Deck — Marketing Design project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/klave-deck/1200/675" alt="Klave Pitch Deck" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Marketing Design</span>
-              <h3 class="card-title">Klave — Investor Pitch Deck</h3>
-              <p class="card-sub">Presentation design · Data visualisation · Brand alignment</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="motion" data-reveal data-delay="2">
-          <a href="#" class="project-card" aria-label="Solace Motion — Motion Graphics project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/solace-motion/800/600" alt="Solace Motion Graphics" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Motion Graphics</span>
-              <h3 class="card-title">Solace — Social Motion Pack</h3>
-              <p class="card-sub">Animated social assets · Reels · Story templates</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="web" data-reveal data-delay="3">
-          <a href="#" class="project-card" aria-label="Crest Studio Website — Web Development project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/crest-web/800/600" alt="Crest Studio Website" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Web Development</span>
-              <h3 class="card-title">Crest Studio — Portfolio Site</h3>
-              <p class="card-sub">Custom HTML/CSS/JS · Scroll animations · CMS integration</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-        <div class="project-item" data-category="branding" data-reveal>
-          <a href="#" class="project-card" aria-label="Rova Brand Identity — Branding project">
-            <div class="card-img">
-              <img src="https://picsum.photos/seed/rova-brand/800/600" alt="Rova Brand Identity" loading="lazy">
-            </div>
-            <div class="card-overlay">
-              <span class="card-tag">Branding</span>
-              <h3 class="card-title">Rova — Brand Refresh</h3>
-              <p class="card-sub">Identity redesign · Brand strategy · Asset library</p>
-            </div>
-            <span class="card-cs-badge">Case Study</span>
-            <div class="card-view-btn" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3H13M13 3V13M13 3L3 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-          </a>
-        </div>
-
-      </div></div></div><section class="cta-banner" aria-label="Call to Action">
-    <div class="container" style="position:relative; z-index:1;">
-      <div data-reveal>
-        <span class="t-label" style="display:block; margin-bottom:18px;">Have a project in mind?</span>
-        <h2 class="t-hero">Let's build<br>something worth<br>remembering.</h2>
-        <div class="cta-actions">
-          <a href="contact.html" class="btn btn-primary magnetic">
-            <span>Start a Conversation</span>
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
+        <div class="work-grid">
+          <div class="work-item" data-reveal data-category="Branding" data-delay="1">
+            <a href="case-study/branding.html" class="project-card" aria-label="Apex — Complete Brand Identity">
+              <div class="card-img"><img src="https://picsum.photos/seed/apex-wide/800/600"      alt="Apex Brand Identity"    loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Apex — Complete Brand Identity</h3><p class="card-sub">Logo system · Colour palette · Brand guidelines</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Web Development" data-delay="2">
+            <a href="case-study/web-development.html" class="project-card" aria-label="Luminal — Website">
+              <div class="card-img"><img src="https://picsum.photos/seed/luminal-web/800/600"    alt="Luminal Website"        loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Luminal — Website</h3><p class="card-sub">Custom codebase · GSAP animations</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Video Editing" data-delay="3">
+            <a href="case-study/video-editing.html" class="project-card" aria-label="Vanta — Edit Reel">
+              <div class="card-img"><img src="https://picsum.photos/seed/vanta-motion/800/600"   alt="Vanta Motion Reel"      loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Vanta — Edit Reel</h3><p class="card-sub">Long-form editing · Sound design · Reels</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Web Development" data-delay="1">
+            <a href="case-study/web-development.html" class="project-card" aria-label="Vortex — Landing Page">
+              <div class="card-img"><img src="https://picsum.photos/seed/vortex-web/800/600"     alt="Vortex Landing Page"    loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Vortex — Landing Page</h3><p class="card-sub">Custom HTML/CSS/JS · SEO optimised</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Branding" data-delay="2">
+            <a href="case-study/branding.html" class="project-card" aria-label="Mesh Co — Visual Identity">
+              <div class="card-img"><img src="https://picsum.photos/seed/mesh-co/800/600"        alt="Mesh Co Brand Identity" loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Mesh Co. — Visual Identity</h3><p class="card-sub">Logo · Typography · Brand system</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Video Editing" data-delay="3">
+            <a href="case-study/video-editing.html" class="project-card" aria-label="Solace — Social Pack">
+              <div class="card-img"><img src="https://picsum.photos/seed/solace-motion/800/600"  alt="Solace Social Pack"     loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Solace — Social Pack</h3><p class="card-sub">Instagram Reels · YouTube Shorts</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Web Development" data-delay="1">
+            <a href="case-study/web-development.html" class="project-card" aria-label="Crest Studio — Portfolio Site">
+              <div class="card-img"><img src="https://picsum.photos/seed/crest-web/800/600"      alt="Crest Studio Portfolio" loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Crest Studio — Portfolio</h3><p class="card-sub">Custom HTML/CSS/JS · CMS integration</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Branding" data-delay="2">
+            <a href="case-study/branding.html" class="project-card" aria-label="Rova — Brand Refresh">
+              <div class="card-img"><img src="https://picsum.photos/seed/rova-brand/800/600"     alt="Rova Brand Refresh"     loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Rova — Brand Refresh</h3><p class="card-sub">Identity redesign · Brand strategy</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Video Editing" data-delay="3">
+            <a href="case-study/video-editing.html" class="project-card" aria-label="Klave — YouTube Series">
+              <div class="card-img"><img src="https://picsum.photos/seed/klave-deck/800/600"     alt="Klave YouTube Series"   loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Klave — YouTube Series</h3><p class="card-sub">Long-form editing · Thumbnails · SEO</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Web Development" data-delay="1">
+            <a href="case-study/web-development.html" class="project-card" aria-label="Forma — Web App">
+              <div class="card-img"><img src="https://picsum.photos/seed/forma-ui/800/600"       alt="Forma Dashboard"        loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Forma — Web App</h3><p class="card-sub">React · PHP backend · Design system</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Branding" data-delay="2">
+            <a href="case-study/branding.html" class="project-card" aria-label="Nova — Brand Launch">
+              <div class="card-img"><img src="https://picsum.photos/seed/nova-mkt/800/600"       alt="Nova Brand Launch"      loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Nova — Brand Launch</h3><p class="card-sub">Identity · Campaign visuals · Assets</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
+          <div class="work-item" data-reveal data-category="Video Editing" data-delay="3">
+            <a href="case-study/video-editing.html" class="project-card" aria-label="Dossier — Content Series">
+              <div class="card-img"><img src="https://picsum.photos/seed/dossier-app/800/600"    alt="Dossier Content Series" loading="lazy" width="800" height="600" /></div>
+              <div class="card-overlay"><h3 class="card-title">Dossier — Content Series</h3><p class="card-sub">YouTube · Reels · Color grading</p></div>
+              <div class="card-view-btn" aria-hidden="true"><i class="ri-arrow-right-up-line"></i></div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- CTA DIVIDER + BANNER -->
+    <div class="cta-divider" aria-hidden="true"></div>
+    <section class="cta-banner" aria-label="Call to Action">
+      <div class="container" style="position:relative;z-index:1;">
+        <div data-reveal>
+          <span class="t-label" style="display:block;margin-bottom:18px;">Have a project in mind?</span>
+          <h2 class="t-hero">Let's build<br />something worth<br />remembering.</h2>
+          <div class="cta-actions">
+            <a href="contact.html" class="btn btn-primary"><span>Start a Conversation</span><i class="ri-arrow-right-line"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer class="footer" aria-label="Site footer">
     <div class="footer-glow" aria-hidden="true"></div>
-    <div class="container">
-      <div class="footer-top">
+    <div class="footer-inner container">
+      <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="footer-logo">Creativo<span>.</span></a>
-          <p class="footer-tagline">Brand Structuralist</p>
-          <p>Design that thinks. Work that lasts.<br>Based in Lagos, Nigeria.</p>
-        </div>
-        <nav class="footer-nav" aria-label="Footer navigation">
-          <a href="index.html">Home</a>
-          <a href="work.html">Work</a>
-          <a href="about.html">About</a>
-          <a href="services.html">Services</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-        <div class="footer-connect">
-          <a href="mailto:contact@creativocreates.com" class="footer-email">contact@creativocreates.com</a>
+          <p class="footer-tagline">Brand Structuralist &amp; Video Editor</p>
+          <p class="footer-desc">Design that thinks. Work that lasts.<br />Based in Lagos, Nigeria.</p>
           <div class="footer-socials">
-            <a href="https://instagram.com/creativocreates" class="footer-social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://pinterest.com/creativocreates" class="footer-social" aria-label="Pinterest" target="_blank" rel="noopener noreferrer">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.85 0 3.1-2.36 3.1-5.15 0-2.13-1.43-3.62-3.47-3.62-2.36 0-3.74 1.77-3.74 3.6 0 .71.27 1.47.62 1.89.06.08.07.14.05.22-.06.25-.2.8-.23.91-.04.15-.13.18-.3.11-1.12-.52-1.82-2.17-1.82-3.49 0-2.84 2.06-5.45 5.94-5.45 3.12 0 5.55 2.22 5.55 5.19 0 3.1-1.95 5.59-4.65 5.59-.91 0-1.76-.47-2.05-1.03l-.56 2.08c-.2.78-.75 1.76-1.12 2.35.84.26 1.74.4 2.67.4 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
-            </a>
-            <a href="https://behance.net/creativocreates" class="footer-social" aria-label="Behance" target="_blank" rel="noopener noreferrer">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029H23.726zm-7.686-8c1.934 0 3.81 1.148 3.96 3.7H15c.188-2.6 2.116-3.7 1.04-3.7zM7.005 12.315c0 1.375-.43 2.43-1.285 3.16-.858.73-2.08 1.096-3.667 1.096H0V7h2.753c1.563 0 2.787.344 3.67 1.033.884.69 1.327 1.7 1.327 3.03.025.41 0 .85-.025 1.251h-3.9c.018 1.06.365 1.71.897 2.1.532.39 1.27.51 2.215.51.39 0 .776-.045 1.11-.137l.952-.29v2.82z"/></svg>
-            </a>
+            <a href="https://instagram.com/creativocreates" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer-social"><i class="ri-instagram-line"></i></a>
+            <a href="https://behance.net/creativocreates"   target="_blank" rel="noopener noreferrer" aria-label="Behance"   class="footer-social"><i class="ri-behance-line"></i></a>
+            <a href="https://pinterest.com/creativocreates" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" class="footer-social"><i class="ri-pinterest-line"></i></a>
           </div>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <nav class="footer-nav-links" aria-label="Footer navigation">
+            <a href="index.html"    class="footer-nav-link">Home     <i class="ri-arrow-right-up-line"></i></a>
+            <a href="work.html"     class="footer-nav-link">Work     <i class="ri-arrow-right-up-line"></i></a>
+            <a href="about.html"    class="footer-nav-link">About    <i class="ri-arrow-right-up-line"></i></a>
+            <a href="services.html" class="footer-nav-link">Services <i class="ri-arrow-right-up-line"></i></a>
+            <a href="contact.html"  class="footer-nav-link">Contact  <i class="ri-arrow-right-up-line"></i></a>
+          </nav>
+        </div>
+        <div class="footer-contact-col">
+          <h4 class="footer-col-title">Get In Touch</h4>
+          <a href="mailto:hello@creativocreates.live" class="footer-contact-item"><i class="ri-mail-line"></i> hello@creativocreates.live</a>
+          <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" class="footer-contact-item"><i class="ri-whatsapp-line"></i> Chat on WhatsApp</a>
+          <a href="contact.html" class="btn btn-primary footer-cta"><span>Start a Project</span><i class="ri-arrow-right-up-line"></i></a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copy">© <span class="footer-year"></span> <span>Creativo Creates</span>. All Rights Reserved.</p>
-        <p class="footer-made">Web Design By <em>Creativo</em></p>
+        <p class="footer-copy">© <span id="footerYear"></span> <span>Creativo Creates</span>. All Rights Reserved.</p>
+        <p class="footer-made">Designed &amp; Built by <em>Creativo</em></p>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="js/main.js"></script>
-
-  <script src="js/work.js"></script>
-
-  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
-
+  <button class="scroll-to-top" aria-label="Scroll to top"><i class="ri-arrow-up-line"></i></button>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/animation.js" defer></script>
+  <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
 </body>
 </html>
