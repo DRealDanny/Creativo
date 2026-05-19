@@ -1,0 +1,231 @@
+:root {
+  /* Core Palette from global.css */
+  --bg:              #050508;
+  --surface:         #0c0c12;
+  --surface-2:       #111119;
+  --surface-3:       #171722;
+
+  /* Blue System */
+  --blue:            #2060FF;
+  --blue-light:      #5285FF;
+  --blue-dim:        rgba(32, 96, 255, 0.10);
+  --blue-glow:       rgba(32, 96, 255, 0.20);
+  --blue-glow-lg:    rgba(32, 96, 255, 0.32);
+  --blue-border:     rgba(32, 96, 255, 0.22);
+
+  /* Text */
+  --text:            #EDEDED;
+  --text-muted:      #6E6E7A;
+  --text-dim:        #2E2E3A;
+
+  /* Brand color for Admin Login (Based on --blue from global.css but avoiding the red from mockup) */
+  --primary-color:   var(--blue);
+
+  /* Spacing & Transitions */
+  --t-fast: 0.15s ease;
+  --t-med: 0.3s ease;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f8f8; /* Soft background to contrast the white form card */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #050508;
+}
+
+/* Split Screen Layout Container */
+.login-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    background-color: #fff;
+    min-height: 100vh;
+    margin: 0 auto;
+}
+
+/* Form Panel (Left) */
+.login-form-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+.login-form-panel header {
+    margin-bottom: 2.5rem;
+}
+
+.login-form-panel h1 {
+    font-family: 'Playfair Display', 'Merriweather', serif; /* High-contrast editorial serif */
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 0.5rem;
+}
+
+.login-form-panel p {
+    color: #666;
+    font-size: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    background-color: #fff;
+    transition: border-color var(--t-fast), box-shadow var(--t-fast);
+    outline: none;
+    color: #333;
+}
+
+.form-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--blue-dim);
+}
+
+.form-input::placeholder {
+    color: #aaa;
+}
+
+/* Password visibility toggle */
+.password-toggle {
+    position: absolute;
+    right: 1.5rem;
+    top: 2.3rem; /* Adjust based on label + padding */
+    cursor: pointer;
+    color: #999;
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--t-fast);
+}
+
+.password-toggle:hover {
+    color: #333;
+}
+
+.password-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color var(--t-med), transform var(--t-fast);
+    margin-top: 1rem;
+}
+
+.btn-submit:hover {
+    background-color: var(--blue-light);
+    transform: translateY(-1px);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* Visual Art Panel (Right) */
+.login-visual-panel {
+    flex: 1;
+    display: none; /* Hidden on mobile by default */
+    background-color: #111;
+    position: relative;
+    overflow: hidden;
+}
+
+.visual-art-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Using a base64 dithering/noise pattern or gradient as placeholder */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch"/></filter><rect width="200" height="200" filter="url(%23n)" opacity="0.3"/></svg>'), linear-gradient(135deg, #050508 0%, #171722 100%);
+    background-size: 100px 100px, cover;
+    background-repeat: repeat, no-repeat;
+    /* Adding some styling to match the screenshot "bitmap-style" look */
+    filter: contrast(1.2) brightness(0.8);
+}
+
+/* Error message styling */
+.error-msg {
+    color: #d32f2f;
+    font-size: 0.875rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    background-color: #ffebee;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: none;
+}
+.error-msg.show {
+    display: block;
+}
+
+/* Responsive Media Queries */
+
+@media (min-width: 1024px) {
+    /* Desktop: 50/50 Split */
+    body {
+        padding: 0;
+    }
+
+    .login-container {
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+        max-width: 100%;
+    }
+
+    .login-visual-panel {
+        display: block;
+        height: 100vh;
+    }
+
+    .login-form-panel {
+        max-width: none;
+        padding: 4rem 10%;
+    }
+}
