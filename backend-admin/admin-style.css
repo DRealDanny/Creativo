@@ -229,3 +229,21 @@ body {
         padding: 4rem; /* Generous padding for desktop form */
     }
 }
+
+@media (max-width: 768px) {
+    /* Mobile: Full screen flat UI */
+    body {
+        padding: 0;
+    }
+
+    .login-container {
+        max-width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .login-form-panel {
+        padding: 2rem;
+    }
+}
