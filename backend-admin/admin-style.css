@@ -35,21 +35,25 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f8f8f8; /* Soft background to contrast the white form card */
+    background-color: #f4f4f0; /* Light beige/off-white background matching mockups */
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #050508;
+    padding: 2rem; /* Add padding to body to ensure card doesn't touch edges on small screens */
 }
 
-/* Split Screen Layout Container */
+/* Split Screen Layout Container (Floating Card) */
 .login-container {
     display: grid;
     grid-template-columns: 1fr;
     width: 100%;
+    max-width: 400px; /* Mobile max width */
     background-color: #fff;
-    min-height: 100vh;
+    border-radius: 20px; /* Rounded corners for floating card */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05); /* Premium soft drop shadow */
+    overflow: hidden; /* Ensure visual art respects border radius */
     margin: 0 auto;
 }
 
@@ -58,10 +62,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 4rem;
+    padding: 3rem; /* Adjusted for smaller card size initially */
     margin: 0 auto;
     width: 100%;
-    max-width: 600px;
 }
 
 .login-form-panel header {
@@ -205,27 +208,24 @@ body {
 /* Responsive Media Queries */
 
 @media (min-width: 1024px) {
-    /* Desktop: 50/50 Split */
+    /* Desktop: 50/50 Split inside Floating Card */
     body {
-        padding: 0;
+        padding: 2rem;
     }
 
     .login-container {
         grid-template-columns: 1fr 1fr;
-        min-height: 100vh;
-        height: 100vh;
-        border-radius: 0;
-        box-shadow: none;
-        max-width: 100%;
+        max-width: 1000px; /* Constrain max-width for floating aesthetic */
+        min-height: 600px; /* Fixed or min height for desktop card */
+        /* Maintain border-radius and box-shadow from mobile */
     }
 
     .login-visual-panel {
         display: block;
-        height: 100vh;
+        height: 100%; /* Fill container instead of viewport */
     }
 
     .login-form-panel {
-        max-width: none;
-        padding: 4rem 10%;
+        padding: 4rem; /* Generous padding for desktop form */
     }
 }
