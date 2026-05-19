@@ -17,6 +17,7 @@
 
    ============================================================ */
 
+window.CreativoAnim = {};
 (function () {
   'use strict';
 
@@ -40,6 +41,7 @@
      02  HERO THREE.JS CANVAS
      ============================================================ */
 
+  let threeAnimId;
   function initHeroCanvas() {
     const container = document.getElementById('heroCanvas');
     if (!container) return;
@@ -72,7 +74,7 @@
     const clock = new THREE.Clock();
 
     function animate() {
-      requestAnimationFrame(animate);
+      threeAnimId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
       sphere.rotation.x += 0.001;
       sphere.rotation.y += 0.002;
@@ -111,9 +113,27 @@
      04  INIT
      ============================================================ */
 
-  document.addEventListener('DOMContentLoaded', () => {
+  window.CreativoAnim.initAll = function() {
     initHeroCanvas();
     initHeroEntrance();
+  };
+
+  window.CreativoAnim.cleanupAll = function() {
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    }
+    // Also stop Three.js if needed (a simple way is to remove canvas or just let it be GC'd if we re-create it)
+    if (threeAnimId) {
+      cancelAnimationFrame(threeAnimId);
+    }
+    const threeContainer = document.getElementById('three-canvas-container');
+    if (threeContainer) {
+       threeContainer.innerHTML = '';
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    window.CreativoAnim.initAll();
   });
 
 })();

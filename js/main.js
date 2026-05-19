@@ -18,6 +18,7 @@
 
    ============================================================ */
 
+window.CreativoMain = {};
 (function () {
   'use strict';
 
@@ -524,8 +525,7 @@
      12  INIT — Run everything on DOMContentLoaded
      ============================================================ */
 
-  document.addEventListener('DOMContentLoaded', () => {
-    initLoader();
+  window.CreativoMain.initAll = function() {
     initNavbar();
     initMobileMenu();
     initCursor();
@@ -537,6 +537,11 @@
     initWorkFilter();
     initToolsTabs();
     initAccordion();
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // initLoader(); is now handled in barba-transitions.js
+    window.CreativoMain.initAll();
   });
 
 })();

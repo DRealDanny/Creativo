@@ -10,23 +10,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="../css/global.css" />
-  <link rel="stylesheet" href="../css/case-study.css" />
-  <link rel="stylesheet" href="../css/tablet-res.css" />
-  <link rel="stylesheet" href="../css/mobile-res.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/case-study.css" />
+  <link rel="stylesheet" href="/css/tablet-res.css" />
+  <link rel="stylesheet" href="/css/mobile-res.css" />
 </head>
-<body>
-  <!-- GSAP INITIAL LOADER -->
+<body data-barba="wrapper">
+    <!-- GSAP INITIAL LOADER -->
   <div id="gsap-loader" class="gsap-loader">
     <div class="loader-logo">
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="30" cy="30" r="30" fill="var(--blue)"/>
-        <path d="M40 20H20V40H40V20Z" fill="white"/>
-      </svg>
+      <div class="loader-text" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
+        <span style="display:inline-block;">C</span>
+        <span style="display:inline-block;">R</span>
+        <span style="display:inline-block;">E</span>
+        <span style="display:inline-block;">A</span>
+        <span style="display:inline-block;">T</span>
+        <span style="display:inline-block;">I</span>
+        <span style="display:inline-block;">V</span>
+        <span style="display:inline-block;">O</span>
+        <span class="loader-dot" style="display:inline-block; color:var(--blue);">.</span>
+      </div>
     </div>
   </div>
 
-  <div data-barba="wrapper">
+
 
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
@@ -36,26 +43,26 @@
   </div>
 
   <nav class="nav" aria-label="Main navigation">
-    <a href="../index.html" class="nav-logo">Creativo<span>.</span></a>
+    <a href="/index.html" class="nav-logo">Creativo<span>.</span></a>
     <ul class="nav-links" role="list">
-      <li><a href="../index.html"    class="nav-link">Home</a></li>
-      <li><a href="../work.html"     class="nav-link">Work</a></li>
-      <li><a href="../about.html"    class="nav-link">About</a></li>
-      <li><a href="../services.html" class="nav-link">Services</a></li>
-      <li><a href="../contact.html"  class="nav-link">Contact</a></li>
+      <li><a href="/index.html"    class="nav-link">Home</a></li>
+      <li><a href="/work.html"     class="nav-link">Work</a></li>
+      <li><a href="/about.html"    class="nav-link">About</a></li>
+      <li><a href="/services.html" class="nav-link">Services</a></li>
+      <li><a href="/contact.html"  class="nav-link">Contact</a></li>
     </ul>
-    <a href="../contact.html" class="nav-cta">Let's Talk</a>
+    <a href="/contact.html" class="nav-cta">Let's Talk</a>
     <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false"><i class="ri-menu-line"></i></button>
   </nav>
 
   <div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
     <button class="mobile-close" aria-label="Close navigation menu"><i class="ri-close-line"></i></button>
     <nav class="mobile-links">
-      <a href="../index.html"    class="mobile-link">Home</a>
-      <a href="../work.html"     class="mobile-link">Work</a>
-      <a href="../about.html"    class="mobile-link">About</a>
-      <a href="../services.html" class="mobile-link">Services</a>
-      <a href="../contact.html"  class="mobile-link">Contact</a>
+      <a href="/index.html"    class="mobile-link">Home</a>
+      <a href="/work.html"     class="mobile-link">Work</a>
+      <a href="/about.html"    class="mobile-link">About</a>
+      <a href="/services.html" class="mobile-link">Services</a>
+      <a href="/contact.html"  class="mobile-link">Contact</a>
     </nav>
     <div class="mobile-social">
       <hr class="mobile-divider" />
@@ -134,8 +141,8 @@
           <span class="t-label" style="display:block;margin-bottom:18px;">Ready to Elevate Your Content?</span>
           <h2 class="t-hero">Let's create edits<br />people can't scroll past.</h2>
           <div class="cta-actions">
-            <a href="../contact.html" class="btn btn-primary"><span>Start a Video Project</span><i class="ri-arrow-right-line"></i></a>
-            <a href="../work.html"    class="btn btn-outline">View All Work</a>
+            <a href="/contact.html" class="btn btn-primary"><span>Start a Video Project</span><i class="ri-arrow-right-line"></i></a>
+            <a href="/work.html"    class="btn btn-outline">View All Work</a>
           </div>
         </div>
       </div>
@@ -148,7 +155,7 @@
     <div class="footer-inner container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="../index.html" class="footer-logo">Creativo<span>.</span></a>
+          <a href="/index.html" class="footer-logo">Creativo<span>.</span></a>
           <p class="footer-tagline">Brand Structuralist &amp; Video Editor</p>
           <p class="footer-desc">Design that thinks. Work that lasts.<br />Based in Lagos, Nigeria.</p>
           <div class="footer-socials">
@@ -160,18 +167,18 @@
         <div>
           <h4 class="footer-col-title">Navigation</h4>
           <nav class="footer-nav-links" aria-label="Footer navigation">
-            <a href="../index.html"    class="footer-nav-link">Home     <i class="ri-arrow-right-up-line"></i></a>
-            <a href="../work.html"     class="footer-nav-link">Work     <i class="ri-arrow-right-up-line"></i></a>
-            <a href="../about.html"    class="footer-nav-link">About    <i class="ri-arrow-right-up-line"></i></a>
-            <a href="../services.html" class="footer-nav-link">Services <i class="ri-arrow-right-up-line"></i></a>
-            <a href="../contact.html"  class="footer-nav-link">Contact  <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/index.html"    class="footer-nav-link">Home     <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/work.html"     class="footer-nav-link">Work     <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/about.html"    class="footer-nav-link">About    <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/services.html" class="footer-nav-link">Services <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/contact.html"  class="footer-nav-link">Contact  <i class="ri-arrow-right-up-line"></i></a>
           </nav>
         </div>
         <div class="footer-contact-col">
           <h4 class="footer-col-title">Get In Touch</h4>
           <a href="mailto:hello@creativocreates.live" class="footer-contact-item"><i class="ri-mail-line"></i> hello@creativocreates.live</a>
           <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" class="footer-contact-item"><i class="ri-whatsapp-line"></i> Chat on WhatsApp</a>
-          <a href="../contact.html" class="btn btn-primary footer-cta"><span>Start a Project</span><i class="ri-arrow-right-up-line"></i></a>
+          <a href="/contact.html" class="btn btn-primary footer-cta"><span>Start a Project</span><i class="ri-arrow-right-up-line"></i></a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -184,9 +191,11 @@
   <button class="scroll-to-top" aria-label="Scroll to top"><i class="ri-arrow-up-line"></i></button>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-  <script src="../js/main.js" defer></script>
-  <script src="../js/animation.js" defer></script>
+  <script src="https://unpkg.com/@barba/core"></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/animation.js" defer></script>
   <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
-  </div>
+  <div class="transition-curtain"></div>
+  <script src="/js/barba-transitions.js" defer></script>
 </body>
 </html>
