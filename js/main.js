@@ -495,6 +495,69 @@
      13  GSAP INITIAL LOADER
      ============================================================ */
 
+
+  /* ============================================================
+     14  BARBA.JS ROUTING & TRANSITIONS
+     ============================================================ */
+
+  function initBarba() {
+    if (typeof barba === 'undefined') return;
+
+    barba.init({
+      prevent: ({ el }) => {
+        // Prevent Barba from intercepting links to backend-admin
+        if (el.href && el.href.includes('/backend-admin')) {
+          return true;
+        }
+        return false;
+      },
+      transitions: [{
+        name: 'curtain-transition',
+        leave(data) {
+          const curtain = document.querySelector('.transition-curtain');
+          return gsap.to(curtain, {
+            y: '0%',
+            duration: 0.5,
+            ease: 'power4.inOut'
+          });
+        },
+        enter(data) {
+          const curtain = document.querySelector('.transition-curtain');
+          return gsap.to(curtain, {
+            y: '-100%',
+            duration: 0.5,
+            ease: 'power4.inOut'
+          });
+        },
+        after(data) {
+          const curtain = document.querySelector('.transition-curtain');
+          gsap.set(curtain, { y: '100%' });
+        }
+      }]
+    });
+
+    // Re-initialize scripts on after hook
+    barba.hooks.after(() => {
+      initScrollReveal();
+      initStatsCounter();
+      initShowreelModal();
+      initScrollToTop();
+      initWorkFilter();
+      initToolsTabs();
+      initAccordion();
+      window.scrollTo(0, 0);
+      const mobileMenu = document.querySelector('.mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.remove('open');
+        document.querySelector('.nav-hamburger')?.setAttribute('aria-expanded', 'false');
+      }
+
+      // Trigger event for animation.js to hook into if needed
+      document.dispatchEvent(new Event('page:entered'));
+    });
+  }
+
+
   function initLoader() {
     const loader = document.getElementById('gsap-loader');
     if (!loader) return;
@@ -537,6 +600,7 @@
     initWorkFilter();
     initToolsTabs();
     initAccordion();
+    initBarba();
   });
 
 })();

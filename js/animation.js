@@ -111,9 +111,12 @@
      04  INIT
      ============================================================ */
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initAnimations() {
     initHeroCanvas();
     initHeroEntrance();
-  });
+  }
+  document.addEventListener('DOMContentLoaded', initAnimations);
+  document.addEventListener('page:entered', initAnimations);
+
 
 })();

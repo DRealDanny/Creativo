@@ -1312,3 +1312,19 @@ input, textarea, select {
   justify-content: center;
   align-items: center;
 }
+
+/* ============================================================
+   19  BARBA TRANSITION CURTAIN
+   ============================================================ */
+
+.transition-curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg);
+  z-index: 9999;
+  transform: translateY(100%);
+  pointer-events: none;
+}
