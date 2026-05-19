@@ -14,6 +14,7 @@
    10  ABOUT PAGE — tools tabs
    11  ABOUT PAGE — tools accordion (mobile)
    12  INIT
+   13  GSAP INITIAL LOADER
 
    ============================================================ */
 
@@ -489,11 +490,42 @@
   }
 
 
+
+  /* ============================================================
+     13  GSAP INITIAL LOADER
+     ============================================================ */
+
+  function initLoader() {
+    const loader = document.getElementById('gsap-loader');
+    if (!loader) return;
+
+    if (sessionStorage.getItem('loaderHasRun')) {
+      loader.style.display = 'none';
+      return;
+    }
+
+    // Ensure it triggers after load
+    window.addEventListener('load', () => {
+      const logo = loader.querySelector('.loader-logo');
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          loader.style.display = 'none';
+          sessionStorage.setItem('loaderHasRun', 'true');
+        }
+      });
+
+      tl.to(logo, { scale: 1.2, opacity: 0, duration: 0.8, ease: "power2.inOut", delay: 0.2 })
+        .to(loader, { y: "-100%", opacity: 0, duration: 0.8, ease: "power3.inOut" }, "-=0.2");
+    });
+  }
+
   /* ============================================================
      12  INIT — Run everything on DOMContentLoaded
      ============================================================ */
 
   document.addEventListener('DOMContentLoaded', () => {
+    initLoader();
     initNavbar();
     initMobileMenu();
     initCursor();
