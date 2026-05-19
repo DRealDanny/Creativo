@@ -1322,3 +1322,11 @@ input, textarea, select {
   pointer-events: none;
   transform: translateY(100%);
 }
+
+/* RESTORE GLOBAL HEADER STRUCTURE */
+.global-header {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 100;
+  /* Make sure header contents don't collapse */
+}
