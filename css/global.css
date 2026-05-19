@@ -1312,3 +1312,13 @@ input, textarea, select {
   justify-content: center;
   align-items: center;
 }
+
+/* BARBA TRANSITION CURTAIN */
+.transition-curtain {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-color: #111; /* Use site's dark brand color */
+  z-index: 99999;
+  pointer-events: none;
+  transform: translateY(100%);
+}

@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/tablet-res.css" />
   <link rel="stylesheet" href="css/mobile-res.css" />
 </head>
-<body>
+<body data-barba="wrapper">
   <!-- GSAP INITIAL LOADER -->
   <div id="gsap-loader" class="gsap-loader">
     <div class="loader-logo">
@@ -69,7 +69,7 @@
   </div>
   <div class="nav-backdrop" aria-hidden="true"></div>
 
-  <main style="overflow-x:hidden;" data-barba="container" data-barba-namespace="home">
+  <main style="overflow-x:hidden;" data-barba="container" data-barba-namespace="page">
 
     <!-- ── HERO ── -->
     <section class="hero" aria-labelledby="hero-heading">
@@ -313,9 +313,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/@barba/core" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/animation.js" defer></script>
   <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
   </div>
+  <div class="transition-curtain"></div>
 </body>
 </html>

@@ -524,7 +524,57 @@
      12  INIT — Run everything on DOMContentLoaded
      ============================================================ */
 
+
+  /* ============================================================
+     14  BARBA.JS INITIALIZATION
+     ============================================================ */
+  function initBarba() {
+    if (typeof barba === 'undefined') return;
+
+    barba.init({
+      prevent: ({ el }) => {
+        return el.href && el.href.includes('/backend-admin');
+      },
+      transitions: [{
+        name: 'curtain-transition',
+        leave({ current }) {
+          return gsap.to('.transition-curtain', {
+            y: "0%",
+            duration: 0.6,
+            ease: "power2.inOut"
+          });
+        },
+        enter({ next }) {
+          gsap.to('.transition-curtain', {
+            y: "-100%",
+            duration: 0.6,
+            ease: "power2.inOut"
+          });
+        },
+        after() {
+          gsap.set('.transition-curtain', { y: "100%" });
+        }
+      }]
+    });
+
+    barba.hooks.afterEnter(() => {
+      // Re-initialize custom scripts here
+      initNavbar();
+      initMobileMenu();
+      initCursor();
+      initOrbParallax();
+      initScrollReveal();
+      initStatsCounter();
+      initShowreelModal();
+      initScrollToTop();
+      initWorkFilter();
+      initToolsTabs();
+      initAccordion();
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    initBarba();
     initLoader();
     initNavbar();
     initMobileMenu();
