@@ -16,18 +16,6 @@
   <link rel="stylesheet" href="css/mobile-res.css" />
 </head>
 <body>
-  <!-- GSAP INITIAL LOADER -->
-  <div id="gsap-loader" class="gsap-loader">
-    <div class="loader-logo">
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="30" cy="30" r="30" fill="var(--blue)"/>
-        <path d="M40 20H20V40H40V20Z" fill="white"/>
-      </svg>
-    </div>
-  </div>
-
-  <div data-barba="wrapper">
-
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
   <div class="noise-layer" aria-hidden="true"></div>
@@ -36,9 +24,9 @@
   </div>
 
   <nav class="nav" aria-label="Main navigation">
-    <a href="/" class="nav-logo">Creativo<span>.</span></a>
+    <a href="index.html" class="nav-logo">Creativo<span>.</span></a>
     <ul class="nav-links" role="list">
-      <li><a href="/"    class="nav-link">Home</a></li>
+      <li><a href="index.html"    class="nav-link">Home</a></li>
       <li><a href="work.html"     class="nav-link">Work</a></li>
       <li><a href="about.html"    class="nav-link">About</a></li>
       <li><a href="services.html" class="nav-link">Services</a></li>
@@ -51,7 +39,7 @@
   <div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
     <button class="mobile-close" aria-label="Close navigation menu"><i class="ri-close-line"></i></button>
     <nav class="mobile-links">
-      <a href="/"    class="mobile-link">Home</a>
+      <a href="index.html"    class="mobile-link">Home</a>
       <a href="work.html"     class="mobile-link">Work</a>
       <a href="about.html"    class="mobile-link">About</a>
       <a href="services.html" class="mobile-link">Services</a>
@@ -69,7 +57,7 @@
   </div>
   <div class="nav-backdrop" aria-hidden="true"></div>
 
-  <main style="overflow-x:hidden;" data-barba="container" data-barba-namespace="home">
+  <main style="overflow-x:hidden;">
 
     <!-- ── HERO ── -->
     <section class="hero" aria-labelledby="hero-heading">
@@ -316,6 +304,5 @@
   <script src="js/main.js" defer></script>
   <script src="js/animation.js" defer></script>
   <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
-  </div>
-</body>
+  </body>
 </html>
