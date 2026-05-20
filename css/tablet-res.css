@@ -1,9 +1,9 @@
 /* ============================================================
    TABLET RESPONSIVE — tablet-res.css
-   Breakpoint: max-width 1024px
+   Breakpoint: 768px - 1180px
    ============================================================ */
 
-@media (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1180px) {
 
   /* ── ROOT SPACING ── */
   :root {
@@ -19,14 +19,20 @@
 
   /* ── LAYOUT ── */
   .flex-between {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
   }
 
 
   /* ── HOME: HERO ── */
+  .hero {
+    height: auto;
+    min-height: 0;
+    padding: 120px var(--pad) 120px;
+  }
+
   .hero-inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   #heroCanvas    { display: none; }
@@ -46,14 +52,14 @@
 
   /* ── HOME: ABOUT STRIP ── */
   .about-strip {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 44px;
   }
 
 
   /* ── HOME: SERVICES SNAP ── */
   .services-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .service-item { padding: 36px 28px; }
@@ -68,14 +74,14 @@
 
   /* ── ABOUT: TOOLS GRID ── */
   .tools-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
 
   /* ── ABOUT: STORY ── */
   .story-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 52px;
   }
 
@@ -105,7 +111,7 @@
 
   /* ── CONTACT ── */
   .contact-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 52px;
   }
 
@@ -129,7 +135,7 @@
 
   /* ── CASE STUDY ── */
   .cs-hero-split {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     min-height: auto;
   }
 
