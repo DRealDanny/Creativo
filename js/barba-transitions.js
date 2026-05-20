@@ -37,6 +37,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+
+    barba.hooks.beforeEnter((data) => {
+        // 1. Parse the incoming HTML string
+        const nextHtml = data.next.html;
+        const parser = new DOMParser();
+        const nextDoc = parser.parseFromString(nextHtml, 'text/html');
+
+        // 2. Sync Body Classes (Crucial for page-specific layouts)
+        document.body.className = nextDoc.body.className;
+
+        // 3. Sync Head Stylesheets (Crucial for page-specific CSS)
+        const currentHead = document.head;
+        const nextHead = nextDoc.head;
+
+        const nextLinks = Array.from(nextHead.querySelectorAll('link[rel="stylesheet"]'));
+        nextLinks.forEach(link => {
+            // If the new stylesheet isn't in the current head, append it
+            if (!currentHead.querySelector(`link[href="${link.getAttribute('href')}"]`)) {
+                const newLink = document.createElement('link');
+                newLink.rel = 'stylesheet';
+                newLink.href = link.getAttribute('href');
+                currentHead.appendChild(newLink);
+            }
+        });
+    });
+
     // BARBA INIT
     barba.init({
         prevent: ({ el }) => {
