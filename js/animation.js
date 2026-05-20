@@ -111,9 +111,23 @@
      04  INIT
      ============================================================ */
 
+
+  window.CreativoAnim = {
+    initAll: () => {
+      initHeroCanvas();
+      initHeroEntrance();
+    },
+    cleanupAll: () => {
+      const container = document.getElementById('heroCanvasContainer');
+      if (container) {
+          container.innerHTML = '';
+      }
+    }
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
-    initHeroCanvas();
-    initHeroEntrance();
+    window.CreativoAnim.initAll();
   });
+
 
 })();
