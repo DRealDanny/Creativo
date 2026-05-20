@@ -16,18 +16,6 @@
   <link rel="stylesheet" href="css/mobile-res.css" />
 </head>
 <body>
-  <!-- GSAP INITIAL LOADER -->
-  <div id="gsap-loader" class="gsap-loader">
-    <div class="loader-logo">
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="30" cy="30" r="30" fill="var(--blue)"/>
-        <path d="M40 20H20V40H40V20Z" fill="white"/>
-      </svg>
-    </div>
-  </div>
-
-  <div data-barba="wrapper">
-
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
   <div class="noise-layer" aria-hidden="true"></div>
@@ -69,7 +57,7 @@
   </div>
   <div class="nav-backdrop" aria-hidden="true"></div>
 
-  <main style="overflow-x:hidden;" data-barba="container" data-barba-namespace="about">
+  <main style="overflow-x:hidden;">
 
     <!-- HERO -->
     <section class="about-hero" aria-labelledby="about-heading">
@@ -262,6 +250,5 @@
   <script src="js/main.js" defer></script>
   <script src="js/animation.js" defer></script>
   <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
-  </div>
-</body>
+  </body>
 </html>

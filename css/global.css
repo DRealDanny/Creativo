@@ -1293,22 +1293,4 @@ input, textarea, select {
 /* ============================================================
    19  GSAP INITIAL LOADER
    ============================================================ */
-.gsap-loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--bg);
-  z-index: 99999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-}
 
-.loader-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
