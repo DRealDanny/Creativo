@@ -49,9 +49,9 @@
       return;
     }
 
-    const scene    = new THREE.Scene();
-    const camera   = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    heroScene = new THREE.Scene(); const scene = heroScene;
+    heroCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); const camera = heroCamera;
+    heroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); const renderer = heroRenderer;
 
     renderer.setSize(500, 500);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -72,7 +72,7 @@
     const clock = new THREE.Clock();
 
     function animate() {
-      requestAnimationFrame(animate);
+      heroReqId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
       sphere.rotation.x += 0.001;
       sphere.rotation.y += 0.002;
@@ -111,9 +111,41 @@
      04  INIT
      ============================================================ */
 
+
+  let heroScene, heroRenderer, heroCamera, heroReqId;
+
+  window.CreativoAnim = {
+    initAll: function() {
+      initHeroCanvas();
+      initHeroEntrance();
+    },
+    cleanupAll: function() {
+      // Kill all ScrollTriggers
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.getAll().forEach(t => t.kill());
+      }
+      // Cleanup Three.js
+      if (heroReqId) {
+        cancelAnimationFrame(heroReqId);
+        heroReqId = null;
+      }
+      if (heroRenderer) {
+        heroRenderer.dispose();
+        heroRenderer.forceContextLoss();
+        heroRenderer.domElement.remove();
+        heroRenderer = null;
+      }
+      if (heroScene) {
+        heroScene.clear();
+        heroScene = null;
+      }
+      heroCamera = null;
+    }
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
-    initHeroCanvas();
-    initHeroEntrance();
+    window.CreativoAnim.initAll();
   });
+
 
 })();

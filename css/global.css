@@ -1312,3 +1312,18 @@ input, textarea, select {
   justify-content: center;
   align-items: center;
 }
+
+/* ============================================================
+   20  TRANSITION CURTAIN
+   ============================================================ */
+.transition-curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #2060FF;
+  z-index: 9999;
+  transform: translateY(100%);
+  pointer-events: none;
+}

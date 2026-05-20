@@ -524,19 +524,26 @@
      12  INIT — Run everything on DOMContentLoaded
      ============================================================ */
 
+
+  window.CreativoMain = {
+    initAll: function() {
+      initNavbar();
+      initMobileMenu();
+      initCursor();
+      initOrbParallax();
+      initScrollReveal();
+      initStatsCounter();
+      initShowreelModal();
+      initScrollToTop();
+      initWorkFilter();
+      initToolsTabs();
+      initAccordion();
+    }
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
-    initLoader();
-    initNavbar();
-    initMobileMenu();
-    initCursor();
-    initOrbParallax();
-    initScrollReveal();
-    initStatsCounter();
-    initShowreelModal();
-    initScrollToTop();
-    initWorkFilter();
-    initToolsTabs();
-    initAccordion();
+        window.CreativoMain.initAll();
   });
+
 
 })();
