@@ -18,13 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     ease: "power2.inOut"
                 });
             },
+
             enter(data) {
-                // Barba swaps DOM implicitly here since sync: true?
-                // Actually sync: true will run leave and enter at the same time if not careful,
-                // but if we wait for leave, we can just use async/await. Wait, sync: true in barba means leave and enter run concurrently.
-                // The prompt says: "leave: GSAP animates curtain up (y: "0%") over 0.5s. enter: Barba swaps DOM. after: GSAP animates curtain off the top (y: "-100%") over 0.5s. Instantly reset to y: "100%"."
-                // This means sync: false (default). leave finishes -> enter -> after finishes.
+                window.scrollTo(0, 0);
             },
+
             after(data) {
                 // after: GSAP animates curtain off the top (y: "-100%") over 0.5s. Instantly reset to y: "100%".
                 return gsap.to('.transition-curtain', {
@@ -51,11 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Sync body class
         document.body.className = nextDoc.body.className;
 
-        // Sync missing stylesheets
-        const nextLinks = nextDoc.querySelectorAll('link[rel="stylesheet"]');
-        const currentLinks = document.querySelectorAll('link[rel="stylesheet"]');
-        const currentHrefs = Array.from(currentLinks).map(link => link.getAttribute('href'));
+        // Sync missing stylesheets and remove old ones
+        const nextLinks = Array.from(nextDoc.querySelectorAll('link[rel="stylesheet"]'));
+        const currentLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+        const nextHrefs = nextLinks.map(link => link.getAttribute('href'));
+        const currentHrefs = currentLinks.map(link => link.getAttribute('href'));
 
+        // Add new ones
         nextLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (!currentHrefs.includes(href)) {
@@ -63,6 +63,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 newLink.rel = 'stylesheet';
                 newLink.href = href;
                 document.head.appendChild(newLink);
+            }
+        });
+
+        // Remove old ones that are not in next page
+        // Wait, maybe we don't need to remove global.css, but we definitely should remove ones not present in nextDoc.
+        currentLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!nextHrefs.includes(href)) {
+                link.remove();
             }
         });
     });
@@ -80,14 +89,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     barba.hooks.after((data) => {
         // Close the mobile side canvas menu
-        const navLinksWrap = document.querySelector('.nav-links-wrap');
-        const navBackdrop = document.querySelector('.nav-backdrop');
-        const mobileToggle = document.querySelector('.mobile-nav-toggle');
 
-        if (navLinksWrap) navLinksWrap.classList.remove('open');
-        if (navBackdrop) navBackdrop.classList.remove('open');
-        if (mobileToggle) mobileToggle.classList.remove('open');
+        const menu = document.querySelector('.mobile-menu');
+        const backdrop = document.querySelector('.nav-backdrop');
+
+        if (menu) menu.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('visible');
         document.body.style.overflow = ''; // reset body overflow if it was locked
+
 
         // Update active link states
         const currentPath = window.location.pathname;
