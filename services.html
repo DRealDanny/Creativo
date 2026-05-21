@@ -10,12 +10,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="css/global.css" />
-  <link rel="stylesheet" href="css/services.css" />
-  <link rel="stylesheet" href="css/tablet-res.css" />
-  <link rel="stylesheet" href="css/mobile-res.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/services.css" data-barba-style="true" />
+  <link rel="stylesheet" href="/css/tablet-res.css" />
+  <link rel="stylesheet" href="/css/mobile-res.css" />
 </head>
-<body>
+<body data-barba="wrapper">
+
+  <div id="site-loader" aria-hidden="true">
+    <div class="loader-wordmark">
+      <span class="loader-letter-wrap"><span class="loader-letter">C</span></span>
+      <span class="loader-letter-wrap"><span class="loader-letter">R</span></span>
+      <span class="loader-letter-wrap"><span class="loader-letter">E</span></span>
+      <span class="loader-letter-wrap"><span class="loader-letter">A</span></span>
+      <span class="loader-letter-wrap"><span class="loader-letter">T</span></span>
+      <span class="loader-letter-wrap"><span class="loader-letter">I</span></span>
+      <span class="loader-letter-wrap"><span class="loader-letter">V</span></span>
+      <span class="loader-letter-wrap"><span class="loader-letter">O</span></span>
+      <span class="loader-dot">.</span>
+    </div>
+  </div>
+  <div class="transition-curtain" aria-hidden="true"></div>
+
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
   <div class="noise-layer" aria-hidden="true"></div>
@@ -24,26 +40,26 @@
   </div>
 
   <nav class="nav" aria-label="Main navigation">
-    <a href="index.html" class="nav-logo">Creativo<span>.</span></a>
+    <a href="/" class="nav-logo">Creativo<span>.</span></a>
     <ul class="nav-links" role="list">
-      <li><a href="index.html"    class="nav-link">Home</a></li>
-      <li><a href="work.html"     class="nav-link">Work</a></li>
-      <li><a href="about.html"    class="nav-link">About</a></li>
-      <li><a href="services.html" class="nav-link">Services</a></li>
-      <li><a href="contact.html"  class="nav-link">Contact</a></li>
+      <li><a href="/"    class="nav-link">Home</a></li>
+      <li><a href="/work"     class="nav-link">Work</a></li>
+      <li><a href="/about"    class="nav-link">About</a></li>
+      <li><a href="/services" class="nav-link">Services</a></li>
+      <li><a href="/contact"  class="nav-link">Contact</a></li>
     </ul>
-    <a href="contact.html" class="nav-cta">Let's Talk</a>
+    <a href="/contact" class="nav-cta">Let's Talk</a>
     <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false"><i class="ri-menu-line"></i></button>
   </nav>
 
   <div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
     <button class="mobile-close" aria-label="Close navigation menu"><i class="ri-close-line"></i></button>
     <nav class="mobile-links">
-      <a href="index.html"    class="mobile-link">Home</a>
-      <a href="work.html"     class="mobile-link">Work</a>
-      <a href="about.html"    class="mobile-link">About</a>
-      <a href="services.html" class="mobile-link">Services</a>
-      <a href="contact.html"  class="mobile-link">Contact</a>
+      <a href="/"    class="mobile-link">Home</a>
+      <a href="/work"     class="mobile-link">Work</a>
+      <a href="/about"    class="mobile-link">About</a>
+      <a href="/services" class="mobile-link">Services</a>
+      <a href="/contact"  class="mobile-link">Contact</a>
     </nav>
     <div class="mobile-social">
       <hr class="mobile-divider" />
@@ -57,7 +73,7 @@
   </div>
   <div class="nav-backdrop" aria-hidden="true"></div>
 
-  <main style="overflow-x:hidden;">
+  <main data-barba="container" data-barba-namespace="services" style="overflow-x:hidden;">
 
     <!-- HERO -->
     <section class="services-hero" aria-labelledby="services-heading">
@@ -81,7 +97,7 @@
           <div class="service-block-body">
             <h3 class="service-block-name">Branding</h3>
             <p class="service-block-desc">For businesses that want to be remembered. I build complete visual identity systems — not just logos. From brand positioning and strategy to logo systems, colour and typography, comprehensive brand guidelines, and real-world application across every touchpoint. Every element is intentional. Every decision is documented.</p>
-            <a href="contact.html" class="service-block-link">Start a Branding Project <i class="ri-arrow-right-line"></i></a>
+            <a href="/contact" class="service-block-link">Start a Branding Project <i class="ri-arrow-right-line"></i></a>
           </div>
           <div class="service-deliverables">
             <h5 class="deliverables-title">Deliverables</h5>
@@ -101,7 +117,7 @@
           <div class="service-block-body">
             <h3 class="service-block-name">Web Development</h3>
             <p class="service-block-desc">Websites that don't just look good — they work. I build custom websites with clean code, considered motion, and performance baked in. From fully custom HTML/CSS/JS codebases to WordPress builds, every site is developed without shortcuts. Because shortcuts show up eventually.</p>
-            <a href="contact.html" class="service-block-link">Start a Web Project <i class="ri-arrow-right-line"></i></a>
+            <a href="/contact" class="service-block-link">Start a Web Project <i class="ri-arrow-right-line"></i></a>
           </div>
           <div class="service-deliverables">
             <h5 class="deliverables-title">Deliverables</h5>
@@ -122,7 +138,7 @@
           <div class="service-block-body">
             <h3 class="service-block-name">Video Editing</h3>
             <p class="service-block-desc">For content creators who know their audience deserves better than average edits. I turn raw footage into polished, platform-ready content — YouTube videos, Instagram Reels, YouTube Shorts, and beyond. Every edit is built around the creator's voice and the platform it lives on.</p>
-            <a href="contact.html" class="service-block-link">Start a Video Project <i class="ri-arrow-right-line"></i></a>
+            <a href="/contact" class="service-block-link">Start a Video Project <i class="ri-arrow-right-line"></i></a>
           </div>
           <div class="service-deliverables">
             <h5 class="deliverables-title">Deliverables</h5>
@@ -168,8 +184,8 @@
           <span class="t-label" style="display:block;margin-bottom:18px;">Ready to Start?</span>
           <h2 class="t-hero">Got a project?<br />Let's make<br />it real.</h2>
           <div class="cta-actions">
-            <a href="contact.html" class="btn btn-primary"><span>Start a Conversation</span><i class="ri-arrow-right-line"></i></a>
-            <a href="work.html"    class="btn btn-outline">See My Work</a>
+            <a href="/contact" class="btn btn-primary"><span>Start a Conversation</span><i class="ri-arrow-right-line"></i></a>
+            <a href="/work"    class="btn btn-outline">See My Work</a>
           </div>
         </div>
       </div>
@@ -182,7 +198,7 @@
     <div class="footer-inner container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="footer-logo">Creativo<span>.</span></a>
+          <a href="/" class="footer-logo">Creativo<span>.</span></a>
           <p class="footer-tagline">Brand Structuralist &amp; Video Editor</p>
           <p class="footer-desc">Design that thinks. Work that lasts.<br />Based in Lagos, Nigeria.</p>
           <div class="footer-socials">
@@ -194,18 +210,18 @@
         <div>
           <h4 class="footer-col-title">Navigation</h4>
           <nav class="footer-nav-links" aria-label="Footer navigation">
-            <a href="index.html"    class="footer-nav-link">Home     <i class="ri-arrow-right-up-line"></i></a>
-            <a href="work.html"     class="footer-nav-link">Work     <i class="ri-arrow-right-up-line"></i></a>
-            <a href="about.html"    class="footer-nav-link">About    <i class="ri-arrow-right-up-line"></i></a>
-            <a href="services.html" class="footer-nav-link">Services <i class="ri-arrow-right-up-line"></i></a>
-            <a href="contact.html"  class="footer-nav-link">Contact  <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/"    class="footer-nav-link">Home     <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/work"     class="footer-nav-link">Work     <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/about"    class="footer-nav-link">About    <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/services" class="footer-nav-link">Services <i class="ri-arrow-right-up-line"></i></a>
+            <a href="/contact"  class="footer-nav-link">Contact  <i class="ri-arrow-right-up-line"></i></a>
           </nav>
         </div>
         <div class="footer-contact-col">
           <h4 class="footer-col-title">Get In Touch</h4>
           <a href="mailto:hello@creativocreates.live" class="footer-contact-item"><i class="ri-mail-line"></i> hello@creativocreates.live</a>
           <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" class="footer-contact-item"><i class="ri-whatsapp-line"></i> Chat on WhatsApp</a>
-          <a href="contact.html" class="btn btn-primary footer-cta"><span>Start a Project</span><i class="ri-arrow-right-up-line"></i></a>
+          <a href="/contact" class="btn btn-primary footer-cta"><span>Start a Project</span><i class="ri-arrow-right-up-line"></i></a>
         </div>
       </div>
       <div class="footer-bottom">

@@ -2,43 +2,23 @@
    CREATIVO CREATES — animation.js
    GSAP + Three.js animations
    Requires: gsap.min.js, ScrollTrigger.min.js, three.min.js (CDN)
-   ============================================================
-
-   01  GSAP SETUP
-   02  HERO THREE.JS CANVAS
-   03  HERO ENTRANCE (GSAP)
-   04  INIT
-
-   NOTE: Scroll reveals for cards, service blocks, disciplines,
-   and process steps are handled entirely by the CSS [data-reveal]
-   system + IntersectionObserver in main.js.
-   DO NOT use gsap.set() on elements that also use [data-reveal] —
-   GSAP inline styles override CSS class changes and prevent reveals.
-
    ============================================================ */
 
 (function () {
   'use strict';
 
-  // Guard — only run if GSAP is available
   if (typeof gsap === 'undefined') {
     console.warn('animation.js: GSAP not loaded.');
     return;
   }
 
-
-  /* ============================================================
-     01  GSAP SETUP
-     ============================================================ */
-
   gsap.registerPlugin(ScrollTrigger);
-
   ScrollTrigger.config({ limitCallbacks: true });
 
+  window.Creativo = window.Creativo || {};
 
-  /* ============================================================
-     02  HERO THREE.JS CANVAS
-     ============================================================ */
+  let _renderer = null;
+  let _heroRafId = null;
 
   function initHeroCanvas() {
     const container = document.getElementById('heroCanvas');
@@ -49,13 +29,15 @@
       return;
     }
 
+    if (_renderer) return; // already initialized
+
     const scene    = new THREE.Scene();
     const camera   = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    _renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
-    renderer.setSize(500, 500);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
+    _renderer.setSize(500, 500);
+    _renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(_renderer.domElement);
 
     const geometry = new THREE.IcosahedronGeometry(2.5, 1);
     const material = new THREE.MeshBasicMaterial({
@@ -72,48 +54,58 @@
     const clock = new THREE.Clock();
 
     function animate() {
-      requestAnimationFrame(animate);
+      _heroRafId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
       sphere.rotation.x += 0.001;
       sphere.rotation.y += 0.002;
       sphere.position.y  = Math.sin(t * 0.5) * 0.1;
-      renderer.render(scene, camera);
+      _renderer.render(scene, camera);
     }
 
     animate();
   }
-
-
-  /* ============================================================
-     03  HERO ENTRANCE (GSAP)
-     Handles: subtitle, actions row, scroll indicator only.
-     Eyebrow + title words use CSS animations (word-rise, fade-in).
-     These elements do NOT use [data-reveal] — safe to use gsap.from().
-     ============================================================ */
 
   function initHeroEntrance() {
     const subtitle = document.querySelector('.hero-subtitle');
     const actions  = document.querySelector('.hero-actions');
     const scroll   = document.querySelector('.hero-scroll');
 
-    // Nothing to animate — not the home page
     if (!subtitle && !actions && !scroll) return;
 
-    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    window.Creativo._heroTl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-    if (subtitle) tl.from(subtitle, { opacity: 0, y: 28, duration: 0.85 }, 0.75);
-    if (actions)  tl.from(actions,  { opacity: 0, y: 22, duration: 0.80 }, 0.90);
-    if (scroll)   tl.from(scroll,   { opacity: 0,        duration: 0.70 }, 1.40);
+    if (subtitle) window.Creativo._heroTl.from(subtitle, { opacity: 0, y: 28, duration: 0.85 }, 0.75);
+    if (actions)  window.Creativo._heroTl.from(actions,  { opacity: 0, y: 22, duration: 0.80 }, 0.90);
+    if (scroll)   window.Creativo._heroTl.from(scroll,   { opacity: 0,        duration: 0.70 }, 1.40);
   }
 
-
-  /* ============================================================
-     04  INIT
-     ============================================================ */
-
-  document.addEventListener('DOMContentLoaded', () => {
+  window.Creativo.initHomeAnimations = function () {
     initHeroCanvas();
     initHeroEntrance();
-  });
+  };
+
+  window.Creativo.destroyHomeAnimations = function () {
+    if (_heroRafId) {
+      cancelAnimationFrame(_heroRafId);
+      _heroRafId = null;
+    }
+
+    if (_renderer) {
+      _renderer.dispose();
+      if (_renderer.domElement && _renderer.domElement.parentNode) {
+        _renderer.domElement.parentNode.removeChild(_renderer.domElement);
+      }
+      _renderer = null;
+    }
+
+    if (window.Creativo._heroTl) {
+      window.Creativo._heroTl.kill();
+      window.Creativo._heroTl = null;
+    }
+  };
+
+  if (!window.__CREATIVO_BARBA__) {
+    document.addEventListener('DOMContentLoaded', () => window.Creativo.initHomeAnimations());
+  }
 
 })();

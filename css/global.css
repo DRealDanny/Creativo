@@ -1290,7 +1290,63 @@ input, textarea, select {
   transform: rotate(90deg);
 }
 
+
 /* ============================================================
    19  GSAP INITIAL LOADER
    ============================================================ */
 
+#site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#site-loader.is-hidden {
+  pointer-events: none;
+  visibility: hidden;
+  display: none;
+}
+
+.loader-wordmark {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-heading);
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+.loader-letter-wrap {
+  overflow: hidden;
+  display: inline-flex;
+}
+
+.loader-letter {
+  display: inline-block;
+  transform: translateY(105%);
+}
+
+.loader-dot {
+  color: var(--blue);
+  transform: scale(0);
+  margin-left: 0.1em;
+}
+
+body.is-loading {
+  overflow: hidden;
+}
+
+.transition-curtain {
+  position: fixed;
+  inset: 0;
+  background: var(--blue);
+  z-index: 9990;
+  transform: translateY(100%);
+  pointer-events: none;
+  will-change: transform;
+}

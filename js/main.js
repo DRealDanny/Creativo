@@ -1,69 +1,62 @@
 /* ============================================================
    CREATIVO CREATES — main.js
-   ============================================================
-
-   01  NAVBAR — scroll state + active link
-   02  MOBILE MENU
-   03  CUSTOM CURSOR
-   04  ORB BACKGROUND PARALLAX
-   05  SCROLL REVEAL
-   06  STATS COUNTER
-   07  VIMEO MODAL (showreel)
-   08  SCROLL TO TOP
-   09  WORK PAGE — filter dropdown
-   10  ABOUT PAGE — tools tabs
-   11  ABOUT PAGE — tools accordion (mobile)
-   12  INIT
-
    ============================================================ */
 
 (function () {
   'use strict';
 
+  window.Creativo = window.Creativo || {};
 
-  /* ============================================================
-     01  NAVBAR
-     ============================================================ */
+  // Store references for cleanup
+  let _scrollRevealObserver = null;
+  let _statsObservers = [];
+
+  let _events = [];
+
+  function addEvent(target, type, listener, options) {
+    target.addEventListener(type, listener, options);
+    _events.push({ target, type, listener, options });
+  }
+
+  function clearAllEvents() {
+    for (const { target, type, listener, options } of _events) {
+      target.removeEventListener(type, listener, options);
+    }
+    _events = [];
+  }
 
   function initNavbar() {
     const nav = document.querySelector('.nav');
     if (!nav) return;
 
-    // Scroll state
     function onScroll() {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // Run on load
+    addEvent(window, 'scroll', onScroll, { passive: true });
+    onScroll();
 
-    // Active link detection
     const currentPath = window.location.pathname;
     document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
       const href = link.getAttribute('href');
       if (!href) return;
 
       const hrefBase = href.replace('.html', '').replace(/^\//, '');
       const pathBase = currentPath.replace('.html', '').replace(/^\//, '');
 
-      // Home
       if ((hrefBase === 'index' || hrefBase === '') && (pathBase === '' || pathBase === 'index')) {
         link.classList.add('active');
         return;
       }
-
-      // Case studies count as work
       if (hrefBase === 'work' && pathBase.startsWith('case-study')) {
         link.classList.add('active');
         return;
       }
-
-      // All other pages
       if (hrefBase && pathBase.includes(hrefBase)) {
         link.classList.add('active');
       }
     });
 
-    // Mirror active state in mobile menu
     document.querySelectorAll('.mobile-link').forEach(link => {
       const href = link.getAttribute('href');
       if (!href) return;
@@ -85,11 +78,6 @@
     });
   }
 
-
-  /* ============================================================
-     02  MOBILE MENU
-     ============================================================ */
-
   function initMobileMenu() {
     const hamburger = document.querySelector('.nav-hamburger');
     const menu      = document.querySelector('.mobile-menu');
@@ -105,7 +93,6 @@
       backdrop && backdrop.classList.add('visible');
       document.body.style.overflow = 'hidden';
 
-      // Stagger link animation delays
       links.forEach((link, i) => {
         link.style.animationDelay = `${0.08 * (i + 1)}s`;
       });
@@ -121,33 +108,24 @@
       });
     }
 
-    hamburger.addEventListener('click', openMenu);
-    closeBtn && closeBtn.addEventListener('click', closeMenu);
-    backdrop && backdrop.addEventListener('click', closeMenu);
+    addEvent(hamburger, 'click', openMenu);
+    if (closeBtn) addEvent(closeBtn, 'click', closeMenu);
+    if (backdrop) addEvent(backdrop, 'click', closeMenu);
 
-    // Close on ESC
-    document.addEventListener('keydown', e => {
+    addEvent(document, 'keydown', e => {
       if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
     });
   }
-
-
-  /* ============================================================
-     03  CUSTOM CURSOR
-     ============================================================ */
 
   function initCursor() {
     const dot  = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
 
     if (!dot || !ring) return;
-
-    // Don't run on touch devices
     if (window.matchMedia('(hover: none)').matches) return;
 
     let mouseX = 0, mouseY = 0;
     let ringX  = 0, ringY  = 0;
-    let rafId;
 
     const HOVER_TARGETS = 'a, button, .project-card, .filter-btn, .discipline-item, .service-block, .stat-item, input, textarea, select, label, .tab-btn, .accordion-btn, .dropdown-item, .dropdown-trigger';
 
@@ -163,7 +141,7 @@
       ringY += (mouseY - ringY) * 0.11;
       ring.style.left = ringX + 'px';
       ring.style.top  = ringY + 'px';
-      rafId = requestAnimationFrame(animateRing);
+      window.Creativo._cursorRafId = requestAnimationFrame(animateRing);
     };
     animateRing();
 
@@ -201,19 +179,14 @@
       ring.style.opacity = '1';
     };
 
-    document.addEventListener('mousemove',  onMove);
-    document.addEventListener('mouseover',  onOver);
-    document.addEventListener('mouseout',   onOut);
-    document.addEventListener('mousedown',  onDown);
-    document.addEventListener('mouseup',    onUp);
-    document.addEventListener('mouseleave', onLeave);
-    document.addEventListener('mouseenter', onEnter);
+    addEvent(document, 'mousemove',  onMove);
+    addEvent(document, 'mouseover',  onOver);
+    addEvent(document, 'mouseout',   onOut);
+    addEvent(document, 'mousedown',  onDown);
+    addEvent(document, 'mouseup',    onUp);
+    addEvent(document, 'mouseleave', onLeave);
+    addEvent(document, 'mouseenter', onEnter);
   }
-
-
-  /* ============================================================
-     04  ORB BACKGROUND PARALLAX
-     ============================================================ */
 
   function initOrbParallax() {
     if (window.matchMedia('(hover: none)').matches) return;
@@ -223,7 +196,6 @@
 
     let targetX = 0, targetY = 0;
     let currentX = 0, currentY = 0;
-    let rafId;
 
     const onMove = e => {
       targetX = (e.clientX / window.innerWidth  - 0.5) * 2;
@@ -239,43 +211,31 @@
         orb.style.transform = `translate(${currentX * factor}px, ${currentY * factor}px)`;
       });
 
-      rafId = requestAnimationFrame(update);
+      window.Creativo._orbRafId = requestAnimationFrame(update);
     };
     update();
 
-    document.addEventListener('mousemove', onMove);
+    addEvent(document, 'mousemove', onMove);
   }
-
-
-  /* ============================================================
-     05  SCROLL REVEAL
-     ============================================================ */
 
   function initScrollReveal() {
     const elements = document.querySelectorAll('[data-reveal]');
     if (!elements.length) return;
 
-    const observer = new IntersectionObserver(
+    _scrollRevealObserver = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
+            _scrollRevealObserver.unobserve(entry.target);
           }
         });
       },
-      // Looser settings: trigger earlier, lower threshold
-      // so content above the fold on load also reveals correctly
       { threshold: 0.05, rootMargin: '0px 0px -30px 0px' }
     );
 
-    elements.forEach(el => observer.observe(el));
+    elements.forEach(el => _scrollRevealObserver.observe(el));
   }
-
-
-  /* ============================================================
-     06  STATS COUNTER
-     ============================================================ */
 
   function initStatsCounter() {
     const statItems = document.querySelectorAll('.stat-item[data-count]');
@@ -300,10 +260,12 @@
               const progress = Math.min(elapsed / duration, 1);
               const eased    = 1 - Math.pow(1 - progress, 3);
               valueEl.textContent = Math.round(eased * end);
-              if (progress < 1) requestAnimationFrame(tick);
+              if (progress < 1) {
+                  window.Creativo._statsRafIds.push(requestAnimationFrame(tick));
+              }
             };
 
-            requestAnimationFrame(tick);
+            window.Creativo._statsRafIds.push(requestAnimationFrame(tick));
             observer.unobserve(item);
           }
         },
@@ -311,13 +273,9 @@
       );
 
       observer.observe(item);
+      _statsObservers.push(observer);
     });
   }
-
-
-  /* ============================================================
-     07  VIMEO MODAL (showreel)
-     ============================================================ */
 
   function initShowreelModal() {
     const openBtn = document.getElementById('openShowreel');
@@ -327,7 +285,6 @@
 
     if (!openBtn || !modal || !player) return;
 
-    // Replace YOUR_VIMEO_ID with your actual Vimeo video ID
     const VIMEO_ID = 'YOUR_VIMEO_ID';
     const VIMEO_SRC = `https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&title=0&byline=0&portrait=0&color=2060ff`;
 
@@ -339,48 +296,38 @@
     }
 
     function closeModal() {
-      player.src = '';               // Stops video playback
+      player.src = '';
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     }
 
-    openBtn.addEventListener('click', openModal);
-    closeBtn && closeBtn.addEventListener('click', closeModal);
+    window.Creativo._closeModal = closeModal;
 
-    // Click outside container closes modal
-    modal.addEventListener('click', e => {
+    addEvent(openBtn, 'click', openModal);
+    if (closeBtn) addEvent(closeBtn, 'click', closeModal);
+
+    addEvent(modal, 'click', e => {
       if (e.target === modal) closeModal();
     });
 
-    // ESC key closes modal
-    document.addEventListener('keydown', e => {
+    addEvent(document, 'keydown', e => {
       if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
     });
   }
-
-
-  /* ============================================================
-     08  SCROLL TO TOP
-     ============================================================ */
 
   function initScrollToTop() {
     const btn = document.querySelector('.scroll-to-top');
     if (!btn) return;
 
-    window.addEventListener('scroll', () => {
+    addEvent(window, 'scroll', () => {
       btn.classList.toggle('is-visible', window.scrollY > 400);
     }, { passive: true });
 
-    btn.addEventListener('click', () => {
+    addEvent(btn, 'click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
-
-
-  /* ============================================================
-     09  WORK PAGE — filter dropdown
-     ============================================================ */
 
   function initWorkFilter() {
     const dropdown    = document.querySelector('.filter-dropdown');
@@ -393,38 +340,32 @@
     const items       = dropdown.querySelectorAll('.dropdown-item');
     const triggerText = dropdown.querySelector('.dropdown-trigger-text');
 
-    // Toggle
-    trigger.addEventListener('click', e => {
+    addEvent(trigger, 'click', e => {
       e.stopPropagation();
       dropdown.classList.toggle('open');
     });
 
-    // Close on outside click
-    document.addEventListener('click', e => {
+    addEvent(document, 'click', e => {
       if (!dropdown.contains(e.target)) {
         dropdown.classList.remove('open');
       }
     });
 
-    // Filter logic
     items.forEach(item => {
-      item.addEventListener('click', () => {
+      addEvent(item, 'click', () => {
         const filter = item.dataset.filter;
 
-        // Update UI
         items.forEach(i => i.classList.remove('active'));
         item.classList.add('active');
         triggerText.textContent = item.textContent.trim();
         dropdown.classList.remove('open');
 
-        // Show/hide items
         workItems.forEach(proj => {
           const category = proj.dataset.category;
           const show = filter === 'All' || category === filter;
           proj.classList.toggle('hidden', !show);
         });
 
-        // Re-run scroll reveal for newly visible items
         document.querySelectorAll('.work-item:not(.hidden) [data-reveal]:not(.revealed)').forEach(el => {
           el.classList.add('revealed');
         });
@@ -432,30 +373,22 @@
     });
   }
 
-
-  /* ============================================================
-     10  ABOUT PAGE — tools tabs (desktop)
-     ============================================================ */
-
   function initToolsTabs() {
     const tabs   = document.querySelectorAll('.tab-btn');
     const panels = document.querySelectorAll('.tools-panel-section');
 
     if (!tabs.length || !panels.length) return;
 
-    // Show first tab on init
     tabs[0] && tabs[0].classList.add('tab-active');
     panels[0] && (panels[0].style.display = 'flex');
 
     tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
+      addEvent(tab, 'click', () => {
         const target = tab.dataset.tab;
 
-        // Update tabs
         tabs.forEach(t => t.classList.remove('tab-active'));
         tab.classList.add('tab-active');
 
-        // Update panels
         panels.forEach(panel => {
           panel.style.display = panel.dataset.panel === target ? 'flex' : 'none';
         });
@@ -463,39 +396,26 @@
     });
   }
 
-
-  /* ============================================================
-     11  ABOUT PAGE — tools accordion (mobile)
-     ============================================================ */
-
   function initAccordion() {
     const accordionBtns = document.querySelectorAll('.accordion-btn');
     if (!accordionBtns.length) return;
 
     accordionBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      addEvent(btn, 'click', () => {
         const item   = btn.closest('.accordion-item');
         const isOpen = item.classList.contains('accordion-open');
 
-        // Close all
         document.querySelectorAll('.accordion-item').forEach(i => {
           i.classList.remove('accordion-open');
         });
 
-        // Open clicked if it was closed
         if (!isOpen) item.classList.add('accordion-open');
       });
     });
   }
 
-
-
-  /* ============================================================
-     12  INIT — Run everything on DOMContentLoaded
-     ============================================================ */
-
-  document.addEventListener('DOMContentLoaded', () => {
-
+  window.Creativo.initPage = function () {
+    window.Creativo._statsRafIds = [];
     initNavbar();
     initMobileMenu();
     initCursor();
@@ -507,6 +427,45 @@
     initWorkFilter();
     initToolsTabs();
     initAccordion();
-  });
+  };
+
+  window.Creativo.destroyPage = function () {
+    clearAllEvents();
+
+    if (_scrollRevealObserver) {
+      _scrollRevealObserver.disconnect();
+      _scrollRevealObserver = null;
+    }
+
+    _statsObservers.forEach(obs => obs.disconnect());
+    _statsObservers = [];
+
+    if (window.Creativo._cursorRafId) {
+      cancelAnimationFrame(window.Creativo._cursorRafId);
+      window.Creativo._cursorRafId = null;
+    }
+
+    if (window.Creativo._orbRafId) {
+      cancelAnimationFrame(window.Creativo._orbRafId);
+      window.Creativo._orbRafId = null;
+    }
+
+    if (window.Creativo._statsRafIds) {
+        window.Creativo._statsRafIds.forEach(id => cancelAnimationFrame(id));
+        window.Creativo._statsRafIds = [];
+    }
+
+    if (window.Creativo._closeModal) {
+        window.Creativo._closeModal();
+    }
+
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    }
+  };
+
+  if (!window.__CREATIVO_BARBA__) {
+    document.addEventListener('DOMContentLoaded', () => window.Creativo.initPage());
+  }
 
 })();
