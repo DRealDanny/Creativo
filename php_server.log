@@ -1,0 +1,37 @@
+[Fri May 22 23:38:39 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Fri May 22 23:39:04 2026] [::1]:42470 Accepted
+[Fri May 22 23:39:04 2026] [::1]:42470 [200]: GET /login.php
+[Fri May 22 23:39:04 2026] [::1]:42470 Closing
+[Fri May 22 23:39:04 2026] [::1]:42484 Accepted
+[Fri May 22 23:39:04 2026] [::1]:42484 [200]: GET /backend.css
+[Fri May 22 23:39:04 2026] [::1]:42484 Closing
+[Fri May 22 23:39:04 2026] [::1]:42490 Accepted
+[Fri May 22 23:39:04 2026] [::1]:42490 [404]: GET /assets/web/login-cover.jpg - No such file or directory
+[Fri May 22 23:39:04 2026] [::1]:42490 Closing
+[Fri May 22 23:42:51 2026] [::1]:56522 Accepted
+[Fri May 22 23:42:51 2026] [::1]:56522 [200]: GET /login.php
+[Fri May 22 23:42:51 2026] [::1]:56522 Closing
+[Fri May 22 23:42:51 2026] [::1]:56524 Accepted
+[Fri May 22 23:42:51 2026] [::1]:56524 [200]: GET /backend.css
+[Fri May 22 23:42:51 2026] [::1]:56524 Closing
+[Fri May 22 23:42:51 2026] [::1]:56540 Accepted
+[Fri May 22 23:42:51 2026] [::1]:56540 [404]: GET /assets/web/login-cover.jpg - No such file or directory
+[Fri May 22 23:42:51 2026] [::1]:56540 Closing
+[Fri May 22 23:42:51 2026] [::1]:56552 Accepted
+[Fri May 22 23:42:51 2026] [::1]:56552 [302]: POST /login.php
+[Fri May 22 23:42:51 2026] [::1]:56552 Closing
+[Fri May 22 23:42:51 2026] [::1]:56564 Accepted
+[Fri May 22 23:42:51 2026] [::1]:56564 [200]: GET /dashboard.php
+[Fri May 22 23:42:51 2026] [::1]:56564 Closing
+[Fri May 22 23:42:51 2026] [::1]:56580 Accepted
+[Fri May 22 23:42:51 2026] [::1]:56580 [200]: GET /backend.css
+[Fri May 22 23:42:51 2026] [::1]:56580 Closing
+[Fri May 22 23:43:10 2026] [::1]:56962 Accepted
+[Fri May 22 23:43:10 2026] [::1]:56962 [200]: GET /login.php
+[Fri May 22 23:43:10 2026] [::1]:56962 Closing
+[Fri May 22 23:43:10 2026] [::1]:56964 Accepted
+[Fri May 22 23:43:10 2026] [::1]:56964 [200]: GET /backend.css
+[Fri May 22 23:43:10 2026] [::1]:56964 Closing
+[Fri May 22 23:43:10 2026] [::1]:56970 Accepted
+[Fri May 22 23:43:10 2026] [::1]:56970 [404]: GET /assets/web/login-cover.jpg - No such file or directory
+[Fri May 22 23:43:10 2026] [::1]:56970 Closing
