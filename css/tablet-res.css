@@ -148,7 +148,11 @@
     min-height: 50vh;
   }
 
-  .cs-info-bar-inner { gap: 28px; }
+  .cs-info-bar-inner { 
+    gap: 28px; 
+    padding-left: 60px;
+    padding-right: 60px;
+  }
 
   .cs-case-btn {
     margin-left: 0;
