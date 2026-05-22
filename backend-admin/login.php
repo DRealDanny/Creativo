@@ -1,91 +1,96 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once 'config.php';
+$error = '';
 
-// Check if already logged in
-if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header('Location: /backend-admin/dashboard.php');
-    exit;
-}
-
-$error_msg = '';
-if (isset($_SESSION['login_error'])) {
-    $error_msg = $_SESSION['login_error'];
-    unset($_SESSION['login_error']); // Clear after reading
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_POST['u'] === ADMIN_USER && $_POST['p'] === ADMIN_PASS) {
+        $_SESSION['logged_in'] = true;
+        header("Location: dashboard.php");
+        exit;
+    } else {
+        $error = 'Access Denied. Please check your credentials.';
+    }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../assets/naturalbane-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <!-- Importing fonts as per instructions (high-contrast serif for headings, sans-serif for inputs) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Admin | Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/backend-admin/admin-style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #F7F5F2; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .wrapper { display: flex; width: 100%; max-width: 1000px; height: 600px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .form-side { flex: 1; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+        .img-side { flex: 1; background: url('../assets/web/login-cover.jpg') no-repeat center center; background-size: cover; }
+        h1 { font-family: 'Inter', sans-serif; font-size: 32px; margin-bottom: 10px; color: #1a1a1a; }
+        .sub { color: #666; margin-bottom: 30px; }
+
+        .input-group { margin-bottom: 20px; position: relative; }
+        label { display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600; color: #333; }
+        input { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 4px; outline: none; font-size: 15px; }
+        input:focus { border-color: #2060FF; }
+
+        /* Password Wrapper and Eye Icon */
+        .pass-wrapper { position: relative; }
+        .toggle-btn {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            cursor: pointer; background: none; border: none; display: flex; align-items: center; opacity: 0.5;
+        }
+        .toggle-btn svg { width: 20px; height: 20px; stroke: #333; fill: none; stroke-width: 2; }
+        .toggle-btn:hover { opacity: 1; }
+
+        .btn { background: #2060FF; color: #fff; border: none; padding: 16px; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: 'Inter', sans-serif; width: 100%; font-size: 16px; }
+        .error { color: #2060FF; font-size: 14px; margin-bottom: 20px; }
+
+        @media (max-width: 900px) { .img-side { display: none; } .wrapper { max-width: 450px; } }
+    </style>
 </head>
 <body>
+<div class="wrapper">
+    <div class="form-side">
+        <h1>Welcome back!</h1>
+        <p class="sub">Login to make changes on website</p>
 
-<div class="login-container">
-    <!-- Form Panel -->
-    <div class="login-form-panel">
-        <header>
-            <h1>Welcome back!</h1>
-            <p>Login to make changes on website</p>
-        </header>
+        <?php if($error): ?><p class="error"><?php echo $error; ?></p><?php endif; ?>
 
-        <form action="/backend-admin/auth-handler.php" method="POST">
-            <?php if ($error_msg): ?>
-                <div class="error-msg show"><?php echo htmlspecialchars($error_msg); ?></div>
-            <?php endif; ?>
-
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" class="form-input" placeholder="Danny" required autocomplete="username">
+        <form method="POST">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" name="u" required placeholder="Linus">
             </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="form-input" placeholder="Enter password" required autocomplete="current-password">
-                <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password visibility">
-                    <!-- Eye icon SVG -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                </button>
+            <div class="input-group">
+                <label>Password</label>
+                <div class="pass-wrapper">
+                    <input type="password" name="p" id="passInput" required placeholder="Enter password">
+                    <button type="button" class="toggle-btn" onclick="toggleVisibility()">
+                        <svg id="eyeIcon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </button>
+                </div>
             </div>
 
-            <button type="submit" class="btn-submit">Login</button>
+            <button type="submit" class="btn">Login</button>
         </form>
     </div>
-
-    <!-- Visual Art Panel -->
-    <div class="login-visual-panel">
-        <div class="visual-art-bg"></div>
-    </div>
+    <div class="img-side"></div>
 </div>
 
 <script>
-    // Simple password toggle logic
-    const togglePassword = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('password');
-
-    togglePassword.addEventListener('click', function (e) {
-        // Toggle the type attribute
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-
-        // Optional: change icon based on state
-        if(type === 'text') {
-            this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
-        } else {
-            this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
-        }
-    });
+function toggleVisibility() {
+    const input = document.getElementById('passInput');
+    const icon = document.getElementById('eyeIcon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.style.stroke = '#2060FF';
+    } else {
+        input.type = 'password';
+        icon.style.stroke = '#333';
+    }
+}
 </script>
 </body>
 </html>

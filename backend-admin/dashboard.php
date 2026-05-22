@@ -1,168 +1,432 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+require_once 'config.php';
+check_auth();
+
+$jsonPath = '../content.json';
+if (!file_exists($jsonPath)) {
+    die("Error: content.json not found in root.");
 }
 
-// Security Check: Redirect to login if not authenticated
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header("Location: /backend-admin/login.php");
+$cms = json_decode(file_get_contents($jsonPath), true);
+
+function delete_old_asset($relativePath) {
+    if (empty($relativePath)) return true;
+    $fullPath = '../' . $relativePath;
+    if (!file_exists($fullPath)) return true;
+    return unlink($fullPath);
+}
+
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+          strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isAjax) {
+    header('Content-Type: application/json');
+
+    $cms = json_decode(file_get_contents($jsonPath), true);
+
+    if (isset($_POST['update_link'])) {
+        $cms['config']['whatsapp_link'] = $_POST['link'];
+        file_put_contents($jsonPath, json_encode($cms, JSON_PRETTY_PRINT));
+        echo json_encode(['success' => true, 'msg' => 'WhatsApp link updated.']);
+        exit;
+    }
+
+    if (isset($_POST['update_img'])) {
+        $key     = $_POST['img_key'];
+        $ext     = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+        $allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+
+        if (!in_array($ext, $allowed)) {
+            echo json_encode(['success' => false, 'msg' => 'Invalid file type. Use JPG, PNG, or WEBP.']);
+            exit;
+        }
+
+        $filename = $key . '_' . time() . '.' . $ext;
+        $target   = '../assets/' . $filename;
+
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $target)) {
+            $oldPath    = $cms['images'][$key] ?? '';
+            $deleteOk   = delete_old_asset($oldPath);
+            $deleteNote = $deleteOk ? '' : ' (old file could not be removed — check folder permissions)';
+
+            $cms['images'][$key] = 'assets/' . $filename;
+            file_put_contents($jsonPath, json_encode($cms, JSON_PRETTY_PRINT));
+
+            echo json_encode([
+                'success'  => true,
+                'msg'      => 'Image replaced.' . $deleteNote,
+                'new_path' => '../assets/' . $filename,
+            ]);
+        } else {
+            echo json_encode(['success' => false, 'msg' => 'Upload failed. Check that the assets folder is writable.']);
+        }
+        exit;
+    }
+
+    if (isset($_POST['update_grid'])) {
+        $grid  = $_POST['grid_name'];
+        $index = (int) $_POST['grid_index'];
+        $ext   = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+
+        $filename = $grid . '_' . $index . '_' . time() . '.' . $ext;
+        $target   = '../assets/' . $filename;
+
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $target)) {
+            $oldPath    = $cms['grids'][$grid][$index] ?? '';
+            $deleteOk   = delete_old_asset($oldPath);
+            $deleteNote = $deleteOk ? '' : ' (old file could not be removed — check folder permissions)';
+
+            $cms['grids'][$grid][$index] = 'assets/' . $filename;
+            file_put_contents($jsonPath, json_encode($cms, JSON_PRETTY_PRINT));
+
+            echo json_encode([
+                'success'  => true,
+                'msg'      => 'Image updated.' . $deleteNote,
+                'new_path' => '../assets/' . $filename,
+            ]);
+        } else {
+            echo json_encode(['success' => false, 'msg' => 'Upload failed. Check that the assets folder is writable.']);
+        }
+        exit;
+    }
+
+    echo json_encode(['success' => false, 'msg' => 'Unknown action.']);
     exit;
 }
 
-$username = $_SESSION['admin_username'] ?? 'Linus';
+function get_img($cms, $type, $key, $index = null) {
+    $path = ($type === 'single') ? ($cms['images'][$key] ?? '') : ($cms['grids'][$key][$index] ?? '');
+    return (!empty($path) && file_exists('../' . $path))
+        ? '../' . $path
+        : 'https://via.placeholder.com/150?text=No+Image';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>CMS Dashboard</title>
+    <link rel="icon" type="image/png" href="../assets/naturalbane-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/backend-admin/admin-style.css">
-</head>
-<body class="dashboard-body">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F7F5F2; display: flex; height: 100vh; color: #1a1a1a; }
 
-    <!-- Mobile Header -->
-    <header class="mobile-header">
-        <div class="brand-logo">CMS<span>Pro</span></div>
-        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle Menu">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-        </button>
-    </header>
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 260px;
+            background: #1a1a1a;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 0;
+            flex-shrink: 0;
+        }
+        .nav-item {
+            padding: 16px 30px;
+            cursor: pointer;
+            color: #999;
+            font-size: 14px;
+            border-left: 4px solid transparent;
+            transition: 0.2s;
+            user-select: none;
+        }
+        .nav-item:hover, .nav-item.active { color: #fff; background: #222; border-left-color: #2060FF; }
+        .logout { margin-top: auto; padding: 20px 30px; color: #2060FF; text-decoration: none; font-weight: 600; font-size: 14px; }
 
-    <!-- Sidebar Navigation -->
-    <aside class="dashboard-sidebar" id="dashboardSidebar">
-        <div class="sidebar-header">
-            <div class="brand-logo">CMS<span>Pro</span></div>
-            <button class="close-menu" id="closeMenu" aria-label="Close Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-        </div>
+        /* ── Main ── */
+        .main { flex: 1; padding: 60px; overflow-y: auto; }
+        h1 { font-family: 'Inter', sans-serif; font-size: 32px; margin-bottom: 30px; }
+        .card { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-width: 900px; }
 
-        <nav class="sidebar-nav">
-            <ul>
-                <li>
-                    <a href="#" class="nav-item active">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                        Overview
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                        Content Library
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                        Content Editor
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                        Assets Manager
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                        Settings
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        /* ── Tabs ── */
+        .tab { display: none; }
+        .tab.active { display: block; }
 
-        <div class="sidebar-footer">
-            <div class="user-profile">
-                <div class="user-avatar">
-                    <span>L</span>
-                </div>
-                <div class="user-info">
-                    <span class="user-name"><?php echo htmlspecialchars($username); ?></span>
-                    <span class="user-role">Administrator</span>
-                </div>
-            </div>
-            <a href="/backend-admin/auth-handler.php?action=logout" class="logout-link">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                Logout
-            </a>
-        </div>
-    </aside>
+        /* ── Form elements ── */
+        h2 { font-family: 'Inter', sans-serif; font-size: 22px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .field-group { margin-bottom: 40px; }
+        label { display: block; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: #666; }
+        input[type="text"] { width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 15px; font-family: 'Inter', sans-serif; font-size: 14px; }
+        input[type="text"]:focus { outline: none; border-color: #2060FF; }
+        .section-divider { border: none; border-top: 1px solid #eee; margin: 0 0 40px; }
 
-    <!-- Main Content Frame -->
-    <main class="dashboard-main">
-        <!-- Top Navbar -->
-        <div class="top-navbar">
-            <div class="breadcrumb">
-                <span class="breadcrumb-item">Workspace</span>
-                <span class="breadcrumb-separator">/</span>
-                <span class="breadcrumb-item active">Overview</span>
-            </div>
+        /* ── Buttons ── */
+        .btn {
+            background: #2060FF; color: #fff; border: none; padding: 10px 20px;
+            border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 13px;
+            font-family: 'Inter', sans-serif; transition: opacity 0.2s, transform 0.1s;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn:hover { opacity: 0.88; }
+        .btn:active { transform: scale(0.97); }
+        .btn.loading { opacity: 0.6; pointer-events: none; }
+        .btn .spinner { width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
+        .btn.loading .spinner { display: block; }
+        .btn.loading .btn-label { opacity: 0.7; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-            <div class="search-container">
-                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" class="search-input" placeholder="Search resources...">
-            </div>
-        </div>
+        /* ── Preview boxes ── */
+        .preview-box { width: 120px; height: 80px; background: #f9f9f9; border: 1px solid #eee; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px; transition: opacity 0.3s; }
+        .preview-box img { max-width: 100%; max-height: 100%; object-fit: cover; }
+        .preview-box.wide { width: 200px; height: 120px; }
+        .preview-box.round { border-radius: 50%; width: 100px; height: 100px; }
+        .preview-box.round img { border-radius: 50%; }
+        .preview-box.updating { animation: pulse 1s ease infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        <!-- Bento Grid Structure -->
-        <div class="dashboard-content">
-            <div class="bento-grid">
-                <!-- Content Cards as Visual Guides -->
-                <div class="bento-card bento-hero">
-                    <h3>Recent Activity</h3>
-                    <div class="placeholder-content"></div>
-                </div>
+        /* ── Grid ── */
+        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
 
-                <div class="bento-card">
-                    <h3>Quick Stats</h3>
-                    <div class="placeholder-content"></div>
-                </div>
+        /* ── Toast ── */
+        #toast-container { position: fixed; bottom: 28px; right: 28px; z-index: 9999; display: flex; flex-direction: column-reverse; gap: 10px; pointer-events: none; }
+        .toast { min-width: 260px; max-width: 380px; background: #1a1a1a; color: #fff; border-radius: 6px; padding: 14px 18px; font-size: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.22); pointer-events: all; animation: toastIn 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards; overflow: hidden; position: relative; }
+        .toast.success { border-left: 4px solid #25c36a; }
+        .toast.error   { border-left: 4px solid #2060FF; }
+        .toast.warn    { border-left: 4px solid #f0a500; }
+        .toast-icon { font-size: 18px; flex-shrink: 0; }
+        .toast-msg  { flex: 1; line-height: 1.4; }
+        .toast-bar { position: absolute; bottom: 0; left: 0; height: 3px; background: rgba(255,255,255,0.25); animation: toastBar 3.5s linear forwards; }
+        .toast.success .toast-bar { background: #25c36a; }
+        .toast.error   .toast-bar { background: #2060FF; }
+        .toast.warn    .toast-bar { background: #f0a500; }
+        .toast.leaving { animation: toastOut 0.25s ease forwards; }
+        @keyframes toastIn  { from { opacity:0; transform:translateY(16px) scale(0.96); } to { opacity:1; transform:translateY(0) scale(1); } }
+        @keyframes toastOut { from { opacity:1; transform:translateY(0); max-height:100px; } to { opacity:0; transform:translateY(8px); max-height:0; padding:0; margin:0; } }
+        @keyframes toastBar { from { width:100%; } to { width:0%; } }
 
-                <div class="bento-card">
-                    <h3>System Health</h3>
-                    <div class="placeholder-content"></div>
-                </div>
+        /* ══════════════════════════════════════════
+           RESPONSIVE STYLES
+        ══════════════════════════════════════════ */
 
-                <div class="bento-card bento-wide">
-                    <h3>Latest Publications</h3>
-                    <div class="placeholder-content"></div>
-                </div>
+        /* ── Hamburger button ── */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 1100;
+            background: #1a1a1a;
+            border: none;
+            border-radius: 6px;
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 0;
+            transition: background 0.2s;
+        }
+        .menu-toggle:hover { background: #333; }
+        .menu-toggle span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+            transform-origin: center;
+        }
+        /* Animate hamburger → X when sidebar is open */
+        .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-                <div class="bento-card">
-                    <h3>User Growth</h3>
-                    <div class="placeholder-content"></div>
-                </div>
+        /* Dim overlay behind sidebar on mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 900;
+            backdrop-filter: blur(2px);
+        }
+        .sidebar-overlay.active { display: block; }
 
-                <div class="bento-card">
-                    <h3>Server Load</h3>
-                    <div class="placeholder-content"></div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <script>
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const closeMenu = document.getElementById('closeMenu');
-        const dashboardSidebar = document.getElementById('dashboardSidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-        function toggleSidebar() {
-            dashboardSidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
-            document.body.classList.toggle('sidebar-open');
+        /* ── Tablet (≤ 1024px) ── */
+        @media (max-width: 1024px) {
+            .sidebar { width: 220px; }
+            .main { padding: 40px 30px; }
+            .grid-container { grid-template-columns: 1fr; }
         }
 
-        hamburgerMenu.addEventListener('click', toggleSidebar);
-        closeMenu.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-    </script>
+        /* ── Mobile (≤ 768px) ── */
+        @media (max-width: 768px) {
+            body { display: block; }
+
+            .menu-toggle { display: flex; }
+
+            /* Sidebar slides in from the left */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -280px;
+                width: 260px;
+                height: 100%;
+                z-index: 1000;
+                transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                padding-top: 64px;
+                overflow-y: auto;
+            }
+            .sidebar.open { left: 0; }
+
+            .main {
+                padding: 72px 18px 48px;
+                min-height: 100vh;
+            }
+
+            h1 { font-size: 22px; margin-bottom: 20px; }
+
+            .card { padding: 20px 16px; border-radius: 6px; }
+
+            h2 { font-size: 17px; margin-bottom: 18px; }
+
+            .field-group { margin-bottom: 28px; }
+
+            .grid-container { grid-template-columns: 1fr; gap: 20px; }
+
+            /* Full-width previews on mobile so they're easier to see */
+            .preview-box { width: 100%; height: 120px; }
+            .preview-box.wide { width: 100%; height: 150px; }
+            .preview-box.round { width: 90px; height: 90px; border-radius: 50%; }
+
+            /* Prevent iOS auto-zoom on input focus */
+            input[type="text"],
+            input[type="file"] { font-size: 16px; }
+
+            .btn { width: 100%; justify-content: center; padding: 12px 20px; }
+
+            /* Toast sits higher so it clears the browser nav bar */
+            #toast-container { bottom: 80px; right: 16px; left: 16px; }
+            .toast { min-width: unset; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hamburger button (mobile only) -->
+<button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<!-- Dim overlay (mobile only) -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="sidebar" id="sidebar">
+
+    <div class="nav-heading" style="padding: 16px 30px; font-weight: bold; color: #999; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Work</div>
+    <div class="nav-item active" onclick="showTab('branding', this)">Branding</div>
+    <div class="nav-item" onclick="showTab('web', this)">Web Development</div>
+    <div class="nav-item" onclick="showTab('video', this)">Video Editing</div>
+
+    <div style="margin: 15px 30px; height: 1px; background: rgba(255,255,255,0.1);"></div>
+
+    <div class="nav-heading" style="padding: 16px 30px; font-weight: bold; color: #999; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Profile</div>
+    <div class="nav-item" onclick="showTab('profile-pic', this)">Profile Picture</div>
+    <div class="nav-item" onclick="showTab('showreel', this)">Watch Showreel</div>
+    <div class="nav-item" onclick="showTab('skills', this)">Skills</div>
+
+    <div style="margin: 15px 30px; height: 1px; background: rgba(255,255,255,0.1);"></div>
+
+    <a href="#" class="nav-item" style="font-weight: bold; color: #fff; text-decoration: none;">Socials</a>
+
+    <a href="logout.php" class="logout">Logout</a>
+</div>
+
+<script>
+    // ── Tab switching ──
+    function showTab(id, clickedNav) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        clickedNav.classList.add('active');
+
+        // Auto-close sidebar on mobile after picking a tab
+        if (window.innerWidth <= 768) toggleSidebar();
+    }
+
+    // ── Mobile sidebar toggle ──
+    function toggleSidebar() {
+        const sidebar  = document.getElementById('sidebar');
+        const toggle   = document.getElementById('menuToggle');
+        const overlay  = document.getElementById('sidebarOverlay');
+        const isOpen   = sidebar.classList.contains('open');
+
+        sidebar.classList.toggle('open', !isOpen);
+        toggle.classList.toggle('open', !isOpen);
+        overlay.classList.toggle('active', !isOpen);
+
+        // Lock body scroll when sidebar is open
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+
+    // ── Toast ──
+    function showToast(msg, type) {
+        const icons     = { success: '✓', error: '✕', warn: '⚠' };
+        const container = document.getElementById('toast-container');
+        const toast     = document.createElement('div');
+
+        toast.className = 'toast ' + type;
+        toast.innerHTML = `
+            <span class="toast-icon">${icons[type] || '✓'}</span>
+            <span class="toast-msg">${msg}</span>
+            <div class="toast-bar"></div>
+        `;
+        container.appendChild(toast);
+
+        const remove = () => {
+            toast.classList.add('leaving');
+            toast.addEventListener('animationend', () => toast.remove(), { once: true });
+        };
+        setTimeout(remove, 3500);
+    }
+
+    // ── AJAX form handler ──
+    document.querySelectorAll('form[data-ajax]').forEach(form => {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const btn        = this.querySelector('.btn');
+            const previewSel = this.dataset.preview;
+            const previewImg = previewSel ? document.querySelector(previewSel) : null;
+            const previewBox = previewImg ? previewImg.closest('.preview-box') : null;
+
+            btn.classList.add('loading');
+            if (previewBox) previewBox.classList.add('updating');
+
+            try {
+                const res  = await fetch('dashboard.php', {
+                    method:  'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    body:    new FormData(this),
+                });
+                const data = await res.json();
+
+                if (data.new_path && previewImg) {
+                    previewImg.src = data.new_path + '?t=' + Date.now();
+                }
+
+                const hasWarning = data.success && data.msg.includes('could not be removed');
+                const toastType  = !data.success ? 'error' : hasWarning ? 'warn' : 'success';
+                showToast(data.msg, toastType);
+
+                const fileInput = this.querySelector('input[type="file"]');
+                if (fileInput) fileInput.value = '';
+
+            } catch (err) {
+                showToast('Connection error. Please try again.', 'error');
+            } finally {
+                btn.classList.remove('loading');
+                if (previewBox) previewBox.classList.remove('updating');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
