@@ -109,201 +109,7 @@ function get_img($cms, $type, $key, $index = null) {
     <title>CMS Dashboard</title>
     <link rel="icon" type="image/png" href="../assets/naturalbane-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #F7F5F2; display: flex; height: 100vh; color: #1a1a1a; }
-
-        /* ── Sidebar ── */
-        .sidebar {
-            width: 260px;
-            background: #1a1a1a;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            padding: 40px 0;
-            flex-shrink: 0;
-        }
-        .nav-item {
-            padding: 16px 30px;
-            cursor: pointer;
-            color: #999;
-            font-size: 14px;
-            border-left: 4px solid transparent;
-            transition: 0.2s;
-            user-select: none;
-        }
-        .nav-item:hover, .nav-item.active { color: #fff; background: #222; border-left-color: #2060FF; }
-        .logout { margin-top: auto; padding: 20px 30px; color: #2060FF; text-decoration: none; font-weight: 600; font-size: 14px; }
-
-        /* ── Main ── */
-        .main { flex: 1; padding: 60px; overflow-y: auto; }
-        h1 { font-family: 'Inter', sans-serif; font-size: 32px; margin-bottom: 30px; }
-        .card { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-width: 900px; }
-
-        /* ── Tabs ── */
-        .tab { display: none; }
-        .tab.active { display: block; }
-
-        /* ── Form elements ── */
-        h2 { font-family: 'Inter', sans-serif; font-size: 22px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .field-group { margin-bottom: 40px; }
-        label { display: block; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: #666; }
-        input[type="text"] { width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 15px; font-family: 'Inter', sans-serif; font-size: 14px; }
-        input[type="text"]:focus { outline: none; border-color: #2060FF; }
-        .section-divider { border: none; border-top: 1px solid #eee; margin: 0 0 40px; }
-
-        /* ── Buttons ── */
-        .btn {
-            background: #2060FF; color: #fff; border: none; padding: 10px 20px;
-            border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 13px;
-            font-family: 'Inter', sans-serif; transition: opacity 0.2s, transform 0.1s;
-            display: inline-flex; align-items: center; gap: 8px;
-        }
-        .btn:hover { opacity: 0.88; }
-        .btn:active { transform: scale(0.97); }
-        .btn.loading { opacity: 0.6; pointer-events: none; }
-        .btn .spinner { width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
-        .btn.loading .spinner { display: block; }
-        .btn.loading .btn-label { opacity: 0.7; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ── Preview boxes ── */
-        .preview-box { width: 120px; height: 80px; background: #f9f9f9; border: 1px solid #eee; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px; transition: opacity 0.3s; }
-        .preview-box img { max-width: 100%; max-height: 100%; object-fit: cover; }
-        .preview-box.wide { width: 200px; height: 120px; }
-        .preview-box.round { border-radius: 50%; width: 100px; height: 100px; }
-        .preview-box.round img { border-radius: 50%; }
-        .preview-box.updating { animation: pulse 1s ease infinite; }
-        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-        /* ── Grid ── */
-        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-
-        /* ── Toast ── */
-        #toast-container { position: fixed; bottom: 28px; right: 28px; z-index: 9999; display: flex; flex-direction: column-reverse; gap: 10px; pointer-events: none; }
-        .toast { min-width: 260px; max-width: 380px; background: #1a1a1a; color: #fff; border-radius: 6px; padding: 14px 18px; font-size: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.22); pointer-events: all; animation: toastIn 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards; overflow: hidden; position: relative; }
-        .toast.success { border-left: 4px solid #25c36a; }
-        .toast.error   { border-left: 4px solid #2060FF; }
-        .toast.warn    { border-left: 4px solid #f0a500; }
-        .toast-icon { font-size: 18px; flex-shrink: 0; }
-        .toast-msg  { flex: 1; line-height: 1.4; }
-        .toast-bar { position: absolute; bottom: 0; left: 0; height: 3px; background: rgba(255,255,255,0.25); animation: toastBar 3.5s linear forwards; }
-        .toast.success .toast-bar { background: #25c36a; }
-        .toast.error   .toast-bar { background: #2060FF; }
-        .toast.warn    .toast-bar { background: #f0a500; }
-        .toast.leaving { animation: toastOut 0.25s ease forwards; }
-        @keyframes toastIn  { from { opacity:0; transform:translateY(16px) scale(0.96); } to { opacity:1; transform:translateY(0) scale(1); } }
-        @keyframes toastOut { from { opacity:1; transform:translateY(0); max-height:100px; } to { opacity:0; transform:translateY(8px); max-height:0; padding:0; margin:0; } }
-        @keyframes toastBar { from { width:100%; } to { width:0%; } }
-
-        /* ══════════════════════════════════════════
-           RESPONSIVE STYLES
-        ══════════════════════════════════════════ */
-
-        /* ── Hamburger button ── */
-        .menu-toggle {
-            display: none;
-            position: fixed;
-            top: 16px;
-            left: 16px;
-            z-index: 1100;
-            background: #1a1a1a;
-            border: none;
-            border-radius: 6px;
-            width: 42px;
-            height: 42px;
-            cursor: pointer;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            padding: 0;
-            transition: background 0.2s;
-        }
-        .menu-toggle:hover { background: #333; }
-        .menu-toggle span {
-            display: block;
-            width: 20px;
-            height: 2px;
-            background: #fff;
-            border-radius: 2px;
-            transition: transform 0.3s, opacity 0.3s;
-            transform-origin: center;
-        }
-        /* Animate hamburger → X when sidebar is open */
-        .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-        /* Dim overlay behind sidebar on mobile */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 900;
-            backdrop-filter: blur(2px);
-        }
-        .sidebar-overlay.active { display: block; }
-
-        /* ── Tablet (≤ 1024px) ── */
-        @media (max-width: 1024px) {
-            .sidebar { width: 220px; }
-            .main { padding: 40px 30px; }
-            .grid-container { grid-template-columns: 1fr; }
-        }
-
-        /* ── Mobile (≤ 768px) ── */
-        @media (max-width: 768px) {
-            body { display: block; }
-
-            .menu-toggle { display: flex; }
-
-            /* Sidebar slides in from the left */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                left: -280px;
-                width: 260px;
-                height: 100%;
-                z-index: 1000;
-                transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                padding-top: 64px;
-                overflow-y: auto;
-            }
-            .sidebar.open { left: 0; }
-
-            .main {
-                padding: 72px 18px 48px;
-                min-height: 100vh;
-            }
-
-            h1 { font-size: 22px; margin-bottom: 20px; }
-
-            .card { padding: 20px 16px; border-radius: 6px; }
-
-            h2 { font-size: 17px; margin-bottom: 18px; }
-
-            .field-group { margin-bottom: 28px; }
-
-            .grid-container { grid-template-columns: 1fr; gap: 20px; }
-
-            /* Full-width previews on mobile so they're easier to see */
-            .preview-box { width: 100%; height: 120px; }
-            .preview-box.wide { width: 100%; height: 150px; }
-            .preview-box.round { width: 90px; height: 90px; border-radius: 50%; }
-
-            /* Prevent iOS auto-zoom on input focus */
-            input[type="text"],
-            input[type="file"] { font-size: 16px; }
-
-            .btn { width: 100%; justify-content: center; padding: 12px 20px; }
-
-            /* Toast sits higher so it clears the browser nav bar */
-            #toast-container { bottom: 80px; right: 16px; left: 16px; }
-            .toast { min-width: unset; max-width: 100%; }
-        }
-    </style>
+    <link rel="stylesheet" href="backend.css">
 </head>
 <body>
 
@@ -319,23 +125,54 @@ function get_img($cms, $type, $key, $index = null) {
 
 <div class="sidebar" id="sidebar">
 
-    <div class="nav-heading" style="padding: 16px 30px; font-weight: bold; color: #999; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Work</div>
+    <div class="sidebar-wordmark">Dashboard</div>
+
+    <div class="nav-heading">Work</div>
     <div class="nav-item active" onclick="showTab('branding', this)">Branding</div>
     <div class="nav-item" onclick="showTab('web', this)">Web Development</div>
     <div class="nav-item" onclick="showTab('video', this)">Video Editing</div>
 
-    <div style="margin: 15px 30px; height: 1px; background: rgba(255,255,255,0.1);"></div>
+    <div class="nav-divider"></div>
 
-    <div class="nav-heading" style="padding: 16px 30px; font-weight: bold; color: #999; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Profile</div>
+    <div class="nav-heading">Profile</div>
     <div class="nav-item" onclick="showTab('profile-pic', this)">Profile Picture</div>
     <div class="nav-item" onclick="showTab('showreel', this)">Watch Showreel</div>
     <div class="nav-item" onclick="showTab('skills', this)">Skills</div>
 
-    <div style="margin: 15px 30px; height: 1px; background: rgba(255,255,255,0.1);"></div>
+    <div class="nav-divider"></div>
 
-    <a href="#" class="nav-item" style="font-weight: bold; color: #fff; text-decoration: none;">Socials</a>
+    <a href="#" class="nav-item nav-socials">Socials</a>
 
-    <a href="logout.php" class="logout">Logout</a>
+    <a href="logout.php" class="logout">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="logout-icon" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+        </svg>
+        Logout
+    </a>
+</div>
+
+<div class="main">
+    <div class="top-navbar">
+        <div class="top-nav-title">Overview</div>
+        <div class="top-nav-user">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+            </svg>
+            <span>Danny</span>
+        </div>
+    </div>
+
+    <div id="branding" class="tab active">
+        <!-- Branding content goes here -->
+    </div>
+    <div id="web" class="tab">
+        <!-- Web Development content goes here -->
+    </div>
+    <div id="video" class="tab">
+        <!-- Video Editing content goes here -->
+    </div>
 </div>
 
 <script>

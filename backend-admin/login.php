@@ -20,36 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin | Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: #F7F5F2; height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .wrapper { display: flex; width: 100%; max-width: 1000px; height: 600px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.1); overflow: hidden; }
-        .form-side { flex: 1; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-        .img-side { flex: 1; background: url('../assets/web/login-cover.jpg') no-repeat center center; background-size: cover; }
-        h1 { font-family: 'Inter', sans-serif; font-size: 32px; margin-bottom: 10px; color: #1a1a1a; }
-        .sub { color: #666; margin-bottom: 30px; }
-
-        .input-group { margin-bottom: 20px; position: relative; }
-        label { display: block; font-size: 13px; margin-bottom: 8px; font-weight: 600; color: #333; }
-        input { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 4px; outline: none; font-size: 15px; }
-        input:focus { border-color: #2060FF; }
-
-        /* Password Wrapper and Eye Icon */
-        .pass-wrapper { position: relative; }
-        .toggle-btn {
-            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-            cursor: pointer; background: none; border: none; display: flex; align-items: center; opacity: 0.5;
-        }
-        .toggle-btn svg { width: 20px; height: 20px; stroke: #333; fill: none; stroke-width: 2; }
-        .toggle-btn:hover { opacity: 1; }
-
-        .btn { background: #2060FF; color: #fff; border: none; padding: 16px; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: 'Inter', sans-serif; width: 100%; font-size: 16px; }
-        .error { color: #2060FF; font-size: 14px; margin-bottom: 20px; }
-
-        @media (max-width: 900px) { .img-side { display: none; } .wrapper { max-width: 450px; } }
-    </style>
+    <link rel="stylesheet" href="backend.css">
 </head>
-<body>
+<body class="login-page">
 <div class="wrapper">
     <div class="form-side">
         <h1>Welcome back!</h1>
@@ -60,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST">
             <div class="input-group">
                 <label>Username</label>
-                <input type="text" name="u" required placeholder="Linus">
+                <input type="text" name="u" required placeholder="Danny">
             </div>
 
             <div class="input-group">
