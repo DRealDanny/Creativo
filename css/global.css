@@ -838,6 +838,7 @@ input, textarea, select {
   line-height: 1.2;
   transition: color var(--t-fast), opacity var(--t-fast);
   opacity: 0;
+  padding-left: 25px;
 }
 
 .mobile-menu.open .mobile-link {
@@ -856,12 +857,13 @@ input, textarea, select {
 .mobile-social {
   margin-top: 48px;
   width: 100%;
+  padding-left: 25px;
 }
 
 .mobile-divider {
   border: none;
   border-top: 1px solid rgba(5, 5, 8, 0.12);
-  margin-bottom: 28px;
+  margin-bottom: 15px;
   width: 80%;
 }
 
