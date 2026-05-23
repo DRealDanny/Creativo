@@ -47,9 +47,8 @@
 
 .cs-hero-meta {
   margin-bottom: 20px;
-  opacity: 0;
-  animation: fade-in 0.7s ease 0.2s forwards;
-}
+
+  }
 
 .cs-category {
   font-family: var(--font-heading);
@@ -70,9 +69,8 @@
   line-height: 0.9;
   letter-spacing: 0.01em;
   color: var(--text);
-  opacity: 0;
-  animation: fade-up 0.9s ease 0.35s both;
-}
+
+  }
 
 
 /* ── HERO VARIANT: Split (Web Dev) ── */
@@ -96,9 +94,8 @@
 
 .cs-hero-title-dark {
   color: var(--text) !important;
-  opacity: 0;
-  animation: fade-up 0.9s ease 0.35s both !important;
-}
+
+  }
 
 .cs-hero-desc {
   font-size: 17px;
@@ -106,9 +103,8 @@
   max-width: 440px;
   line-height: 1.7;
   margin-top: 24px;
-  opacity: 0;
-  animation: fade-up 0.8s ease 0.55s both;
-}
+
+  }
 
 .cs-hero-split-image {
   background-size: cover;
@@ -148,9 +144,8 @@
   max-width: 520px;
   line-height: 1.7;
   margin-top: 24px;
-  opacity: 0;
-  animation: fade-up 0.8s ease 0.55s both;
-}
+
+  }
 
 
 /* ── INFO BAR ── */
