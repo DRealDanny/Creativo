@@ -8,7 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" media="all" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="css/global.css" />
   <link rel="stylesheet" href="css/about.css" />
@@ -16,8 +16,6 @@
   <link rel="stylesheet" href="css/mobile-res.css" />
 </head>
 <body>
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
   <div class="noise-layer" aria-hidden="true"></div>
   <div class="orb-container" aria-hidden="true">
     <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
@@ -76,7 +74,7 @@
     <section class="section" aria-labelledby="story-heading">
       <div class="container">
         <div class="story-grid">
-          <div class="story-col" data-reveal>
+          <div class="story-col">
             <div class="section-label" style="margin-bottom:22px;"><span class="t-label">My Story</span></div>
             <h2 class="t-h2" id="story-heading" style="margin-bottom:32px;">I don't just design things. I build the visual logic behind brands that mean something.</h2>
             <p class="t-body-lg">I'm Creativo — a multidisciplinary creative professional based in Lagos, Nigeria. My work lives at the intersection of strategy, design, and code. I've spent years sharpening the craft of making brands not just look good, but work — at every touchpoint, across every channel.</p>
@@ -84,7 +82,7 @@
             <p class="t-body-lg" style="margin-top:22px;">I work with ambitious brands — businesses that understand that design is not decoration, it is infrastructure. If you're building something that needs to mean something to the people it serves, that's the kind of work I want to be part of.</p>
             <a href="#" class="cv-btn" download aria-label="Download CV"><i class="ri-download-line"></i>Download CV</a>
           </div>
-          <div class="photo-wrap" data-reveal="right">
+          <div class="photo-wrap">
             <div class="photo-frame">
               <div class="photo-inner">
                 <img src="https://picsum.photos/seed/creativo-portrait/600/750" alt="Creativo — Brand Structuralist" loading="lazy" width="600" height="750" />
@@ -104,21 +102,21 @@
       <div class="container">
         <div class="edge-glow" aria-hidden="true"></div>
         <div class="section-header">
-          <div class="section-label" data-reveal><span class="t-label">My Disciplines</span></div>
-          <h2 class="t-h1" id="disciplines-heading" data-reveal data-delay="2">Three ways I show up<br />for the work.</h2>
+          <div class="section-label"><span class="t-label">My Disciplines</span></div>
+          <h2 class="t-h1" id="disciplines-heading">Three ways I show up<br />for the work.</h2>
         </div>
         <div class="discipline-list" role="list">
-          <div class="discipline-item" role="listitem" data-reveal>
+          <div class="discipline-item" role="listitem">
             <p class="discipline-num">01</p>
             <p class="discipline-name">Brand Identity</p>
             <p class="discipline-desc">I design identity systems that hold their meaning across every touchpoint — from the logo to the language, the colour to the campaign. A brand is not a logo. It's a belief system made visible.</p>
           </div>
-          <div class="discipline-item" role="listitem" data-reveal>
+          <div class="discipline-item" role="listitem">
             <p class="discipline-num">02</p>
             <p class="discipline-name">Web Development</p>
             <p class="discipline-desc">I build websites with clean code, considered motion, and performance baked in. Whether it's a fully custom codebase or a WordPress build, every line is written with intention. Shortcuts show up eventually — I don't take them.</p>
           </div>
-          <div class="discipline-item" role="listitem" data-reveal>
+          <div class="discipline-item" role="listitem">
             <p class="discipline-num">03</p>
             <p class="discipline-name">Video Editing</p>
             <p class="discipline-desc">I craft edits that make content impossible to scroll past. Whether it's a YouTube long-form, a Reel, or a Short — every cut, transition, and sound choice is intentional. Good editing shapes how the viewer feels from the first frame to the last.</p>
@@ -131,10 +129,10 @@
     <section class="section" aria-labelledby="tools-heading">
       <div class="container">
         <div class="section-header">
-          <div class="section-label" data-reveal><span class="t-label">Tools &amp; Stack</span></div>
-          <h2 class="t-h1" id="tools-heading" data-reveal data-delay="2">The kit that<br />builds the work.</h2>
+          <div class="section-label"><span class="t-label">Tools &amp; Stack</span></div>
+          <h2 class="t-h1" id="tools-heading">The kit that<br />builds the work.</h2>
         </div>
-        <div class="tools-grid" data-reveal>
+        <div class="tools-grid">
 
           <div class="tools-card">
             <span class="tools-card-icon" aria-hidden="true">✦</span>
@@ -180,10 +178,10 @@
     <section class="section" aria-label="Stats">
       <div class="container">
         <div class="stats-bar">
-          <div class="stat-item" data-reveal data-delay="1" data-count="60"><div class="stat-number"><span class="stat-count-value">0</span><em>+</em></div><p class="stat-label">Projects Delivered</p></div>
-          <div class="stat-item" data-reveal data-delay="2" data-count="30"><div class="stat-number"><span class="stat-count-value">0</span><em>+</em></div><p class="stat-label">Brands Built</p></div>
-          <div class="stat-item" data-reveal data-delay="3" data-count="5"><div class="stat-number"><span class="stat-count-value">0</span><em>+</em></div><p class="stat-label">Years Experience</p></div>
-          <div class="stat-item" data-reveal data-delay="4" data-count="3"><div class="stat-number"><span class="stat-count-value">0</span></div><p class="stat-label">Disciplines Mastered</p></div>
+          <div class="stat-item"><div class="stat-number"><span class="stat-count-value">60</span><em>+</em></div><p class="stat-label">Projects Delivered</p></div>
+          <div class="stat-item"><div class="stat-number"><span class="stat-count-value">30</span><em>+</em></div><p class="stat-label">Brands Built</p></div>
+          <div class="stat-item"><div class="stat-number"><span class="stat-count-value">5</span><em>+</em></div><p class="stat-label">Years Experience</p></div>
+          <div class="stat-item"><div class="stat-number"><span class="stat-count-value">3</span></div><p class="stat-label">Disciplines Mastered</p></div>
         </div>
       </div>
     </section>
@@ -192,7 +190,7 @@
     <div class="cta-divider" aria-hidden="true"></div>
     <section class="cta-banner" aria-label="Call to Action">
       <div class="container" style="position:relative;z-index:1;">
-        <div data-reveal>
+        <div>
           <span class="t-label" style="display:block;margin-bottom:18px;">Ready to Work Together?</span>
           <h2 class="t-hero">Let's build<br />something worth<br />remembering.</h2>
           <div class="cta-actions">
@@ -245,10 +243,7 @@
 
   <button class="scroll-to-top" aria-label="Scroll to top"><i class="ri-arrow-up-line"></i></button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="js/main.js" defer></script>
-  <script src="js/animation.js" defer></script>
   <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
   </body>
 </html>

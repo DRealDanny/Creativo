@@ -8,7 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" media="all" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="../css/global.css" />
   <link rel="stylesheet" href="../css/case-study.css" />
@@ -16,8 +16,6 @@
   <link rel="stylesheet" href="../css/mobile-res.css" />
 </head>
 <body>
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
   <div class="noise-layer" aria-hidden="true"></div>
   <div class="orb-container" aria-hidden="true">
     <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
@@ -89,26 +87,26 @@
     <!-- CONTENT -->
     <article class="cs-content">
       <div class="container">
-        <div class="cs-text-block" data-reveal>
+        <div class="cs-text-block">
           <p class="cs-lead">Luminal needed a website that matched the quality of their product — fast, intentional, and completely custom. Off-the-shelf templates weren't on the table. The brief was clear: build something that earns attention and keeps it.</p>
           <p class="cs-body">The architecture was built on a custom HTML/CSS/JS codebase with a PHP/JSON headless CMS for content management. This gave the client full control over their content without locking them into a heavy platform. Performance was non-negotiable from the start.</p>
         </div>
-        <div class="cs-image-block" data-reveal>
+        <div class="cs-image-block">
           <img src="https://picsum.photos/seed/luminal-web-01/1400/800" alt="Luminal website homepage" loading="lazy" width="1400" height="800" />
         </div>
-        <div class="cs-text-block" data-reveal>
+        <div class="cs-text-block">
           <h2 class="cs-block-heading">Animation &amp; Motion</h2>
           <p class="cs-body">GSAP ScrollTrigger drove all scroll-based animations — each section reveals with a purposeful transition that guides the eye without distracting from the content. The hero features a custom Three.js wireframe element that responds to mouse movement.</p>
           <p class="cs-body">Every animation was performance-tested before shipping. No layout-triggering properties. No will-change abuse. Smooth 60fps on mid-range Android devices.</p>
         </div>
-        <div class="cs-image-block" data-reveal>
+        <div class="cs-image-block">
           <img src="https://picsum.photos/seed/luminal-web-02/1400/800" alt="Luminal website animation detail" loading="lazy" width="1400" height="800" />
         </div>
-        <div class="cs-text-block" data-reveal>
+        <div class="cs-text-block">
           <h2 class="cs-block-heading">Mobile &amp; Performance</h2>
           <p class="cs-body">Mobile was designed first, not adapted last. Every breakpoint was considered as its own layout problem. The result is a site that feels native to whatever screen it's on — not a desktop site that was squished to fit a phone.</p>
         </div>
-        <div class="cs-image-block" data-reveal>
+        <div class="cs-image-block">
           <img src="https://picsum.photos/seed/luminal-web-03/1400/800" alt="Luminal website mobile view" loading="lazy" width="1400" height="800" />
         </div>
       </div>
@@ -118,7 +116,7 @@
     <div class="cta-divider" aria-hidden="true"></div>
     <section class="cta-banner" aria-label="Call to Action">
       <div class="container" style="position:relative;z-index:1;">
-        <div data-reveal>
+        <div>
           <span class="t-label" style="display:block;margin-bottom:18px;">Need a Website Like This?</span>
           <h2 class="t-hero">Let's build your<br />next web project.</h2>
           <div class="cta-actions">
@@ -170,10 +168,7 @@
   </footer>
 
   <button class="scroll-to-top" aria-label="Scroll to top"><i class="ri-arrow-up-line"></i></button>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="../js/main.js" defer></script>
-  <script src="../js/animation.js" defer></script>
   <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
   </body>
 </html>

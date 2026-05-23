@@ -1,14 +1,9 @@
-/* ============================================================
+  /* ============================================================
    CREATIVO CREATES — main.js
    ============================================================
 
    01  NAVBAR — scroll state + active link
    02  MOBILE MENU
-   03  CUSTOM CURSOR
-   04  ORB BACKGROUND PARALLAX
-   05  SCROLL REVEAL
-   06  STATS COUNTER
-   07  VIMEO MODAL (showreel)
    08  SCROLL TO TOP
    09  WORK PAGE — filter dropdown
    10  ABOUT PAGE — tools tabs
@@ -133,189 +128,6 @@
 
 
   /* ============================================================
-     03  CUSTOM CURSOR
-     ============================================================ */
-
-  function initCursor() {
-    const dot  = document.querySelector('.cursor-dot');
-    const ring = document.querySelector('.cursor-ring');
-
-    if (!dot || !ring) return;
-
-    // Don't run on touch devices
-    if (window.matchMedia('(hover: none)').matches) return;
-
-    let mouseX = 0, mouseY = 0;
-    let ringX  = 0, ringY  = 0;
-    let rafId;
-
-    const HOVER_TARGETS = 'a, button, .project-card, .filter-btn, .discipline-item, .service-block, .stat-item, input, textarea, select, label, .tab-btn, .accordion-btn, .dropdown-item, .dropdown-trigger';
-
-    const onMove = e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      dot.style.left = mouseX + 'px';
-      dot.style.top  = mouseY + 'px';
-    };
-
-    const animateRing = () => {
-      ringX += (mouseX - ringX) * 0.11;
-      ringY += (mouseY - ringY) * 0.11;
-      ring.style.left = ringX + 'px';
-      ring.style.top  = ringY + 'px';
-      rafId = requestAnimationFrame(animateRing);
-    };
-    animateRing();
-
-    const onOver = e => {
-      if (e.target.closest(HOVER_TARGETS)) {
-        dot.classList.add('hovering');
-        ring.classList.add('hovering');
-      }
-    };
-
-    const onOut = e => {
-      if (e.target.closest(HOVER_TARGETS)) {
-        dot.classList.remove('hovering');
-        ring.classList.remove('hovering');
-      }
-    };
-
-    const onDown = () => {
-      dot.classList.add('clicking');
-      ring.classList.add('clicking');
-    };
-
-    const onUp = () => {
-      dot.classList.remove('clicking');
-      ring.classList.remove('clicking');
-    };
-
-    const onLeave = () => {
-      dot.style.opacity = '0';
-      ring.style.opacity = '0';
-    };
-
-    const onEnter = () => {
-      dot.style.opacity = '1';
-      ring.style.opacity = '1';
-    };
-
-    document.addEventListener('mousemove',  onMove);
-    document.addEventListener('mouseover',  onOver);
-    document.addEventListener('mouseout',   onOut);
-    document.addEventListener('mousedown',  onDown);
-    document.addEventListener('mouseup',    onUp);
-    document.addEventListener('mouseleave', onLeave);
-    document.addEventListener('mouseenter', onEnter);
-  }
-
-
-  /* ============================================================
-     04  ORB BACKGROUND PARALLAX
-     ============================================================ */
-
-  function initOrbParallax() {
-    if (window.matchMedia('(hover: none)').matches) return;
-
-    const orbs = document.querySelectorAll('.orb');
-    if (!orbs.length) return;
-
-    let targetX = 0, targetY = 0;
-    let currentX = 0, currentY = 0;
-    let rafId;
-
-    const onMove = e => {
-      targetX = (e.clientX / window.innerWidth  - 0.5) * 2;
-      targetY = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-
-    const update = () => {
-      currentX += (targetX - currentX) * 0.04;
-      currentY += (targetY - currentY) * 0.04;
-
-      orbs.forEach((orb, i) => {
-        const factor = (i + 1) * 14;
-        orb.style.transform = `translate(${currentX * factor}px, ${currentY * factor}px)`;
-      });
-
-      rafId = requestAnimationFrame(update);
-    };
-    update();
-
-    document.addEventListener('mousemove', onMove);
-  }
-
-
-  /* ============================================================
-     05  SCROLL REVEAL
-     ============================================================ */
-
-  function initScrollReveal() {
-    const elements = document.querySelectorAll('[data-reveal]');
-    if (!elements.length) return;
-
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      // Looser settings: trigger earlier, lower threshold
-      // so content above the fold on load also reveals correctly
-      { threshold: 0.05, rootMargin: '0px 0px -30px 0px' }
-    );
-
-    elements.forEach(el => observer.observe(el));
-  }
-
-
-  /* ============================================================
-     06  STATS COUNTER
-     ============================================================ */
-
-  function initStatsCounter() {
-    const statItems = document.querySelectorAll('.stat-item[data-count]');
-    if (!statItems.length) return;
-
-    statItems.forEach(item => {
-      const end      = parseInt(item.dataset.count, 10);
-      const duration = 1900;
-      const valueEl  = item.querySelector('.stat-count-value');
-      if (!valueEl) return;
-
-      let started = false;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && !started) {
-            started = true;
-            const startTime = performance.now();
-
-            const tick = now => {
-              const elapsed  = now - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const eased    = 1 - Math.pow(1 - progress, 3);
-              valueEl.textContent = Math.round(eased * end);
-              if (progress < 1) requestAnimationFrame(tick);
-            };
-
-            requestAnimationFrame(tick);
-            observer.unobserve(item);
-          }
-        },
-        { threshold: 0.5 }
-      );
-
-      observer.observe(item);
-    });
-  }
-
-
-  /* ============================================================
      07  VIMEO MODAL (showreel)
      ============================================================ */
 
@@ -424,10 +236,6 @@
           proj.classList.toggle('hidden', !show);
         });
 
-        // Re-run scroll reveal for newly visible items
-        document.querySelectorAll('.work-item:not(.hidden) [data-reveal]:not(.revealed)').forEach(el => {
-          el.classList.add('revealed');
-        });
       });
     });
   }
@@ -498,10 +306,6 @@
 
     initNavbar();
     initMobileMenu();
-    initCursor();
-    initOrbParallax();
-    initScrollReveal();
-    initStatsCounter();
     initShowreelModal();
     initScrollToTop();
     initWorkFilter();
