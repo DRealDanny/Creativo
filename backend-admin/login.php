@@ -5,6 +5,7 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['u'] === ADMIN_USER && $_POST['p'] === ADMIN_PASS) {
         $_SESSION['logged_in'] = true;
+        session_regenerate_id(true);
         header("Location: dashboard.php");
         exit;
     } else {
