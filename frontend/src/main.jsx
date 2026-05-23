@@ -13,30 +13,53 @@ import WebDevelopment from './pages/case-study/WebDevelopment';
 import VideoEditing from './pages/case-study/VideoEditing';
 
 // Import CSS
+import Layout from './Layout';
+
+// Import CSS
 import './assets/css/global.css';
+
+// A wrapper to handle the routing transition
+import { useLocation } from 'react-router-dom';
+
+const AppRoutes = ({ location }) => {
+  const routerLocation = useLocation();
+  const currentLoc = location || routerLocation;
+
+  return (
+    <Routes location={currentLoc} key={currentLoc.pathname}>
+      <Route path="/" element={<Home />} />
+      <Route path="/work.html" element={<Work />} />
+      <Route path="/about.html" element={<About />} />
+      <Route path="/services.html" element={<Services />} />
+      <Route path="/contact.html" element={<Contact />} />
+      <Route path="/case-study/branding.html" element={<Branding />} />
+      <Route path="/case-study/web-development.html" element={<WebDevelopment />} />
+      <Route path="/case-study/video-editing.html" element={<VideoEditing />} />
+
+      {/* Catch-all to allow React Router without `.html` in URLs but keep backward compat */}
+      <Route path="/work" element={<Work />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/case-study/branding" element={<Branding />} />
+      <Route path="/case-study/web-development" element={<WebDevelopment />} />
+      <Route path="/case-study/video-editing" element={<VideoEditing />} />
+    </Routes>
+  );
+};
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Layout>
+        <AppRoutes />
+      </Layout>
+    </BrowserRouter>
+  );
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/work.html" element={<Work />} />
-        <Route path="/about.html" element={<About />} />
-        <Route path="/services.html" element={<Services />} />
-        <Route path="/contact.html" element={<Contact />} />
-        <Route path="/case-study/branding.html" element={<Branding />} />
-        <Route path="/case-study/web-development.html" element={<WebDevelopment />} />
-        <Route path="/case-study/video-editing.html" element={<VideoEditing />} />
-
-        {/* Catch-all to allow React Router without `.html` in URLs but keep backward compat */}
-        <Route path="/work" element={<Work />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/case-study/branding" element={<Branding />} />
-        <Route path="/case-study/web-development" element={<WebDevelopment />} />
-        <Route path="/case-study/video-editing" element={<VideoEditing />} />
-      </Routes>
-    </BrowserRouter>
+    <App />
   </React.StrictMode>
 );

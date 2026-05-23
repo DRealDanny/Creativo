@@ -1,34 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  const [year, setYear] = useState(new Date().getFullYear());
-
-  useEffect(() => {
-    // Scroll to top functionality
-    const btn = document.querySelector('.scroll-to-top');
-
-    if (btn) {
-      const handleScroll = () => {
-        btn.classList.toggle('is-visible', window.scrollY > 400);
-      };
-
-      const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
-
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      btn.addEventListener('click', scrollToTop);
-
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-        btn.removeEventListener('click', scrollToTop);
-      };
-    }
-  }, []);
-
   return (
     <>
+      {/* ── FOOTER — wordmark & location removed ── */}
       <footer className="footer" aria-label="Site footer">
         <div className="footer-glow" aria-hidden="true"></div>
         <div className="footer-inner container">
@@ -49,7 +25,7 @@ const Footer = () => {
                 <Link to="/" className="footer-nav-link">Home <i className="ri-arrow-right-up-line"></i></Link>
                 <Link to="/work" className="footer-nav-link">Work <i className="ri-arrow-right-up-line"></i></Link>
                 <Link to="/about" className="footer-nav-link">About <i className="ri-arrow-right-up-line"></i></Link>
-                <Link to="/services" className="footer-nav-link">Services <i className="ri-arrow-right-up-line"></i></Link>
+                <Link to="/services" className="footer-nav-link">Services <i class="ri-arrow-right-up-line"></i></Link>
                 <Link to="/contact" className="footer-nav-link">Contact <i className="ri-arrow-right-up-line"></i></Link>
               </nav>
             </div>
@@ -61,7 +37,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <p className="footer-copy">© <span>{year}</span> <span>Creativo Creates</span>. All Rights Reserved.</p>
+            <p className="footer-copy">© <span id="footerYear">{new Date().getFullYear()}</span> <span>Creativo Creates</span>. All Rights Reserved.</p>
             <p className="footer-made">Designed &amp; Built by <em>Creativo</em></p>
           </div>
         </div>

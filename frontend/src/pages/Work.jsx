@@ -16,8 +16,8 @@ const Work = () => {
 
   return (
     <>
-      <div className="cursor-dot" aria-hidden="true"></div>
-      <div className="cursor-ring" aria-hidden="true"></div>
+
+
       <div className="noise-layer" aria-hidden="true"></div>
       <div className="orb-container" aria-hidden="true">
         <div className="orb orb-1"></div><div className="orb orb-2"></div><div className="orb orb-3"></div>

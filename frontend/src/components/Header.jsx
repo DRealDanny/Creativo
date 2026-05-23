@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -35,11 +35,11 @@ const Header = () => {
       <nav className="nav" aria-label="Main navigation">
         <Link to="/" className="nav-logo" onClick={closeMobileMenu}>Creativo<span>.</span></Link>
         <ul className="nav-links" role="list">
-          <li><Link to="/" className="nav-link">Home</Link></li>
-          <li><Link to="/work" className="nav-link">Work</Link></li>
-          <li><Link to="/about" className="nav-link">About</Link></li>
-          <li><Link to="/services" className="nav-link">Services</Link></li>
-          <li><Link to="/contact" className="nav-link">Contact</Link></li>
+          <li><NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Home</NavLink></li>
+          <li><NavLink to="/work" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Work</NavLink></li>
+          <li><NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>About</NavLink></li>
+          <li><NavLink to="/services" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Services</NavLink></li>
+          <li><NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Contact</NavLink></li>
         </ul>
         <Link to="/contact" className="nav-cta">Let's Talk</Link>
         <button
@@ -62,11 +62,11 @@ const Header = () => {
           <i className="ri-close-line"></i>
         </button>
         <nav className="mobile-links">
-          <Link to="/" className="mobile-link" onClick={closeMobileMenu}>Home</Link>
-          <Link to="/work" className="mobile-link" onClick={closeMobileMenu}>Work</Link>
-          <Link to="/about" className="mobile-link" onClick={closeMobileMenu}>About</Link>
-          <Link to="/services" className="mobile-link" onClick={closeMobileMenu}>Services</Link>
-          <Link to="/contact" className="mobile-link" onClick={closeMobileMenu}>Contact</Link>
+          <NavLink to="/" className={({ isActive }) => `mobile-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>Home</NavLink>
+          <NavLink to="/work" className={({ isActive }) => `mobile-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>Work</NavLink>
+          <NavLink to="/about" className={({ isActive }) => `mobile-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>About</NavLink>
+          <NavLink to="/services" className={({ isActive }) => `mobile-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>Services</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => `mobile-link ${isActive ? 'active' : ''}`} onClick={closeMobileMenu}>Contact</NavLink>
         </nav>
         <div className="mobile-social">
           <hr className="mobile-divider" />

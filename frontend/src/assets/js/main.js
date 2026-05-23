@@ -512,6 +512,7 @@
 })();
 
 // Make functions globally available for React
+window.initCursor = initCursor;
 window.initOrbParallax = initOrbParallax;
 window.initScrollReveal = initScrollReveal;
 window.initStatsCounter = initStatsCounter;

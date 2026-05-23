@@ -7,3 +7,17 @@
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
+8:59:56 AM [vite] (client) hmr update /src/components/Header.jsx
+9:01:42 AM [vite] (client) page reload src/assets/js/main.js
+9:02:48 AM [vite] (client) hmr update /src/pages/About.jsx
+9:02:48 AM [vite] (client) hmr update /src/pages/Contact.jsx
+9:02:48 AM [vite] (client) hmr update /src/pages/Home.jsx
+9:02:48 AM [vite] (client) hmr update /src/pages/Services.jsx
+9:02:48 AM [vite] (client) hmr update /src/pages/Work.jsx
+9:02:48 AM [vite] (client) hmr update /src/pages/case-study/Branding.jsx
+9:02:48 AM [vite] (client) hmr update /src/pages/case-study/VideoEditing.jsx
+9:02:48 AM [vite] (client) hmr update /src/pages/case-study/WebDevelopment.jsx
+9:06:42 AM [vite] (client) page reload src/main.jsx
+9:19:11 AM [vite] (client) page reload src/main.jsx
+9:20:06 AM [vite] (client) hmr update /src/components/Footer.jsx
+9:22:28 AM [vite] (client) page reload src/main.jsx
