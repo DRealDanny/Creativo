@@ -1,6 +1,6 @@
 <?php
-define('ADMIN_USER', 'Danny');
-define('ADMIN_PASS', 'Danny123');
+define('ADMIN_USER', 'your_username');
+define('ADMIN_PASS', 'your_password');
 
 session_start();
 
