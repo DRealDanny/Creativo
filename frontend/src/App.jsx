@@ -31,16 +31,18 @@ function App() {
     <Layout>
       <ScrollToTop />
       <CurtainTransition key={location.pathname} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="/case-study/branding" element={<CaseStudyBranding />} />
-        <Route path="/case-study/video-editing" element={<CaseStudyVideoEditing />} />
-        <Route path="/case-study/web-development" element={<CaseStudyWebDevelopment />} />
-      </Routes>
+      <div key={location.pathname} className="page-content-wrapper">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/work" element={<Work />} />
+          <Route path="/case-study/branding" element={<CaseStudyBranding />} />
+          <Route path="/case-study/video-editing" element={<CaseStudyVideoEditing />} />
+          <Route path="/case-study/web-development" element={<CaseStudyWebDevelopment />} />
+        </Routes>
+      </div>
     </Layout>
   );
 }
