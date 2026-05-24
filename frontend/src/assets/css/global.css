@@ -1221,3 +1221,34 @@ input, textarea, select {
 /* ============================================================
    19  GSAP INITIAL LOADER
    ============================================================ */
+
+/* ============================================================
+   19  CURTAIN TRANSITION
+   ============================================================ */
+
+@keyframes slideCurtainUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+.curtain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  pointer-events: none; /* Allows clicking through after animation */
+}
+
+.curtain-panel {
+  flex: 1;
+  height: 100%;
+  background-color: var(--blue, #2060FF);
+  transform: translateY(0);
+  animation: slideCurtainUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* Stagger the animation delays */
+.curtain-panel:nth-child(1) { animation-delay: 0s; }
+.curtain-panel:nth-child(2) { animation-delay: 0.1s; }
+.curtain-panel:nth-child(3) { animation-delay: 0.2s; }
+.curtain-panel:nth-child(4) { animation-delay: 0.3s; }

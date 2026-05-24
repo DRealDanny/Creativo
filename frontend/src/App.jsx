@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import './assets/css/global.css';
 import './assets/css/home.css';
@@ -21,22 +21,27 @@ import CaseStudyBranding from './pages/CaseStudyBranding';
 import CaseStudyVideoEditing from './pages/CaseStudyVideoEditing';
 import CaseStudyWebDevelopment from './pages/CaseStudyWebDevelopment';
 
+import ScrollToTop from './components/ScrollToTop';
+import CurtainTransition from './components/CurtainTransition';
+
 function App() {
+  const location = useLocation();
+
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/case-study/branding" element={<CaseStudyBranding />} />
-          <Route path="/case-study/video-editing" element={<CaseStudyVideoEditing />} />
-          <Route path="/case-study/web-development" element={<CaseStudyWebDevelopment />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <Layout>
+      <ScrollToTop />
+      <CurtainTransition key={location.pathname} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/case-study/branding" element={<CaseStudyBranding />} />
+        <Route path="/case-study/video-editing" element={<CaseStudyVideoEditing />} />
+        <Route path="/case-study/web-development" element={<CaseStudyWebDevelopment />} />
+      </Routes>
+    </Layout>
   );
 }
 
