@@ -2,46 +2,48 @@
 
 Role: Principal React Engineer
 
-Task: Migrate a perfectly clean, static HTML/CSS codebase located in the Reference folder into a React SPA inside a brand new frontend directory in the root.
+Task: Migrate a clean, static HTML/CSS codebase from the Reference folder into a React SPA inside a new frontend directory in the root.
 
-CRITICAL BOUNDARIES:
+CRITICAL BOUNDARIES & ZERO-HALLUCINATION PROTOCOL:
 
-DIRECTORY AWARENESS: Read all HTML/CSS from the Reference folder. Create a frontend folder in the root and initialize Vite (React) inside it.
+NO PLACEHOLDERS: You MUST strictly copy the exact text, structure, and inner HTML from the Reference pages. Do NOT hallucinate content, and do NOT use placeholder images.
 
-NO ANIMATIONS: Do NOT add any GSAP, Framer Motion, or complex transitions. Keep it 100% static. Do NOT copy the old main.js file into the React build.
+ASSETS: Move the Reference/assets folder into frontend/public/assets. Leave all image paths in the code exactly as they are (e.g., src="assets/img.jpg").
+
+NO MICRO-COMPONENTS: Keep the architecture monolithic. Do NOT extract buttons, cards, or sections into separate files. It must be strictly one file per page (e.g., About.jsx contains the whole About page).
+
+NO ANIMATIONS: Do NOT add GSAP or transitions. Keep it 100% static. Do NOT copy the old main.js file.
 
 1. JSX STRICTNESS PROTOCOL
 
-Vigorously convert ALL class= to className=. Convert for= to htmlFor=.
+Convert Vite setup using standard JavaScript (--template react). No TypeScript.
 
-Ensure all self-closing HTML tags (<img />, <hr />, <input />, <br />) are properly formatted.
+Vigorously convert ALL class= to className=, for= to htmlFor=, and fix self-closing tags.
 
-2. COMPONENT EXTRACTION & REACT STATE (frontend/src/components/)
+2. LAYOUT & ROUTING (frontend/src/)
 
-Extract the universal HTML Header and Footer into Header.jsx and Footer.jsx. You MUST convert the following vanilla JS logic into React State (useState/useEffect):
+Use react-router-dom v6 (<BrowserRouter>, <Routes>, <Route>) in App.jsx.
 
-Navbar Scroll State: Add a useEffect listener to track window scroll and apply the appropriate active/scrolled CSS class to the Header.
+Extract Header.jsx and Footer.jsx into frontend/src/components/.
 
-Mobile Menu: Use useState to toggle the mobile menu open/close classes.
+Wrap all 8 pages in a single global layout using this Header and Footer.
 
-Active Links: Replace standard <a> tags with react-router-dom <NavLink> to automatically handle active route classes.
+3. REACT STATE CONVERSIONS
 
-Scroll To Top: Implement the Scroll-To-Top button logic either as a standalone component or globally within App.jsx.
+You MUST convert the following vanilla JS logic into proper React State (useState/useEffect):
 
-3. PAGE REPLICATION & INTERACTIVE UI (frontend/src/pages/)
+Header: Add a scroll listener for the active/scrolled Navbar class. Use useState for the Mobile Menu toggle. Replace <a> with <NavLink>.
 
-Convert all HTML pages from the Reference folder into functional React components. You MUST convert the following page-specific vanilla JS features into React State:
+Showreel Modal: Use useState to open/close the video modal. CRITICAL: Ensure the iframe/video resets when closed so audio stops playing.
 
-Work Page (Work.jsx): Convert the Filter Dropdown logic into React state so clicking a category dynamically filters/displays the correct portfolio items.
+Work Page (Work.jsx): Convert the Filter Dropdown logic into React state.
 
-About Page (About.jsx): Convert the Tools Tabs (Desktop) and Tools Accordion (Mobile) into React state so clicking a tab/accordion toggles the correct content pane.
+About Page (About.jsx): Convert the Tools Tabs (Desktop) and Tools Accordion (Mobile) into React state.
 
-Set up standard SPA routing in App.jsx to link all 8 pages.
+4. CSS PRESERVATION
 
-4. CSS PRESERVATION (CRITICAL)
+Move ALL CSS files into frontend/src/assets/css/.
 
-Copy ALL existing CSS files from Reference/css/ into frontend/src/assets/css/.
+Explicitly import every single stylesheet (including mobile-res.css and tablet-res.css) globally in App.jsx in the exact original loading order.
 
-Explicitly import every single stylesheet (including mobile-res.css and tablet-res.css) globally in App.jsx ensuring the exact original loading order so the responsive layout is preserved perfectly.
-
-Open a Draft Pull Request once the static React SPA is compiling perfectly with zero errors and all interactive states (tabs, menus, filters) are working.
+Open a Draft PR once the SPA compiles with zero errors and matches the original HTML perfectly.
