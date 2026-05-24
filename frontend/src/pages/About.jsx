@@ -83,124 +83,55 @@ const About = () => {
         </div>
       </section>
 
-      {/* TOOLS & STACK — interactive UI */}
-      <section className="section" aria-labelledby="tools-heading">
-        <div className="container">
-          <div className="section-header">
-            <div className="section-label"><span className="t-label">Tools &amp; Stack</span></div>
-            <h2 className="t-h1" id="tools-heading">The kit that<br />builds the work.</h2>
-          </div>
-
-          <div className="tools-interactive">
-            {/* DESKTOP TABS */}
-            <div className="tools-tabs" role="tablist" aria-label="Tool categories">
-              <button
-                className={`tab-btn ${activeTab === 'design' ? 'tab-active' : ''}`}
-                role="tab"
-                aria-selected={activeTab === 'design'}
-                onClick={() => setActiveTab('design')}
-              >
-                Creative &amp; Visual
-              </button>
-              <button
-                className={`tab-btn ${activeTab === 'web' ? 'tab-active' : ''}`}
-                role="tab"
-                aria-selected={activeTab === 'web'}
-                onClick={() => setActiveTab('web')}
-              >
-                Web Development
-              </button>
-              <button
-                className={`tab-btn ${activeTab === 'video' ? 'tab-active' : ''}`}
-                role="tab"
-                aria-selected={activeTab === 'video'}
-                onClick={() => setActiveTab('video')}
-              >
-                Video Editing
-              </button>
-            </div>
-
-            {/* DESKTOP PANELS */}
-            <div className="tools-panels">
-              <div className="tools-panel-section" style={{ display: activeTab === 'design' ? 'flex' : 'none' }} role="tabpanel">
-                <div className="tool-pill"><i className="ri-quill-pen-line"></i> Figma</div>
-                <div className="tool-pill"><i className="ri-quill-pen-line"></i> Adobe Photoshop</div>
-                <div className="tool-pill"><i className="ri-quill-pen-line"></i> Adobe Illustrator</div>
-                <div className="tool-pill"><i className="ri-quill-pen-line"></i> Affinity Designer</div>
-              </div>
-
-              <div className="tools-panel-section" style={{ display: activeTab === 'web' ? 'flex' : 'none' }} role="tabpanel">
-                <div className="tool-pill"><i className="ri-code-line"></i> HTML &amp; CSS</div>
-                <div className="tool-pill"><i className="ri-javascript-line"></i> JavaScript</div>
-                <div className="tool-pill"><i className="ri-server-line"></i> PHP</div>
-                <div className="tool-pill"><i className="ri-reactjs-line"></i> React</div>
-                <div className="tool-pill"><i className="ri-code-s-slash-line"></i> GSAP</div>
-                <div className="tool-pill"><i className="ri-code-s-slash-line"></i> Tailwind CSS</div>
-                <div className="tool-pill"><i className="ri-smartphone-line"></i> Flutter &amp; Dart</div>
-              </div>
-
-              <div className="tools-panel-section" style={{ display: activeTab === 'video' ? 'flex' : 'none' }} role="tabpanel">
-                <div className="tool-pill"><i className="ri-video-line"></i> After Effects</div>
-                <div className="tool-pill"><i className="ri-video-line"></i> Premiere Pro</div>
-                <div className="tool-pill"><i className="ri-video-line"></i> CapCut</div>
-                <div className="tool-pill"><i className="ri-video-line"></i> DaVinci Resolve</div>
-              </div>
-            </div>
-
-            {/* MOBILE ACCORDION */}
-            <div className="tools-accordion">
-              <div className={`accordion-item ${activeAccordion === 'design' ? 'accordion-open' : ''}`}>
-                <button className="accordion-btn" aria-expanded={activeAccordion === 'design'} onClick={() => toggleAccordion('design')}>
-                  <span>Creative &amp; Visual</span>
-                  <i className="ri-add-line"></i>
-                </button>
-                <div className="accordion-content">
-                  <div className="accordion-inner">
-                    <span className="tool-pill"><i className="ri-quill-pen-line"></i> Figma</span>
-                    <span className="tool-pill"><i className="ri-quill-pen-line"></i> Adobe Photoshop</span>
-                    <span className="tool-pill"><i className="ri-quill-pen-line"></i> Adobe Illustrator</span>
-                    <span className="tool-pill"><i className="ri-quill-pen-line"></i> Affinity Designer</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className={`accordion-item ${activeAccordion === 'web' ? 'accordion-open' : ''}`}>
-                <button className="accordion-btn" aria-expanded={activeAccordion === 'web'} onClick={() => toggleAccordion('web')}>
-                  <span>Web Development</span>
-                  <i className="ri-add-line"></i>
-                </button>
-                <div className="accordion-content">
-                  <div className="accordion-inner">
-                    <span className="tool-pill"><i className="ri-code-line"></i> HTML &amp; CSS</span>
-                    <span className="tool-pill"><i className="ri-javascript-line"></i> JavaScript</span>
-                    <span className="tool-pill"><i className="ri-server-line"></i> PHP</span>
-                    <span className="tool-pill"><i className="ri-reactjs-line"></i> React</span>
-                    <span className="tool-pill"><i className="ri-code-s-slash-line"></i> GSAP</span>
-                    <span className="tool-pill"><i className="ri-code-s-slash-line"></i> Tailwind CSS</span>
-                    <span className="tool-pill"><i className="ri-smartphone-line"></i> Flutter &amp; Dart</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className={`accordion-item ${activeAccordion === 'video' ? 'accordion-open' : ''}`}>
-                <button className="accordion-btn" aria-expanded={activeAccordion === 'video'} onClick={() => toggleAccordion('video')}>
-                  <span>Video Editing</span>
-                  <i className="ri-add-line"></i>
-                </button>
-                <div className="accordion-content">
-                  <div className="accordion-inner">
-                    <span className="tool-pill"><i className="ri-video-line"></i> After Effects</span>
-                    <span className="tool-pill"><i className="ri-video-line"></i> Premiere Pro</span>
-                    <span className="tool-pill"><i className="ri-video-line"></i> CapCut</span>
-                    <span className="tool-pill"><i className="ri-video-line"></i> DaVinci Resolve</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+      {/* TOOLS & STACK */}
+    <section className="section" aria-labelledby="tools-heading">
+      <div className="container">
+        <div className="section-header">
+          <div className="section-label"><span className="t-label">Tools &amp; Stack</span></div>
+          <h2 className="t-h1" id="tools-heading">The kit that<br />builds the work.</h2>
         </div>
-      </section>
+        <div className="tools-grid">
+
+          <div className="tools-card">
+            <span className="tools-card-icon" aria-hidden="true">✦</span>
+            <h4 className="tools-card-title">Creative &amp; Visual Design</h4>
+            <div className="tools-card-pills">
+              <span className="tool-pill">Figma</span>
+              <span className="tool-pill">Adobe Photoshop</span>
+              <span className="tool-pill">Adobe Illustrator</span>
+              <span className="tool-pill">Affinity Designer</span>
+            </div>
+          </div>
+
+          <div className="tools-card">
+            <span className="tools-card-icon" aria-hidden="true">⬡</span>
+            <h4 className="tools-card-title">Web Development</h4>
+            <div className="tools-card-pills">
+              <span className="tool-pill">HTML &amp; CSS</span>
+              <span className="tool-pill">JavaScript</span>
+              <span className="tool-pill">PHP</span>
+              <span className="tool-pill">React</span>
+              <span className="tool-pill">GSAP</span>
+              <span className="tool-pill">Tailwind CSS</span>
+              <span className="tool-pill">Flutter &amp; Dart</span>
+            </div>
+          </div>
+
+          <div className="tools-card">
+            <span className="tools-card-icon" aria-hidden="true">▷</span>
+            <h4 className="tools-card-title">Video Editing</h4>
+            <div className="tools-card-pills">
+              <span className="tool-pill">Adobe After Effects</span>
+              <span className="tool-pill">Premiere Pro</span>
+              <span className="tool-pill">CapCut</span>
+              <span className="tool-pill">DaVinci Resolve</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
 
       {/* STATS — 4 cards */}
       <section className="section" aria-label="Stats">
