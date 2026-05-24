@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import './assets/css/global.css';
 import './assets/css/home.css';
@@ -21,10 +21,17 @@ import CaseStudyBranding from './pages/CaseStudyBranding';
 import CaseStudyVideoEditing from './pages/CaseStudyVideoEditing';
 import CaseStudyWebDevelopment from './pages/CaseStudyWebDevelopment';
 
+import ScrollToTop from './components/ScrollToTop';
+import CurtainTransition from './components/CurtainTransition';
+
 function App() {
+  const location = useLocation();
+
   return (
-    <BrowserRouter>
-      <Layout>
+    <Layout>
+      <ScrollToTop />
+      <CurtainTransition key={location.pathname} />
+      <div key={location.pathname} className="page-content-wrapper">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -35,8 +42,8 @@ function App() {
           <Route path="/case-study/video-editing" element={<CaseStudyVideoEditing />} />
           <Route path="/case-study/web-development" element={<CaseStudyWebDevelopment />} />
         </Routes>
-      </Layout>
-    </BrowserRouter>
+      </div>
+    </Layout>
   );
 }
 
