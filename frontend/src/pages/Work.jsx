@@ -5,6 +5,8 @@ const Work = () => {
   const [filter, setFilter] = useState('All');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const categories = ['All', 'Branding', 'Web Development', 'Video Editing'];
+
   const projects = [
     {
       id: 1,
@@ -17,7 +19,7 @@ const Work = () => {
     {
       id: 2,
       title: 'Luminal — Website',
-      category: 'Web',
+      category: 'Web Development',
       sub: 'Custom coded site with GSAP animations',
       imgSrc: 'https://picsum.photos/seed/luminal-web/800/600',
       link: '/case-study/web-development'
@@ -25,7 +27,7 @@ const Work = () => {
     {
       id: 3,
       title: 'Vanta — Edit Reel',
-      category: 'Video',
+      category: 'Video Editing',
       sub: 'Long-form & Reels editing package',
       imgSrc: 'https://picsum.photos/seed/vanta-motion/800/600',
       link: '/case-study/video-editing'
@@ -41,7 +43,7 @@ const Work = () => {
     {
       id: 5,
       title: 'Vortex — Landing Page',
-      category: 'Web',
+      category: 'Web Development',
       sub: 'Custom codebase, scroll animations',
       imgSrc: 'https://picsum.photos/seed/vortex-web/800/600',
       link: '/case-study/web-development'
@@ -49,7 +51,7 @@ const Work = () => {
     {
       id: 6,
       title: 'Nova — Content Package',
-      category: 'Video',
+      category: 'Video Editing',
       sub: 'YouTube & Reels editing series',
       imgSrc: 'https://picsum.photos/seed/nova-mkt/800/600',
       link: '/case-study/video-editing'
@@ -65,7 +67,7 @@ const Work = () => {
     {
       id: 8,
       title: 'Crest Studio — Portfolio',
-      category: 'Web',
+      category: 'Web Development',
       sub: 'Custom HTML/CSS/JS · CMS integration',
       imgSrc: 'https://picsum.photos/seed/crest-web/800/600',
       link: '/case-study/web-development'
@@ -73,7 +75,7 @@ const Work = () => {
     {
       id: 9,
       title: 'Klave — YouTube Series',
-      category: 'Video',
+      category: 'Video Editing',
       sub: 'Long-form editing · Thumbnails · SEO',
       imgSrc: 'https://picsum.photos/seed/klave-deck/800/600',
       link: '/case-study/video-editing'
@@ -86,73 +88,66 @@ const Work = () => {
     <main style={{ overflowX: 'hidden' }}>
 
       {/* ── HERO ── */}
-      <section className="page-hero" aria-labelledby="work-heading">
-        <div className="container">
+      <section className="work-hero" aria-labelledby="work-heading">
+        <div className="work-hero-inner">
           <div className="page-eyebrow">
             <span className="page-eyebrow-line" aria-hidden="true"></span>
-            <span className="t-label">Selected Work</span>
+            <span className="t-label">Selected Projects</span>
           </div>
-          <h1 id="work-heading">Work that earns<br /><em>its place</em>.</h1>
-          <p className="page-sub">A curated selection of brand identities, websites, and video edits. Driven by strategy, built with precision.</p>
+          <h1 id="work-heading">Three<br />disciplines.<br /><em>One</em> standard.</h1>
+          <p className="t-body-lg work-hero-sub">Every project here is a case of problem-solving, craft, and intentional execution — from the first brief to the final pixel.</p>
         </div>
         <div className="page-hero-bottom" aria-hidden="true"></div>
       </section>
 
       {/* ── WORK LIST ── */}
-      <section className="section" style={{ paddingTop: '20px' }}>
-        <div className="container">
+      <div className="work-main">
+        <div className="work-main-inner">
 
-          {/* FILTER CONTROLS */}
-          <div className="work-controls">
-            <span className="work-count">{filteredProjects.length} Projects</span>
+          {/* FILTER */}
+          <div className="filter-bar">
+            <div className="filter-container">
+              <span className="filter-label">Filter by type</span>
+              
+              <div className={`filter-dropdown ${isDropdownOpen ? 'active open' : ''}`} id="work-filter">
+                <button 
+                  className="dropdown-trigger" 
+                  aria-haspopup="listbox" 
+                  aria-expanded={isDropdownOpen}
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  <span className="dropdown-trigger-text">{filter}</span>
+                  <i className="ri-arrow-down-s-line dropdown-arrow"></i>
+                </button>
 
-            <div className={`filter-dropdown ${isDropdownOpen ? 'open' : ''}`}>
-              <button
-                className="dropdown-trigger"
-                aria-haspopup="listbox"
-                aria-expanded={isDropdownOpen}
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              >
-                <span className="dropdown-trigger-text">{filter === 'All' ? 'All Work' : filter}</span>
-                <i className="ri-arrow-down-s-line"></i>
-              </button>
-
-              {isDropdownOpen && (
-                <ul className="dropdown-menu" role="listbox" aria-label="Filter projects">
-                  <li
-                    className={`dropdown-item ${filter === 'All' ? 'active' : ''}`}
-                    role="option"
-                    aria-selected={filter === 'All'}
-                    onClick={() => { setFilter('All'); setIsDropdownOpen(false); }}
-                  >
-                    All Work
-                  </li>
-                  <li
-                    className={`dropdown-item ${filter === 'Branding' ? 'active' : ''}`}
-                    role="option"
-                    aria-selected={filter === 'Branding'}
-                    onClick={() => { setFilter('Branding'); setIsDropdownOpen(false); }}
-                  >
-                    Branding
-                  </li>
-                  <li
-                    className={`dropdown-item ${filter === 'Web' ? 'active' : ''}`}
-                    role="option"
-                    aria-selected={filter === 'Web'}
-                    onClick={() => { setFilter('Web'); setIsDropdownOpen(false); }}
-                  >
-                    Web
-                  </li>
-                  <li
-                    className={`dropdown-item ${filter === 'Video' ? 'active' : ''}`}
-                    role="option"
-                    aria-selected={filter === 'Video'}
-                    onClick={() => { setFilter('Video'); setIsDropdownOpen(false); }}
-                  >
-                    Video
-                  </li>
+                <ul 
+                  className="dropdown-menu" 
+                  role="listbox"
+                  style={{ 
+                    display: isDropdownOpen ? 'block' : 'none',
+                    opacity: isDropdownOpen ? 1 : 0,
+                    visibility: isDropdownOpen ? 'visible' : 'hidden',
+                    position: 'absolute', /* Ensure it floats over the grid */
+                    zIndex: 50
+                  }}
+                >
+                  {categories.map((category) => (
+                    <li 
+                      key={category}
+                      className={`dropdown-item ${filter === category ? 'active' : ''}`} 
+                      role="option"
+                      onClick={() => {
+                        setFilter(category);
+                        setIsDropdownOpen(false);
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {category}
+                    </li>
+                  ))}
                 </ul>
-              )}
+
+              </div>
             </div>
           </div>
 
@@ -173,7 +168,7 @@ const Work = () => {
           </div>
 
         </div>
-      </section>
+      </div>
 
       {/* ── CTA DIVIDER + BANNER ── */}
       <div className="cta-divider" aria-hidden="true"></div>
