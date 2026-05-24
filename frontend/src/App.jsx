@@ -21,8 +21,11 @@ import CaseStudyBranding from './pages/CaseStudyBranding';
 import CaseStudyVideoEditing from './pages/CaseStudyVideoEditing';
 import CaseStudyWebDevelopment from './pages/CaseStudyWebDevelopment';
 
+import { AnimatePresence } from 'framer-motion';
+
 import ScrollToTop from './components/ScrollToTop';
 import CurtainTransition from './components/CurtainTransition';
+import PageTransition from './components/PageTransition';
 
 function App() {
   const location = useLocation();
@@ -30,19 +33,19 @@ function App() {
   return (
     <Layout>
       <ScrollToTop />
-      <CurtainTransition key={location.pathname} />
-      <div key={location.pathname} className="page-content-wrapper">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/case-study/branding" element={<CaseStudyBranding />} />
-          <Route path="/case-study/video-editing" element={<CaseStudyVideoEditing />} />
-          <Route path="/case-study/web-development" element={<CaseStudyWebDevelopment />} />
+      <CurtainTransition key={`curtain-${location.pathname}`} />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
+          <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
+          <Route path="/case-study/branding" element={<PageTransition><CaseStudyBranding /></PageTransition>} />
+          <Route path="/case-study/video-editing" element={<PageTransition><CaseStudyVideoEditing /></PageTransition>} />
+          <Route path="/case-study/web-development" element={<PageTransition><CaseStudyWebDevelopment /></PageTransition>} />
         </Routes>
-      </div>
+      </AnimatePresence>
     </Layout>
   );
 }
