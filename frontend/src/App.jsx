@@ -30,8 +30,8 @@ function App() {
   return (
     <Layout>
       <ScrollToTop />
-      <CurtainTransition key={location.pathname} />
-      <div key={location.pathname} className="page-content-wrapper">
+      <CurtainTransition key={`curtain-${location.pathname}`} />
+      <div key={`page-${location.pathname}`} className="page-content-wrapper">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
