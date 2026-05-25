@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   devIndicators: {
     appIsrStatus: false,
     buildActivity: false,
-  } as any,
+  } as unknown as NonNullable<NextConfig["devIndicators"]>,
 };
 
 export default nextConfig;

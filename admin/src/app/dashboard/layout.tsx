@@ -17,9 +17,7 @@ export default function DashboardLayout({
   return (
     <MobileMenuProvider>
       <div className={`${styles.layoutWrapper} ${plusJakartaSans.variable}`}>
-        <aside className={styles.sidebarColumn}>
-          <Sidebar />
-        </aside>
+        <Sidebar />
         <main className={styles.mainColumn}>
           <TopBar />
           <div className={styles.content}>
