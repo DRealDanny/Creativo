@@ -1,0 +1,170 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/login-bg.jpg') center/cover;
+}
+
+.card {
+  background: #ffffff;
+  width: 480px;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  color: #111;
+  font-family: var(--font-geist-sans), sans-serif;
+  text-align: center;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.subtitle {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #111;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-sizing: border-box;
+  outline: none;
+  font-family: inherit;
+}
+
+.input:focus {
+  border-color: none;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggleButton {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.toggleButton:hover {
+  color: #111;
+}
+
+.primaryButton {
+  background: #2060FF;
+  color: #ffffff;
+  border: none;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.primaryButton:hover {
+  background: #1A4ECC;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.dividerText {
+  padding: 0 1rem;
+  color: #777;
+  font-size: 0.875rem;
+}
+
+.secondaryButton {
+  background: transparent;
+  color: #111;
+  border: 1px solid #ccc;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.secondaryButton:hover {
+  background: #f9f9f9;
+}
+
+.secondaryButton i {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 80%;
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 90%;
+    padding: 2rem 1.5rem;
+  }
+}
