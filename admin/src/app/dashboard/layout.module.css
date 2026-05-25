@@ -1,0 +1,44 @@
+.layoutWrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: var(--font-plus-jakarta), sans-serif;
+  overflow: hidden;
+  background-color: #f9fafb;
+}
+
+.sidebarColumn {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #111827;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainColumn {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #f9fafb;
+  width: calc(100% - 260px);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebarColumn {
+    display: none;
+  }
+
+  /* Add specific override when mobile menu is open via a global class or we can just handle it in Sidebar's own css with a slide-in overlay */
+  /* We will handle the actual mobile slide-in overlay within Sidebar.tsx and sidebar.module.css instead to avoid breaking the normal layout grid */
+
+  .mainColumn {
+    width: 100%;
+  }
+}
