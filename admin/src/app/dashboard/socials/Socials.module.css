@@ -1,0 +1,151 @@
+.container {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.commitAllButton {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  cursor: not-allowed;
+  background-color: #E5E7EB;
+  color: #9CA3AF;
+  transition: all 0.2s ease;
+}
+
+.commitAllButton.active {
+  background-color: #10B981;
+  color: white;
+  cursor: pointer;
+}
+
+.commitAllButton.active:hover {
+  background-color: #059669;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: #F3F4F6;
+  color: #4B5563;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.inputField {
+  flex-grow: 1;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.inputField:focus {
+  border-color: #2060FF;
+}
+
+.commitButton {
+  height: 48px;
+  padding: 0 24px;
+  background-color: #2060FF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.commitButton:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.commitButton:disabled {
+  background-color: #E5E7EB;
+  color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .commitAllButton {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .formRow {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .iconContainer {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .inputField {
+    height: 40px;
+    font-size: 14px;
+    /* calc(100% - icon width - gap) */
+    width: calc(100% - 40px - 12px);
+    flex-grow: unset;
+  }
+
+  .commitButton {
+    width: 100%;
+    height: 40px;
+    margin-top: 4px;
+  }
+}

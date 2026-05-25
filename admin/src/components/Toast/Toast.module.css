@@ -1,0 +1,86 @@
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out forwards;
+  z-index: 9999;
+  max-width: 400px;
+  color: white;
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+.success {
+  background-color: #10B981; /* Green */
+}
+
+.error {
+  background-color: #EF4444; /* Red */
+}
+
+.warning {
+  background-color: #F59E0B; /* Yellow */
+}
+
+.info {
+  background-color: #3B82F6; /* Blue */
+}
+
+.icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.message {
+  font-size: 14px;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .toast {
+    bottom: 24px;
+    right: 50%;
+    transform: translateX(50%);
+    width: calc(100% - 32px);
+    max-width: none;
+    animation: slideInMobile 0.3s ease-out forwards;
+  }
+
+  @keyframes slideInMobile {
+    from {
+      transform: translate(50%, 100%);
+    }
+    to {
+      transform: translate(50%, 0);
+    }
+  }
+}
