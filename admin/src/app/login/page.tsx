@@ -15,7 +15,7 @@ export default function LoginPage() {
       <div className={styles.card}>
         <h1 className={styles.title}>Welcome Back</h1>
         <p className={styles.subtitle}>
-          sign in to access your website content management system and control changes
+          Sign in to access your website content management system and control changes
         </p>
 
         <form className={styles.form}>
