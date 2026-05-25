@@ -1,0 +1,40 @@
+.layoutWrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: var(--font-plus-jakarta), sans-serif;
+  overflow: hidden;
+  background-color: #f9fafb;
+}
+
+.sidebarColumn {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #111827;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainColumn {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #f9fafb;
+  width: calc(100% - 260px);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebarColumn {
+    display: none;
+  }
+  .mainColumn {
+    width: 100%;
+  }
+}
