@@ -1,10 +1,25 @@
+"use client";
+
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 import styles from "./sidebar.module.css";
 
+import { useMobileMenu } from "./MobileMenuContext";
+
 export default function Sidebar() {
+  const { isMobileMenuOpen, closeMobileMenu } = useMobileMenu();
+
+  const handleLogout = () => {
+    signOut({ callbackUrl: '/login' });
+  };
+
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.header}>
+    <>
+      {isMobileMenuOpen && (
+        <div className={styles.mobileOverlay} onClick={closeMobileMenu}></div>
+      )}
+      <div className={`${styles.sidebar} ${isMobileMenuOpen ? styles.mobileOpen : ''}`}>
+        <div className={styles.header}>
         <h2>Dashboard</h2>
       </div>
 
@@ -48,17 +63,19 @@ export default function Sidebar() {
 
         <hr className={styles.divider} />
 
-        <Link href="#" className={styles.navLinkBold}>
+        <Link href="#" className={styles.navLinkSocials}>
+          <i className="ri-links-line"></i>
           <span>Socials</span>
         </Link>
       </nav>
 
       <div className={styles.footer}>
-        <button className={styles.logoutBtn}>
+        <button className={styles.logoutBtn} onClick={handleLogout}>
           <i className="ri-logout-box-line"></i>
           <span>Logout</span>
         </button>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

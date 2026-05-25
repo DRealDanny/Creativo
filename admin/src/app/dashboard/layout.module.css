@@ -34,6 +34,10 @@
   .sidebarColumn {
     display: none;
   }
+
+  /* Add specific override when mobile menu is open via a global class or we can just handle it in Sidebar's own css with a slide-in overlay */
+  /* We will handle the actual mobile slide-in overlay within Sidebar.tsx and sidebar.module.css instead to avoid breaking the normal layout grid */
+
   .mainColumn {
     width: 100%;
   }
