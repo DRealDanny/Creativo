@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { signIn } from 'next-auth/react';
 import styles from './login.module.css';
 
 export default function LoginPage() {
@@ -53,7 +54,11 @@ export default function LoginPage() {
           <span className={styles.dividerLine}></span>
         </div>
 
-        <button type="button" className={styles.secondaryButton}>
+        <button
+          type="button"
+          className={styles.secondaryButton}
+          onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+        >
           <i className="ri-google-fill"></i> Sign In with Google
         </button>
       </div>
