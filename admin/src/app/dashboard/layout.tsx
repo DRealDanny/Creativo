@@ -1,4 +1,5 @@
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import { MobileMenuProvider } from "./components/MobileMenuContext";
@@ -25,6 +26,7 @@ export default function DashboardLayout({
           </div>
         </main>
       </div>
+      <Toaster position="bottom-right" />
     </MobileMenuProvider>
   );
 }
