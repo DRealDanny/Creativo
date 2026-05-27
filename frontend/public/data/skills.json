@@ -1,0 +1,23 @@
+{
+  "creativeDesign": [
+    "Figma",
+    "Adobe Photoshop",
+    "Adobe Illustrator",
+    "Affinity Designer"
+  ],
+  "webDevelopment": [
+    "HTML & CSS",
+    "JavaScript",
+    "PHP",
+    "React",
+    "GSAP",
+    "Next.js",
+    "Flutter & Dart"
+  ],
+  "videoEditing": [
+    "Adobe After Effects",
+    "Premiere Pro",
+    "CapCut",
+    "DaVinci Resolve"
+  ]
+}

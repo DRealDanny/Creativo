@@ -59,7 +59,7 @@ export default function Sidebar() {
         <Link href="#" className={styles.navLink}>
           <span>Watch Showreel</span>
         </Link>
-        <Link href="#" className={styles.navLink}>
+        <Link href="/dashboard/skills" className={pathname === "/dashboard/skills" ? styles.navLinkActive : styles.navLink} onClick={closeMobileMenu}>
           <span>Skills</span>
         </Link>
 

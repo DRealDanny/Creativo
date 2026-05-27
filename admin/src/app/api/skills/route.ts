@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// Using process.cwd() since data is in root
-const dataFilePath = path.join(process.cwd(), '..', 'frontend', 'public', 'data', 'socials.json');
+const dataFilePath = path.join(process.cwd(), '..', 'frontend', 'public', 'data', 'skills.json');
 
 export async function GET() {
   try {
@@ -11,9 +10,9 @@ export async function GET() {
     const data = JSON.parse(fileContents);
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error reading socials data:', error);
+    console.error('Error reading skills data:', error);
     return NextResponse.json(
-      { error: 'Failed to read socials data' },
+      { error: 'Failed to read skills data' },
       { status: 500 }
     );
   }
@@ -23,7 +22,6 @@ export async function POST(request: Request) {
   try {
     const newData = await request.json();
 
-    // Read current data to merge (optional, but good practice if partial updates)
     let currentData = {};
     try {
       const fileContents = fs.readFileSync(dataFilePath, 'utf8');
@@ -34,7 +32,6 @@ export async function POST(request: Request) {
 
     const mergedData = { ...currentData, ...newData };
 
-    // Create dir if not exists (though it should)
     const dir = path.dirname(dataFilePath);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
@@ -44,9 +41,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, data: mergedData });
   } catch (error) {
-    console.error('Error writing socials data:', error);
+    console.error('Error writing skills data:', error);
     return NextResponse.json(
-      { error: 'Failed to update socials data' },
+      { error: 'Failed to update skills data' },
       { status: 500 }
     );
   }
