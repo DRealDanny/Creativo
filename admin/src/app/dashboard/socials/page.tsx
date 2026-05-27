@@ -151,16 +151,6 @@ export default function SocialsPage() {
           );
         })}
       </div>
-
-      <div className={styles.testButtons}>
-        <h3>Test Notifications</h3>
-        <button className={styles.testButton} onClick={() => toast.error('Commit failed.')}>
-          Test Error Toast
-        </button>
-        <button className={styles.testButton} onClick={() => toast('Partial commit', { icon: '⚠️' })}>
-          Test Partial Toast
-        </button>
-      </div>
     </div>
   );
 }
