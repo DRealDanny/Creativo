@@ -1,47 +1,54 @@
-📋 PHASE 11: SKILLS CMS & FRONTEND DATA WIRING
+📋 PHASE 11: SKILLS CMS & VITE FRONTEND WIRING
 
-Role: Premium Full-Stack Next.js Engineer
+Role: Premium Full-Stack Engineer
 
-🛑 CRITICAL CONTEXT & RULES
+🛑 CRITICAL ARCHITECTURE CONTEXT
 
-TECH STACK: Next.js (App Router), react-hot-toast, Node.js fs.
+CMS BACKEND: Next.js (App Router). Uses standard Node fs to write to JSON files.
 
-STYLING: Strictly Vanilla CSS Modules. CMS inputs must remain transparent with subtle borders.
+LIVE FRONTEND: Vite React SPA. Uses standard browser fetch(). DO NOT use Next.js Server Components or fs in the frontend directory!
 
-OBJECTIVE: Build the "Manage Skills" CMS page, AND wire up the actual frontend components (Footer and Tools & Stack) to read from the JSON flat files.
+DATA STORAGE: Flat-file JSON database located in the root /data directory.
+
+STYLING: Strictly Vanilla CSS Modules. Match the transparent input UI from the Socials page exactly.
+
+🎯 The Goal
+
+Build the Next.js "Manage Skills" CMS page, connect the root /data folder to Vite via a symlink, and make the Vite frontend fetch the live data securely.
 
 🛠️ Execution Steps
 
-Step 1: Build the CMS Manage Skills Page
+Step 1: The CMS Backend (Next.js)
 
 Create /data/skills.json seeded with the frontend's current data (Creative Design, Web Dev, Video Editing arrays).
 
-Create src/app/api/skills/route.ts to handle GET/POST for the JSON file.
+Create src/app/api/skills/route.ts to handle GET/POST to this JSON file.
 
-Build src/app/dashboard/skills/page.tsx with 3 category sections.
+Step 2: Build the CMS Manage Skills UI (src/app/dashboard/skills/page.tsx)
 
-UI Rules: Match the transparent inputs of the Socials page. Each skill row gets a transparent input, a Blue "Commit" button, and a Red "Remove" button. Each section gets a Green "Add Skill" button at the bottom.
+Build the page with 3 category sections matching the JSON arrays.
 
-Wire to the global CommitContext and Toasts.
+UI Rules: Match the transparent inputs of the Socials page exactly. Each skill row gets a transparent input, a Blue "Commit" button, and a Red "Remove" button. Each section gets a Green "Add Skill" button at the bottom.
 
-Step 2: Frontend Integration - Socials (The Fix)
+Wire inputs to the global CommitContext and trigger Toasts on success/error.
 
-Locate the frontend Footer component (likely src/components/Footer.tsx or similar).
+Step 3: The Architecture Fix (Vite Symlink)
 
-Convert it to an Async Server Component if it isn't already.
+Navigate to the Vite frontend directory.
 
-Use fs.promises.readFile to read data/socials.json on the server.
+Create a symlink at frontend/public/data that points directly to the root ../data folder. (This ensures Vite serves the live JSON files as static assets during dev AND build).
 
-Replace the hardcoded href links for Email, X, LinkedIn, and Instagram with the dynamic data from the JSON file.
+Remove any old custom Vite vite.config.js middlewares previously created to serve these files, as the symlink makes them native to Vite's public directory.
 
-Step 3: Frontend Integration - Skills
+Step 4: The Frontend Wiring (Vite React SPA)
 
-Locate the frontend component for the Tools & Stack section.
+Update the frontend Footer (Socials) and Tools & Stack (Skills) components.
 
-Convert it to an Async Server Component.
+Use standard React useState and useEffect.
 
-Use fs.promises.readFile to read data/skills.json on the server.
+Fetch the data using aggressive cache-busting so it always shows the latest CMS changes:
+fetch('/data/skills.json?t=' + new Date().getTime())
 
-Replace the hardcoded lists with dynamic map() functions rendering the arrays from the JSON file.
+Map the fetched data to the UI components. Handle loading states gracefully (e.g., return null or a skeleton until data loads so the UI doesn't crash).
 
-Open a Draft PR once the CMS is managing Skills, AND the live frontend website is successfully reflecting changes made to both Socials and Skills.
+Open a Draft PR once the CMS is functional, the symlink is created, and the Vite frontend is successfully rendering the live JSON data.
