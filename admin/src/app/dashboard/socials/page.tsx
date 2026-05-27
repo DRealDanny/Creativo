@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { useCommit } from '../components/CommitContext';
 import styles from './Socials.module.css';
 
 interface SocialPlatform {
@@ -29,11 +30,30 @@ export default function SocialsPage() {
 
   const [currentValues, setCurrentValues] = useState<Record<string, string>>(initialValues);
 
+  const { setPendingCommits, registerCommitAllHandler } = useCommit();
+
   const editedFieldsCount = useMemo(() => {
     return Object.keys(currentValues).filter(
       (key) => currentValues[key] !== initialValues[key]
     ).length;
   }, [currentValues, initialValues]);
+
+  useEffect(() => {
+    setPendingCommits(editedFieldsCount);
+  }, [editedFieldsCount, setPendingCommits]);
+
+  // Keep current values in a ref so the single registered handler always sees the latest state
+  const currentValuesRef = React.useRef(currentValues);
+
+  useEffect(() => {
+    currentValuesRef.current = currentValues;
+  }, [currentValues]);
+
+  useEffect(() => {
+    registerCommitAllHandler(() => {
+      setInitialValues(currentValuesRef.current);
+    });
+  }, [registerCommitAllHandler]);
 
   const handleInputChange = (id: string, value: string) => {
     setCurrentValues((prev) => ({
@@ -50,23 +70,10 @@ export default function SocialsPage() {
     toast.success('Commit successful!');
   };
 
-  const handleCommitAll = () => {
-    if (editedFieldsCount <= 1) return;
-    setInitialValues(currentValues);
-    toast.success('All changes successfully committed!');
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Socials</h1>
-        <button
-          className={`${styles.commitAllButton} ${editedFieldsCount > 1 ? styles.active : ''}`}
-          disabled={editedFieldsCount <= 1}
-          onClick={handleCommitAll}
-        >
-          Commit All ({editedFieldsCount})
-        </button>
       </div>
 
       <div className={styles.formGrid}>

@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import { MobileMenuProvider } from "./components/MobileMenuContext";
+import { CommitProvider } from "./components/CommitContext";
 import styles from "./layout.module.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -16,17 +17,19 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <MobileMenuProvider>
-      <div className={`${styles.layoutWrapper} ${plusJakartaSans.variable}`}>
-        <Sidebar />
-        <main className={styles.mainColumn}>
-          <TopBar />
-          <div className={styles.content}>
-            {children}
-          </div>
-        </main>
-      </div>
-      <Toaster position="bottom-right" />
-    </MobileMenuProvider>
+    <CommitProvider>
+      <MobileMenuProvider>
+        <div className={`${styles.layoutWrapper} ${plusJakartaSans.variable}`}>
+          <Sidebar />
+          <main className={styles.mainColumn}>
+            <TopBar />
+            <div className={styles.content}>
+              {children}
+            </div>
+          </main>
+        </div>
+        <Toaster position="bottom-right" />
+      </MobileMenuProvider>
+    </CommitProvider>
   );
 }
