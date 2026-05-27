@@ -3,6 +3,14 @@ import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [socials, setSocials] = useState({});
+
+  useEffect(() => {
+    fetch('/data/socials.json?' + new Date().getTime())
+      .then(res => res.json())
+      .then(data => setSocials(data))
+      .catch(console.error);
+  }, []);
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
@@ -32,9 +40,9 @@ const Footer = () => {
               <p className="footer-tagline">Brand Structuralist &amp; Video Editor</p>
               <p className="footer-desc">Design that thinks. Work that lasts.<br />Based in Lagos, Nigeria.</p>
               <div className="footer-socials">
-                <a href="https://instagram.com/creativocreates" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social"><i className="ri-instagram-line"></i></a>
-                <a href="https://behance.net/creativocreates"   target="_blank" rel="noopener noreferrer" aria-label="Behance"   className="footer-social"><i className="ri-behance-line"></i></a>
-                <a href="https://pinterest.com/creativocreates" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" className="footer-social"><i className="ri-pinterest-line"></i></a>
+                {socials.instagram && <a href={socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social"><i className="ri-instagram-line"></i></a>}
+                {socials.behance && <a href={socials.behance} target="_blank" rel="noopener noreferrer" aria-label="Behance" className="footer-social"><i className="ri-behance-line"></i></a>}
+                {socials.pinterest && <a href={socials.pinterest} target="_blank" rel="noopener noreferrer" aria-label="Pinterest" className="footer-social"><i className="ri-pinterest-line"></i></a>}
               </div>
             </div>
             <div>
@@ -49,8 +57,8 @@ const Footer = () => {
             </div>
             <div className="footer-contact-col">
               <h4 className="footer-col-title">Get In Touch</h4>
-              <a href="mailto:hello@creativocreates.live" className="footer-contact-item"><i className="ri-mail-line"></i> hello@creativocreates.live</a>
-              <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" className="footer-contact-item"><i className="ri-whatsapp-line"></i> Chat on WhatsApp</a>
+              <a href={`mailto:${socials.email || 'hello@creativocreates.live'}`} className="footer-contact-item"><i className="ri-mail-line"></i> {socials.email || 'hello@creativocreates.live'}</a>
+              <a href={socials.whatsapp || '#'} target="_blank" rel="noopener noreferrer" className="footer-contact-item"><i className="ri-whatsapp-line"></i> Chat on WhatsApp</a>
               <NavLink to="/contact" className="btn btn-primary footer-cta"><span>Start a Project</span><i className="ri-arrow-right-up-line"></i></NavLink>
             </div>
           </div>
