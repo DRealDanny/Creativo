@@ -13,9 +13,13 @@ const About = () => {
         if (response.ok) {
           const data = await response.json();
           setSkills(data);
+        } else {
+          console.error('Failed to fetch skills data, falling back to defaults.');
+          setSkills({ creativeDesign: [], webDevelopment: [], videoEditing: [] });
         }
       } catch (error) {
         console.error('Failed to fetch skills data:', error);
+        setSkills({ creativeDesign: [], webDevelopment: [], videoEditing: [] });
       }
     };
     fetchSkills();

@@ -19,6 +19,8 @@ const Footer = () => {
         if (response.ok) {
           const data = await response.json();
           setSocials(data);
+        } else {
+          console.error('Failed to fetch socials data, falling back to defaults.');
         }
       } catch (error) {
         console.error('Failed to fetch socials data:', error);

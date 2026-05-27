@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 // Using process.cwd() since data is in root
-const dataFilePath = path.join(process.cwd(), '..', 'data', 'socials.json');
+const dataFilePath = path.join(process.cwd(), '..', 'frontend', 'public', 'data', 'socials.json');
 
 export async function GET() {
   try {
