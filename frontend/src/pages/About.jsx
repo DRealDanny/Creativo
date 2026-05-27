@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
+
 import { NavLink } from 'react-router-dom';
 
 const About = () => {
-  const [activeTab, setActiveTab] = useState('design');
-  const [activeAccordion, setActiveAccordion] = useState(null);
 
-  const toggleAccordion = (tab) => {
-    if (activeAccordion === tab) {
-      setActiveAccordion(null);
-    } else {
-      setActiveAccordion(tab);
-    }
-  };
+
+
 
   return (
     <main style={{ overflowX: 'hidden' }}>

@@ -1,0 +1,17 @@
+[
+  {
+    "category": "Creative & Visual Design",
+    "icon": "✦",
+    "skills": ["Figma", "Adobe Photoshop", "Adobe Illustrator", "Affinity Designer"]
+  },
+  {
+    "category": "Web Development",
+    "icon": "⬡",
+    "skills": ["HTML & CSS", "JavaScript", "PHP", "React", "GSAP", "Tailwind CSS", "Flutter & Dart"]
+  },
+  {
+    "category": "Video Editing",
+    "icon": "▷",
+    "skills": ["Adobe After Effects", "Premiere Pro", "CapCut", "DaVinci Resolve"]
+  }
+]
