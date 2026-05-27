@@ -73,7 +73,7 @@ export default function SocialsPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Socials</h1>
+        <h1 className={styles.title}>Manage Social</h1>
       </div>
 
       <div className={styles.formGrid}>
