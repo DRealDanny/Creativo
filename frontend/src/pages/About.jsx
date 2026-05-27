@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const About = () => {
   const [activeTab, setActiveTab] = useState('design');
   const [activeAccordion, setActiveAccordion] = useState(null);
+  const [skills, setSkills] = useState(null);
+
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const response = await fetch(`/data/skills.json?t=${new Date().getTime()}`);
+        if (response.ok) {
+          const data = await response.json();
+          setSkills(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch skills data:', error);
+      }
+    };
+    fetchSkills();
+  }, []);
 
   const toggleAccordion = (tab) => {
     if (activeAccordion === tab) {
@@ -90,45 +106,41 @@ const About = () => {
           <div className="section-label"><span className="t-label">Tools &amp; Stack</span></div>
           <h2 className="t-h1" id="tools-heading">The kit that<br />builds the work.</h2>
         </div>
-        <div className="tools-grid">
+        {skills ? (
+          <div className="tools-grid">
+            <div className="tools-card">
+              <span className="tools-card-icon" aria-hidden="true">✦</span>
+              <h4 className="tools-card-title">Creative &amp; Visual Design</h4>
+              <div className="tools-card-pills">
+                {skills.creativeDesign?.map((skill, i) => (
+                  <span key={i} className="tool-pill">{skill}</span>
+                ))}
+              </div>
+            </div>
 
-          <div className="tools-card">
-            <span className="tools-card-icon" aria-hidden="true">✦</span>
-            <h4 className="tools-card-title">Creative &amp; Visual Design</h4>
-            <div className="tools-card-pills">
-              <span className="tool-pill">Figma</span>
-              <span className="tool-pill">Adobe Photoshop</span>
-              <span className="tool-pill">Adobe Illustrator</span>
-              <span className="tool-pill">Affinity Designer</span>
+            <div className="tools-card">
+              <span className="tools-card-icon" aria-hidden="true">⬡</span>
+              <h4 className="tools-card-title">Web Development</h4>
+              <div className="tools-card-pills">
+                {skills.webDevelopment?.map((skill, i) => (
+                  <span key={i} className="tool-pill">{skill}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="tools-card">
+              <span className="tools-card-icon" aria-hidden="true">▷</span>
+              <h4 className="tools-card-title">Video Editing</h4>
+              <div className="tools-card-pills">
+                {skills.videoEditing?.map((skill, i) => (
+                  <span key={i} className="tool-pill">{skill}</span>
+                ))}
+              </div>
             </div>
           </div>
-
-          <div className="tools-card">
-            <span className="tools-card-icon" aria-hidden="true">⬡</span>
-            <h4 className="tools-card-title">Web Development</h4>
-            <div className="tools-card-pills">
-              <span className="tool-pill">HTML &amp; CSS</span>
-              <span className="tool-pill">JavaScript</span>
-              <span className="tool-pill">PHP</span>
-              <span className="tool-pill">React</span>
-              <span className="tool-pill">GSAP</span>
-              <span className="tool-pill">Tailwind CSS</span>
-              <span className="tool-pill">Flutter &amp; Dart</span>
-            </div>
-          </div>
-
-          <div className="tools-card">
-            <span className="tools-card-icon" aria-hidden="true">▷</span>
-            <h4 className="tools-card-title">Video Editing</h4>
-            <div className="tools-card-pills">
-              <span className="tool-pill">Adobe After Effects</span>
-              <span className="tool-pill">Premiere Pro</span>
-              <span className="tool-pill">CapCut</span>
-              <span className="tool-pill">DaVinci Resolve</span>
-            </div>
-          </div>
-
-        </div>
+        ) : (
+          <p>Loading skills...</p>
+        )}
       </div>
     </section>
 
