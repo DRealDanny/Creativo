@@ -1,0 +1,169 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: #f8fafc;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 20px;
+  color: #64748b;
+}
+
+.input {
+  flex: 1;
+  height: 44px;
+  padding: 0 16px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 0;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+}
+
+.commitButton {
+  height: 44px;
+  padding: 0 20px;
+  background-color: #2060FF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.commitButton:hover {
+  background-color: #1a4ccc;
+}
+
+.commitButton:disabled {
+  background-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.testButtons {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px dashed #cbd5e1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.testButtons h3 {
+  width: 100%;
+  font-size: 16px;
+  color: #64748b;
+  margin: 0 0 8px 0;
+}
+
+.testButton {
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #475569;
+  cursor: pointer;
+}
+
+.testButton:hover {
+  background-color: #f1f5f9;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .formRow {
+    flex-wrap: wrap;
+  }
+
+  .iconWrapper {
+    width: 100%;
+    order: 1;
+    background-color: transparent;
+    border: none;
+    justify-content: flex-start;
+    height: auto;
+    padding-bottom: 4px;
+  }
+
+  .icon {
+    font-size: 24px;
+    color: #475569;
+  }
+
+  .input {
+    order: 2;
+    width: 100%;
+    flex: none;
+  }
+
+  .commitButton {
+    order: 3;
+    width: 100%;
+  }
+}

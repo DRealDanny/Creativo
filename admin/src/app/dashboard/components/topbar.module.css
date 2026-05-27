@@ -33,6 +33,29 @@
 .right {
   display: flex;
   align-items: center;
+  gap: 16px;
+}
+
+.commitAllButton {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #e2e8f0;
+  color: #94a3b8;
+}
+
+.commitAllButton.active {
+  background-color: #10B981;
+  color: white;
+  cursor: pointer;
+}
+
+.commitAllButton.active:hover {
+  background-color: #059669;
 }
 
 .userProfile {
