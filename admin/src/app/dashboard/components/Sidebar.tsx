@@ -63,7 +63,7 @@ export default function Sidebar() {
 
         <hr className={styles.divider} />
 
-        <Link href="#" className={styles.navLinkSocials}>
+        <Link href="/dashboard/socials" className={styles.navLinkSocials} onClick={closeMobileMenu}>
           <i className="ri-links-line"></i>
           <span>Socials</span>
         </Link>
