@@ -1,4 +1,4 @@
-📋 PHASE 11: SKILLS MANAGEMENT MODULE
+📋 PHASE 11: SKILLS CMS & FRONTEND DATA WIRING
 
 Role: Premium Full-Stack Next.js Engineer
 
@@ -6,59 +6,42 @@ Role: Premium Full-Stack Next.js Engineer
 
 TECH STACK: Next.js (App Router), react-hot-toast, Node.js fs.
 
-STYLING: Strictly Vanilla CSS Modules. Match the exact premium UI from the Socials form (transparent inputs with subtle stroke, #111111 text on light mode / white text on dark mode, solid blue commit buttons).
+STYLING: Strictly Vanilla CSS Modules. CMS inputs must remain transparent with subtle borders.
 
-DATA ARCHITECTURE: Flat-file JSON database (/data/skills.json).
-
-🎯 The Goal
-
-Build the "Manage Skills" page where the user can dynamically add, edit, or remove skills categorized by discipline, syncing everything to a local JSON file.
+OBJECTIVE: Build the "Manage Skills" CMS page, AND wire up the actual frontend components (Footer and Tools & Stack) to read from the JSON flat files.
 
 🛠️ Execution Steps
 
-Step 1: Initialize Local JSON Data
+Step 1: Build the CMS Manage Skills Page
 
-Create /data/skills.json and seed it with the exact data from the user's frontend:
+Create /data/skills.json seeded with the frontend's current data (Creative Design, Web Dev, Video Editing arrays).
 
-{
-  "creativeDesign": ["Figma", "Adobe Photoshop", "Adobe Illustrator", "Affinity Designer"],
-  "webDevelopment": ["HTML & CSS", "JavaScript", "PHP", "React", "GSAP", "Tailwind CSS", "Flutter & Dart"],
-  "videoEditing": ["Adobe After Effects", "Premiere Pro", "CapCut", "DaVinci Resolve"]
-}
+Create src/app/api/skills/route.ts to handle GET/POST for the JSON file.
 
+Build src/app/dashboard/skills/page.tsx with 3 category sections.
 
-Step 2: Create the Next.js API Route
+UI Rules: Match the transparent inputs of the Socials page. Each skill row gets a transparent input, a Blue "Commit" button, and a Red "Remove" button. Each section gets a Green "Add Skill" button at the bottom.
 
-Create src/app/api/skills/route.ts.
+Wire to the global CommitContext and Toasts.
 
-Implement a GET method to read data/skills.json.
+Step 2: Frontend Integration - Socials (The Fix)
 
-Implement a POST method to receive the full updated JSON object and write it to data/skills.json.
+Locate the frontend Footer component (likely src/components/Footer.tsx or similar).
 
-Step 3: Build the UI Layout (src/app/dashboard/skills/page.tsx)
+Convert it to an Async Server Component if it isn't already.
 
-Main Heading: "Manage Skills" followed by a standard <hr /> divider.
+Use fs.promises.readFile to read data/socials.json on the server.
 
-Sections: Create 3 distinct sections with subheadings: "Creative & Visual Design", "Web Development", and "Video Editing".
+Replace the hardcoded href links for Email, X, LinkedIn, and Instagram with the dynamic data from the JSON file.
 
-Step 4: Dynamic Array State & Row UI
+Step 3: Frontend Integration - Skills
 
-Use React state to manage the 3 arrays.
+Locate the frontend component for the Tools & Stack section.
 
-Map through each array to render the skill rows.
+Convert it to an Async Server Component.
 
-Row Layout: Flex container.
+Use fs.promises.readFile to read data/skills.json on the server.
 
-Left: Transparent <input> field bound to the specific index of the array.
+Replace the hardcoded lists with dynamic map() functions rendering the arrays from the JSON file.
 
-Right: Two buttons. A solid Blue "Commit" button, and a solid Red "Remove" button (e.g., #EF4444) sitting side-by-side.
-
-Add Button: At the bottom of each section's list, place a solid Green "Add Skill" button (e.g., #10B981) that pushes an empty string to that category's array.
-
-Step 5: Global Context Integration
-
-Ensure editing an input, adding a skill, or removing a skill increments the global CommitContext so the TopBar "Commit All" button activates.
-
-Wire the individual "Commit" buttons and the TopBar "Commit All" to trigger POST /api/skills, update the JSON, reset the commit context, and fire a success Toast.
-
-Open a Draft PR once the form is successfully performing full CRUD operations on the JSON file.
+Open a Draft PR once the CMS is managing Skills, AND the live frontend website is successfully reflecting changes made to both Socials and Skills.
