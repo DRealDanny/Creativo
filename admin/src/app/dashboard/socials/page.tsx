@@ -13,22 +13,38 @@ interface SocialPlatform {
 
 const platforms: SocialPlatform[] = [
   { id: 'email', label: 'Email', icon: 'ri-mail-line' },
-  { id: 'x', label: 'X (Twitter)', icon: 'ri-twitter-x-line' },
-  { id: 'linkedin', label: 'LinkedIn', icon: 'ri-linkedin-fill' },
+  { id: 'whatsapp', label: 'WhatsApp', icon: 'ri-whatsapp-line' },
   { id: 'instagram', label: 'Instagram', icon: 'ri-instagram-line' },
-  { id: 'youtube', label: 'YouTube', icon: 'ri-youtube-fill' },
+  { id: 'behance', label: 'Behance', icon: 'ri-behance-line' },
+  { id: 'pinterest', label: 'Pinterest', icon: 'ri-pinterest-line' },
 ];
 
 export default function SocialsPage() {
   const [initialValues, setInitialValues] = useState<Record<string, string>>({
-    email: 'admin@example.com',
-    x: 'https://x.com/example',
-    linkedin: 'https://linkedin.com/in/example',
-    instagram: 'https://instagram.com/example',
-    youtube: 'https://youtube.com/c/example',
+    email: '',
+    whatsapp: '',
+    instagram: '',
+    behance: '',
+    pinterest: '',
   });
 
   const [currentValues, setCurrentValues] = useState<Record<string, string>>(initialValues);
+
+  useEffect(() => {
+    async function fetchSocials() {
+      try {
+        const res = await fetch('/api/socials');
+        if (res.ok) {
+          const data = await res.json();
+          setInitialValues(data);
+          setCurrentValues(data);
+        }
+      } catch (error) {
+        console.error('Failed to load socials:', error);
+      }
+    }
+    fetchSocials();
+  }, []);
 
   const { setPendingCommits, registerCommitAllHandler } = useCommit();
 
@@ -50,8 +66,25 @@ export default function SocialsPage() {
   }, [currentValues]);
 
   useEffect(() => {
-    registerCommitAllHandler(() => {
-      setInitialValues(currentValuesRef.current);
+    registerCommitAllHandler(async () => {
+      const loadingToast = toast.loading('Committing all...');
+      try {
+        const res = await fetch('/api/socials', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentValuesRef.current),
+        });
+        if (res.ok) {
+          const { data } = await res.json();
+          setInitialValues(data);
+          toast.success('All socials committed successfully!', { id: loadingToast });
+        } else {
+          toast.error('Failed to commit socials.', { id: loadingToast });
+        }
+      } catch (error) {
+        console.error('Commit all error:', error);
+        toast.error('Error committing socials.', { id: loadingToast });
+      }
     });
   }, [registerCommitAllHandler]);
 
@@ -62,12 +95,26 @@ export default function SocialsPage() {
     }));
   };
 
-  const handleCommitSingle = (id: string) => {
-    setInitialValues((prev) => ({
-      ...prev,
-      [id]: currentValues[id],
-    }));
-    toast.success('Commit successful!');
+  const handleCommitSingle = async (id: string) => {
+    const loadingToast = toast.loading(`Committing ${id}...`);
+    try {
+      const res = await fetch('/api/socials', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ [id]: currentValues[id] }),
+      });
+
+      if (res.ok) {
+        const { data } = await res.json();
+        setInitialValues((prev) => ({ ...prev, [id]: data[id] }));
+        toast.success('Commit successful!', { id: loadingToast });
+      } else {
+        toast.error('Commit failed.', { id: loadingToast });
+      }
+    } catch (error) {
+      console.error('Single commit error:', error);
+      toast.error('Error committing.', { id: loadingToast });
+    }
   };
 
   return (
@@ -103,16 +150,6 @@ export default function SocialsPage() {
             </div>
           );
         })}
-      </div>
-
-      <div className={styles.testButtons}>
-        <h3>Test Notifications</h3>
-        <button className={styles.testButton} onClick={() => toast.error('Commit failed.')}>
-          Test Error Toast
-        </button>
-        <button className={styles.testButton} onClick={() => toast('Partial commit', { icon: '⚠️' })}>
-          Test Partial Toast
-        </button>
       </div>
     </div>
   );
