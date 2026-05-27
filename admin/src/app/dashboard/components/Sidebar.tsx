@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import styles from "./sidebar.module.css";
 
@@ -8,6 +9,7 @@ import { useMobileMenu } from "./MobileMenuContext";
 
 export default function Sidebar() {
   const { isMobileMenuOpen, closeMobileMenu } = useMobileMenu();
+  const pathname = usePathname();
 
   const handleLogout = () => {
     signOut({ callbackUrl: '/login' });
@@ -24,7 +26,7 @@ export default function Sidebar() {
       </div>
 
       <nav className={styles.nav}>
-        <Link href="/dashboard" className={styles.navLinkActive}>
+        <Link href="/dashboard" className={pathname === "/dashboard" ? styles.navLinkActive : styles.navLink}>
           <i className="ri-home-5-line"></i>
           <span>Home</span>
         </Link>
@@ -63,7 +65,7 @@ export default function Sidebar() {
 
         <hr className={styles.divider} />
 
-        <Link href="/dashboard/socials" className={styles.navLinkSocials} onClick={closeMobileMenu}>
+        <Link href="/dashboard/socials" className={`${styles.navLinkSocials} ${pathname === "/dashboard/socials" ? styles.navLinkActive : ''}`} onClick={closeMobileMenu}>
           <i className="ri-links-line"></i>
           <span>Socials</span>
         </Link>
