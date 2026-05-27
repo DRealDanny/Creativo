@@ -1,0 +1,53 @@
+import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+
+// Using process.cwd() since data is in root
+const dataFilePath = path.join(process.cwd(), '..', 'data', 'socials.json');
+
+export async function GET() {
+  try {
+    const fileContents = fs.readFileSync(dataFilePath, 'utf8');
+    const data = JSON.parse(fileContents);
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Error reading socials data:', error);
+    return NextResponse.json(
+      { error: 'Failed to read socials data' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const newData = await request.json();
+
+    // Read current data to merge (optional, but good practice if partial updates)
+    let currentData = {};
+    try {
+      const fileContents = fs.readFileSync(dataFilePath, 'utf8');
+      currentData = JSON.parse(fileContents);
+    } catch (e) {
+      // Ignore read errors if file doesn't exist, we will create it
+    }
+
+    const mergedData = { ...currentData, ...newData };
+
+    // Create dir if not exists (though it should)
+    const dir = path.dirname(dataFilePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    fs.writeFileSync(dataFilePath, JSON.stringify(mergedData, null, 2), 'utf8');
+
+    return NextResponse.json({ success: true, data: mergedData });
+  } catch (error) {
+    console.error('Error writing socials data:', error);
+    return NextResponse.json(
+      { error: 'Failed to update socials data' },
+      { status: 500 }
+    );
+  }
+}
