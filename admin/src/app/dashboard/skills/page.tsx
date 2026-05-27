@@ -118,6 +118,28 @@ export default function SkillsPage() {
     });
   };
 
+  const handleCommitCategory = async (category: keyof SkillsData) => {
+    const loadingToast = toast.loading(`Committing ${category}...`);
+    try {
+      const res = await fetch('/api/skills', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(currentValuesRef.current),
+      });
+
+      if (res.ok) {
+        const { data } = await res.json();
+        setInitialValues((prev) => ({ ...prev, [category]: data[category] }));
+        toast.success(`${categories.find(c => c.id === category)?.label} committed!`, { id: loadingToast });
+      } else {
+        toast.error('Commit failed.', { id: loadingToast });
+      }
+    } catch (error) {
+      console.error('Category commit error:', error);
+      toast.error('Error committing.', { id: loadingToast });
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -125,11 +147,24 @@ export default function SkillsPage() {
       </div>
 
       {categories.map((category) => {
+        const isEdited =
+          currentValues[category.id].length !== initialValues[category.id]?.length ||
+          currentValues[category.id].some((val, i) => val !== initialValues[category.id]?.[i]);
+
         return (
           <div key={category.id} className={styles.categorySection}>
             <div className={styles.categoryHeader}>
-              <i className={`${category.icon} ${styles.categoryIcon}`}></i>
-              <h2 className={styles.categoryTitle}>{category.label}</h2>
+              <div className={styles.categoryTitleGroup}>
+                <i className={`${category.icon} ${styles.categoryIcon}`}></i>
+                <h2 className={styles.categoryTitle}>{category.label}</h2>
+              </div>
+              <button
+                className={styles.sectionCommitButton}
+                onClick={() => handleCommitCategory(category.id)}
+                disabled={!isEdited}
+              >
+                Commit
+              </button>
             </div>
 
             <div className={styles.formGrid}>
