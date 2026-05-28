@@ -14,7 +14,7 @@ export async function GET() {
     console.error('Error reading about data:', error);
     // Return empty state if doesn't exist
     return NextResponse.json(
-      { identity: {}, story: {} },
+      { identity: { name: '', role: '', image: '' }, story: { bioHtml: '' } },
       { status: 200 }
     );
   }
