@@ -1,8 +1,25 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Home = () => {
   const [isShowreelOpen, setIsShowreelOpen] = useState(false);
+  const [showreelUrl, setShowreelUrl] = useState('');
+
+  useEffect(() => {
+    fetch('/data/showreel.json?t=' + new Date().getTime())
+      .then(res => res.json())
+      .then(data => {
+        if (data.url) {
+          const match = data.url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+          if (match && match[1]) {
+            setShowreelUrl(`https://player.vimeo.com/video/${match[1]}?autoplay=1`);
+          } else {
+            setShowreelUrl(data.url);
+          }
+        }
+      })
+      .catch(err => console.error('Error fetching showreel:', err));
+  }, []);
 
   const openShowreel = () => {
     setIsShowreelOpen(true);
@@ -211,7 +228,7 @@ const Home = () => {
           <div className="modal-container">
             <button className="modal-close" onClick={closeShowreel} aria-label="Close showreel"><i className="ri-close-line"></i></button>
             <div className="modal-video-wrap">
-              <iframe id="vimeoPlayer" src="" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen title="Creativo Showreel"></iframe>
+              <iframe id="vimeoPlayer" src={isShowreelOpen ? showreelUrl : ""} frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen title="Creativo Showreel"></iframe>
             </div>
           </div>
         </div>
