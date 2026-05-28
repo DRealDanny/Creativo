@@ -1,0 +1,89 @@
+.editorContainer {
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  overflow: hidden;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #D1D5DB;
+  background: transparent;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #4B5563;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background: #F3F4F6;
+  color: #111827;
+}
+
+.activeBtn {
+  background: #E5E7EB;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #111827;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: all 0.2s ease;
+}
+
+.colorPicker {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #D1D5DB;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: none;
+  border-radius: 3px;
+}
+
+.editorContent {
+  padding: 16px;
+  min-height: 150px;
+  color: #111827;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  outline: none;
+  background: transparent;
+}
+
+.editorContent p {
+  margin-bottom: 1rem;
+}
+
+.editorContent p:last-child {
+  margin-bottom: 0;
+}
