@@ -229,6 +229,8 @@ export default function AboutPage() {
         </div>
       </div>
 
+      <hr style={{ borderTop: '1px solid #E5E7EB', margin: '40px 0' }} />
+
       {/* SECTION 2: THE CORE STORY */}
       <div className={styles.section}>
         <div className={styles.sectionHeader}>

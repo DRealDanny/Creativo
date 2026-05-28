@@ -25,7 +25,7 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #111827;
 }
 
 .content {
@@ -44,25 +44,30 @@
 .formGroup label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: #374151;
 }
 
 .input,
 .textarea {
   width: 100%;
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid #D1D5DB;
   border-radius: 6px;
   padding: 0.75rem 1rem;
-  color: var(--text-primary);
+  color: #111827;
   font-size: 1rem;
   transition: border-color 0.2s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #9CA3AF;
 }
 
 .input:focus,
 .textarea:focus {
   outline: none;
-  border-color: var(--text-primary);
+  border-color: #111827;
 }
 
 .textarea {
@@ -108,13 +113,15 @@
 }
 
 .btnCommit {
-  background: var(--surface);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
+  background: #E5E7EB;
+  color: #9CA3AF;
+  border: 1px solid #E5E7EB;
+  cursor: not-allowed;
 }
 
 .btnCommit.btnDirty {
-  background: var(--success);
+  background: #10B981;
   color: #fff;
-  border-color: var(--success);
+  border-color: #10B981;
+  cursor: pointer;
 }

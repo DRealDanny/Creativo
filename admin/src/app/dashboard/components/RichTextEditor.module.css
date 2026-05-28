@@ -1,8 +1,8 @@
 .editorContainer {
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
   display: flex;
   flex-direction: column;
 }
@@ -13,15 +13,15 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
+  border-bottom: 1px solid #D1D5DB;
+  background: transparent;
 }
 
 .btn {
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid transparent;
   border-radius: 4px;
-  color: var(--text-secondary);
+  color: #4B5563;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -32,16 +32,15 @@
 }
 
 .btn:hover {
-  background: var(--surface);
-  color: var(--text-primary);
-  border-color: var(--text-secondary);
+  background: #F3F4F6;
+  color: #111827;
 }
 
 .activeBtn {
-  background: var(--surface);
-  border: 1px solid var(--text-primary);
+  background: #E5E7EB;
+  border: 1px solid transparent;
   border-radius: 4px;
-  color: var(--text-primary);
+  color: #111827;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -55,7 +54,7 @@
   width: 32px;
   height: 32px;
   padding: 0;
-  border: 1px solid var(--border);
+  border: 1px solid #D1D5DB;
   border-radius: 4px;
   cursor: pointer;
   background: transparent;
@@ -73,7 +72,7 @@
 .editorContent {
   padding: 16px;
   min-height: 150px;
-  color: var(--text-primary);
+  color: #111827;
   font-family: inherit;
   font-size: 1rem;
   line-height: 1.5;
