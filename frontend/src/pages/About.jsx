@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const About = () => {
-  const [activeTab, setActiveTab] = useState('design');
-  const [activeAccordion, setActiveAccordion] = useState(null);
   const [skills, setSkills] = useState(null);
   const [aboutData, setAboutData] = useState(null);
 
@@ -43,14 +41,6 @@ const About = () => {
     fetchSkills();
   }, []);
 
-  const toggleAccordion = (tab) => {
-    if (activeAccordion === tab) {
-      setActiveAccordion(null);
-    } else {
-      setActiveAccordion(tab);
-    }
-  };
-
   return (
     <main style={{ overflowX: 'hidden' }}>
       {/* HERO */}
@@ -60,8 +50,8 @@ const About = () => {
             <span className="page-eyebrow-line" aria-hidden="true"></span>
             <span className="t-label">The Person Behind the Work</span>
           </div>
-          <h1 id="about-heading">Built to<br /><em>Build</em><br />Brands.</h1>
-          <p className="t-body-lg about-hero-sub">I'm Creativo — a Brand Structuralist and Video Editor based in Lagos. I design the systems and experiences that make brands impossible to ignore. From identity to interface, strategy to screen.</p>
+          <h1 id="about-heading">{aboutData?.identity?.heading || "Creativo"}</h1>
+          <p className="t-body-lg about-hero-sub">{aboutData?.identity?.subheading || "BRAND STRUCTURALIST & VIDEO EDITOR"}</p>
         </div>
         <div className="page-hero-bottom" aria-hidden="true"></div>
       </section>
@@ -72,7 +62,7 @@ const About = () => {
           <div className="story-grid">
             <div className="story-col">
               <div className="section-label" style={{ marginBottom: '22px' }}><span className="t-label">My Story</span></div>
-              <h2 className="t-h2" id="story-heading" style={{ marginBottom: '32px' }}>I don't just design things. I build the visual logic behind brands that mean something.</h2>
+              <h2 className="t-h2" id="story-heading" style={{ marginBottom: '32px' }}>{aboutData?.story?.heading || "I don't just design things. I build the visual logic behind brands that mean something."}</h2>
 
               {aboutData?.story?.bioHtml ? (
                 <div dangerouslySetInnerHTML={{ __html: aboutData.story.bioHtml }} />
@@ -84,16 +74,16 @@ const About = () => {
                 </>
               )}
 
-              <a href="#" className="cv-btn" download aria-label="Download CV"><i className="ri-download-line"></i>Download CV</a>
+              <a href={aboutData?.story?.cvLink || "#"} className="cv-btn" download aria-label="Download CV"><i className="ri-download-line"></i>Download CV</a>
             </div>
             <div className="photo-wrap">
               <div className="photo-frame">
                 <div className="photo-inner">
-                  <img src={aboutData?.identity?.image || "https://picsum.photos/seed/creativo-portrait/600/750"} alt={`${aboutData?.identity?.name || "Creativo"} — ${aboutData?.identity?.role || "Brand Structuralist"}`} loading="lazy" width="600" height="750" />
+                  <img src={aboutData?.identity?.image || "https://picsum.photos/seed/creativo-portrait/600/750"} alt={`${aboutData?.identity?.heading || "Creativo"} — ${aboutData?.identity?.subheading || "Brand Structuralist"}`} loading="lazy" width="600" height="750" />
                 </div>
                 <div className="photo-badge">
-                  <p className="photo-badge-role">{aboutData?.identity?.role || "Brand Structuralist & Video Editor"}</p>
-                  <p className="photo-badge-name">{aboutData?.identity?.name || "Creativo"}</p>
+                  <p className="photo-badge-role">{aboutData?.identity?.subheading || "Brand Structuralist & Video Editor"}</p>
+                  <p className="photo-badge-name">{aboutData?.identity?.heading || "Creativo"}</p>
                 </div>
               </div>
             </div>
