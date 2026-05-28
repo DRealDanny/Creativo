@@ -53,8 +53,8 @@ export default function Sidebar() {
           <i className="ri-user-settings-line"></i>
           <span>PROFILE</span>
         </div>
-        <Link href="#" className={styles.navLink}>
-          <span>Profile Picture</span>
+        <Link href="/dashboard/about" className={pathname === "/dashboard/about" ? styles.navLinkActive : styles.navLink} onClick={closeMobileMenu}>
+          <span>About Me</span>
         </Link>
         <Link href="/dashboard/showreel" className={pathname === "/dashboard/showreel" ? styles.navLinkActive : styles.navLink} onClick={closeMobileMenu}>
           <span>Watch Showreel</span>
