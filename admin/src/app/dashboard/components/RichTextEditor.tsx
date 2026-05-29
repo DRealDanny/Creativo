@@ -68,7 +68,6 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
         horizontalRule: false,
         strike: false,
       }),
-      Underline,
       TextStyle,
       Color,
     ],

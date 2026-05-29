@@ -14,7 +14,18 @@ export async function GET() {
     console.error('Error reading about data:', error);
     // Return empty state if doesn't exist
     return NextResponse.json(
-      { identity: {}, story: {} },
+      {
+        identityCard: {
+          image: "",
+          cardRole: "BRAND STRUCTURALIST & VIDEO EDITOR",
+          cardName: "Creativo"
+        },
+        coreStory: {
+          storyHeadline: "I don't just design things. I build the visual logic...",
+          bioHtml: "<p>Welcome to my world.</p>",
+          cvLink: "#"
+        }
+      },
       { status: 200 }
     );
   }
@@ -25,7 +36,7 @@ export async function POST(request: Request) {
     const formData = await request.formData();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let currentData: any = { identity: {}, story: {} };
+    let currentData: any = { identityCard: {}, coreStory: {} };
     try {
       const fileContents = fs.readFileSync(dataFilePath, 'utf8');
       currentData = JSON.parse(fileContents);
@@ -34,35 +45,47 @@ export async function POST(request: Request) {
     }
 
     // Process identity section
-    const identityString = formData.get('identity');
+    const identityString = formData.get('identityCard');
     if (identityString && typeof identityString === 'string') {
-      const identityData = JSON.parse(identityString);
-      currentData.identity = { ...currentData.identity, ...identityData };
+      try {
+        const identityData = JSON.parse(identityString);
+        currentData.identityCard = { ...currentData.identityCard, ...identityData };
+      } catch (err) {
+        console.error('Error parsing identityCard JSON:', err);
+      }
     }
 
     // Process story section
-    const storyString = formData.get('story');
+    const storyString = formData.get('coreStory');
     if (storyString && typeof storyString === 'string') {
-      const storyData = JSON.parse(storyString);
-      currentData.story = { ...currentData.story, ...storyData };
+      try {
+        const storyData = JSON.parse(storyString);
+        currentData.coreStory = { ...currentData.coreStory, ...storyData };
+      } catch (err) {
+        console.error('Error parsing coreStory JSON:', err);
+      }
     }
 
     // Process image file
     const imageFile = formData.get('imageFile') as File | null;
     if (imageFile) {
-      if (!fs.existsSync(imagesDirPath)) {
-        fs.mkdirSync(imagesDirPath, { recursive: true });
+      try {
+        if (!fs.existsSync(imagesDirPath)) {
+          fs.mkdirSync(imagesDirPath, { recursive: true });
+        }
+
+        const ext = path.extname(imageFile.name) || '.jpg';
+        const fileName = `profile-${Date.now()}${ext}`;
+        const filePath = path.join(imagesDirPath, fileName);
+
+        const arrayBuffer = await imageFile.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        fs.writeFileSync(filePath, buffer);
+
+        currentData.identityCard.image = `/images/${fileName}`;
+      } catch (err) {
+        console.error('Error processing image upload:', err);
       }
-
-      const ext = path.extname(imageFile.name) || '.jpg';
-      const fileName = `profile-${Date.now()}${ext}`;
-      const filePath = path.join(imagesDirPath, fileName);
-
-      const arrayBuffer = await imageFile.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      fs.writeFileSync(filePath, buffer);
-
-      currentData.identity.image = `/images/${fileName}`;
     }
 
     // Ensure data dir exists

@@ -5,6 +5,24 @@ const About = () => {
   const [activeTab, setActiveTab] = useState('design');
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [skills, setSkills] = useState(null);
+  const [aboutData, setAboutData] = useState(null);
+
+  useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        const response = await fetch(`/data/about.json?t=${new Date().getTime()}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAboutData(data);
+        } else {
+          console.error('Failed to fetch about data');
+        }
+      } catch (error) {
+        console.error('Failed to fetch about data:', error);
+      }
+    };
+    fetchAboutData();
+  }, []);
 
   useEffect(() => {
     const fetchSkills = async () => {
@@ -54,20 +72,28 @@ const About = () => {
           <div className="story-grid">
             <div className="story-col">
               <div className="section-label" style={{ marginBottom: '22px' }}><span className="t-label">My Story</span></div>
-              <h2 className="t-h2" id="story-heading" style={{ marginBottom: '32px' }}>I don't just design things. I build the visual logic behind brands that mean something.</h2>
-              <p className="t-body-lg">I'm Creativo — a multidisciplinary creative professional based in Lagos, Nigeria. My work lives at the intersection of strategy, design, and code. I've spent years sharpening the craft of making brands not just look good, but work — at every touchpoint, across every channel.</p>
-              <p className="t-body-lg" style={{ marginTop: '22px' }}>My philosophy is simple: intentional design. Clarity over noise. Every decision should earn its place — whether that's a typeface choice, a line of code, or the way a button responds when you hover it.</p>
-              <p className="t-body-lg" style={{ marginTop: '22px' }}>I work with ambitious brands — businesses that understand that design is not decoration, it is infrastructure. If you're building something that needs to mean something to the people it serves, that's the kind of work I want to be part of.</p>
-              <a href="#" className="cv-btn" download aria-label="Download CV"><i className="ri-download-line"></i>Download CV</a>
+              <h2 className="t-h2" id="story-heading" style={{ marginBottom: '32px' }}>
+                {aboutData?.coreStory?.storyHeadline || "I don't just design things. I build the visual logic behind brands that mean something."}
+              </h2>
+              {aboutData?.coreStory?.bioHtml ? (
+                <div className="t-body-lg" dangerouslySetInnerHTML={{ __html: aboutData.coreStory.bioHtml }} />
+              ) : (
+                <>
+                  <p className="t-body-lg">I'm Creativo — a multidisciplinary creative professional based in Lagos, Nigeria. My work lives at the intersection of strategy, design, and code. I've spent years sharpening the craft of making brands not just look good, but work — at every touchpoint, across every channel.</p>
+                  <p className="t-body-lg" style={{ marginTop: '22px' }}>My philosophy is simple: intentional design. Clarity over noise. Every decision should earn its place — whether that's a typeface choice, a line of code, or the way a button responds when you hover it.</p>
+                  <p className="t-body-lg" style={{ marginTop: '22px' }}>I work with ambitious brands — businesses that understand that design is not decoration, it is infrastructure. If you're building something that needs to mean something to the people it serves, that's the kind of work I want to be part of.</p>
+                </>
+              )}
+              <a href={aboutData?.coreStory?.cvLink || "#"} className="cv-btn" download aria-label="Download CV"><i className="ri-download-line"></i>Download CV</a>
             </div>
             <div className="photo-wrap">
               <div className="photo-frame">
                 <div className="photo-inner">
-                  <img src="https://picsum.photos/seed/creativo-portrait/600/750" alt="Creativo — Brand Structuralist" loading="lazy" width="600" height="750" />
+                  <img src={aboutData?.identityCard?.image || "https://picsum.photos/seed/creativo-portrait/600/750"} alt="Creativo — Brand Structuralist" loading="lazy" width="600" height="750" />
                 </div>
                 <div className="photo-badge">
-                  <p className="photo-badge-role">Brand Structuralist &amp; Video Editor</p>
-                  <p className="photo-badge-name">Creativo</p>
+                  <p className="photo-badge-role">{aboutData?.identityCard?.cardRole || "Brand Structuralist & Video Editor"}</p>
+                  <p className="photo-badge-name">{aboutData?.identityCard?.cardName || "Creativo"}</p>
                 </div>
               </div>
             </div>
