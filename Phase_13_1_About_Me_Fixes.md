@@ -6,28 +6,47 @@ Reference: Must strictly follow JULES_MASTER_RULES.md.
 
 🎯 The Goal
 
-The CMS UI layout is already complete and pushed to main. Do NOT touch the CSS, styling, or layout. This phase strictly resolves the backend API crashing when a file is missing, fixes a TipTap terminal warning, and wires the live Vite frontend to display the JSON data.
+The CMS UI layout is already complete and merged to main. Do NOT touch the CSS, styling, or layout. This phase strictly focuses on establishing the physical JSON data file, resolving backend API crashes, fixing a TipTap terminal warning, and wiring the Vite frontend precisely so it maps to the correct sections (without breaking the main Hero layout).
 
 🛠️ Execution Steps
 
-Step 1: Robust Backend API (src/app/api/about/route.ts)
+Step 1: Establish the Baseline JSON File & Specific Schema
 
-The GET request currently throws an ENOENT error and crashes the server if frontend/public/data/about.json does not exist yet.
-Fix: Implement a try/catch block. If the file is missing, gracefully return a default JSON structure (with empty strings) instead of throwing a 500 error. Do not crash.
+Create a new file at frontend/public/data/about.json with this exact data structure. We are using highly specific keys (cardRole, cardName, storyHeadline) so they do not conflict with the main Hero section on the frontend:
 
-Step 2: Fix TipTap Terminal Warning (src/app/dashboard/components/RichTextEditor.tsx or similar)
+{
+  "identityCard": {
+    "image": "",
+    "cardRole": "BRAND STRUCTURALIST & VIDEO EDITOR",
+    "cardName": "Creativo"
+  },
+  "coreStory": {
+    "storyHeadline": "I don't just design things. I build the visual logic...",
+    "bioHtml": "<p>Welcome to my world.</p>",
+    "cvLink": "#"
+  }
+}
 
+Step 2: Robust Backend API (src/app/api/about/route.ts)
+
+The GET request must safely handle the file read.
+Fix: Implement a try/catch block. If the file is missing, gracefully return the default JSON structure from Step 1 instead of throwing an ENOENT 500 error. Do not crash.
+
+Step 3: Update CMS State (No CSS Changes)
+Ensure the Next.js CMS dashboard (src/app/dashboard/about/page.tsx) uses these specific state variables (identityCard.cardName, coreStory.storyHeadline, etc.) for its inputs.
+
+Step 4: Fix TipTap Terminal Warning (src/app/dashboard/components/RichTextEditor.tsx)
 The terminal is throwing a warning about a duplicate extension.
+
 Fix: Remove the duplicate underline extension from the TipTap useEditor configuration array.
 
-Step 3: Vite Frontend Wiring (frontend/src/pages/About.jsx or equivalent)
-
-Locate the About page in the /frontend directory.
+Step 5: Precise Vite Frontend Wiring (frontend/src/pages/About.jsx or equivalent)
 Add React useState and useEffect to fetch data from /data/about.json?t= + timestamp.
 
-Map the fetched JSON data to the UI, replacing the hardcoded text and image source.
-Render the bioHtml property using <div dangerouslySetInnerHTML={{ __html: data.story.bioHtml }} />.
+CRITICAL - DO NOT TOUCH THE HERO SECTION: Leave the main massive text at the very top of the page completely alone. Do not inject data there.
 
-Handle loading states gracefully so the Vite page doesn't crash if the JSON doesn't exist yet.
+TARGET THE PICTURE FRAME: Map identityCard.cardName, identityCard.cardRole, and identityCard.image strictly to the HTML elements that make up the Picture Frame / ID Card UI.
 
-Open a Draft PR once the API is stable, the terminal is warning-free, and the Vite frontend is wired to display the data.
+TARGET THE STORY: Map coreStory.storyHeadline and coreStory.bioHtml to the "My Story" section further down the page. Use <div dangerouslySetInnerHTML={{ __html: data.coreStory.bioHtml }} />.
+
+Open a Draft PR once the JSON file is created, the API is stable, the terminal is warning-free, and the Vite frontend is wired to the exact correct sections.
