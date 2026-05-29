@@ -8,19 +8,19 @@ import RichTextEditor from "../components/RichTextEditor";
 
 interface IdentityData {
   image?: string;
-  subheading?: string;
-  heading?: string;
+  cardRole?: string;
+  cardName?: string;
 }
 
 interface StoryData {
-  heading?: string;
+  storyHeadline?: string;
   bioHtml?: string;
   cvLink?: string;
 }
 
 interface AboutData {
-  identity: IdentityData;
-  story: StoryData;
+  identityCard: IdentityData;
+  coreStory: StoryData;
 }
 
 export default function AboutPage() {
@@ -48,14 +48,14 @@ export default function AboutPage() {
       const res = await fetch("/api/about");
       if (res.ok) {
         const data: AboutData = await res.json();
-        setIdentityData(data.identity || {});
-        setOriginalIdentityData(data.identity || {});
+        setIdentityData(data.identityCard || {});
+        setOriginalIdentityData(data.identityCard || {});
 
-        setStoryData(data.story || {});
-        setOriginalStoryData(data.story || {});
+        setStoryData(data.coreStory || {});
+        setOriginalStoryData(data.coreStory || {});
 
-        if (data.identity?.image) {
-          setImagePreview(data.identity.image);
+        if (data.identityCard?.image) {
+          setImagePreview(data.identityCard.image);
         }
       }
     } catch (error) {
@@ -109,7 +109,7 @@ export default function AboutPage() {
   const handleCommitIdentity = async () => {
     try {
       const formData = new FormData();
-      formData.append("identity", JSON.stringify(identityData));
+      formData.append("identityCard", JSON.stringify(identityData));
       if (imageFile) {
         formData.append("imageFile", imageFile);
       }
@@ -121,10 +121,10 @@ export default function AboutPage() {
 
       if (res.ok) {
         const result = await res.json();
-        setOriginalIdentityData(result.data.identity);
-        setIdentityData(result.data.identity);
-        if (result.data.identity.image) {
-          setImagePreview(result.data.identity.image);
+        setOriginalIdentityData(result.data.identityCard);
+        setIdentityData(result.data.identityCard);
+        if (result.data.identityCard.image) {
+          setImagePreview(result.data.identityCard.image);
         }
         setImageFile(null);
         toast.success("Identity updated successfully!");
@@ -140,7 +140,7 @@ export default function AboutPage() {
   const handleCommitStory = async () => {
     try {
       const formData = new FormData();
-      formData.append("story", JSON.stringify(storyData));
+      formData.append("coreStory", JSON.stringify(storyData));
 
       const res = await fetch("/api/about", {
         method: "POST",
@@ -149,8 +149,8 @@ export default function AboutPage() {
 
       if (res.ok) {
         const result = await res.json();
-        setOriginalStoryData(result.data.story);
-        setStoryData(result.data.story);
+        setOriginalStoryData(result.data.coreStory);
+        setStoryData(result.data.coreStory);
         toast.success("Story updated successfully!");
       } else {
         toast.error("Failed to update Story.");
@@ -206,9 +206,9 @@ export default function AboutPage() {
             <input
               type="text"
               className={styles.input}
-              value={identityData.subheading || ""}
+              value={identityData.cardRole || ""}
               onChange={(e) =>
-                setIdentityData({ ...identityData, subheading: e.target.value })
+                setIdentityData({ ...identityData, cardRole: e.target.value })
               }
               placeholder="e.g. BRAND STRUCTURALIST & VIDEO EDITOR"
             />
@@ -219,9 +219,9 @@ export default function AboutPage() {
             <input
               type="text"
               className={styles.input}
-              value={identityData.heading || ""}
+              value={identityData.cardName || ""}
               onChange={(e) =>
-                setIdentityData({ ...identityData, heading: e.target.value })
+                setIdentityData({ ...identityData, cardName: e.target.value })
               }
               placeholder="e.g. Creativo"
             />
@@ -249,9 +249,9 @@ export default function AboutPage() {
             <label>Main Heading</label>
             <textarea
               className={styles.textarea}
-              value={storyData.heading || ""}
+              value={storyData.storyHeadline || ""}
               onChange={(e) =>
-                setStoryData({ ...storyData, heading: e.target.value })
+                setStoryData({ ...storyData, storyHeadline: e.target.value })
               }
               placeholder="e.g. I don't just design things. I build the visual logic..."
               rows={3}
