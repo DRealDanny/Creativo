@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const Work = () => {
   const [filter, setFilter] = useState('All');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [brandingProjects, setBrandingProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     const fetchBranding = async () => {
@@ -18,10 +18,10 @@ const Work = () => {
             title: p.gridPreview?.gridTitle || 'Branding Project',
             category: 'Branding',
             sub: p.gridPreview?.gridNarrative || '',
-            imgSrc: p.gridPreview?.gridImage || 'https://picsum.photos/800/600',
-            link: '/case-study/branding'
+            imgSrc: p.gridPreview?.gridImage || '',
+            link: `/case-study/${p.slug || 'branding'}`
           }));
-          setBrandingProjects(mappedProjects);
+          setProjects(mappedProjects);
         }
       } catch (err) {
         console.error('Error fetching branding data', err);
@@ -31,28 +31,6 @@ const Work = () => {
   }, []);
 
   const categories = ['All', 'Branding', 'Web Development', 'Video Editing'];
-
-  // Temporary dummy data for other disciplines until they are built
-  const dummyProjects = [
-    {
-      id: 'dummy-2',
-      title: 'Luminal — Website',
-      category: 'Web Development',
-      sub: 'Custom coded site with GSAP animations',
-      imgSrc: 'https://picsum.photos/seed/luminal-web/800/600',
-      link: '/case-study/web-development'
-    },
-    {
-      id: 'dummy-3',
-      title: 'Vanta — Edit Reel',
-      category: 'Video Editing',
-      sub: 'Long-form & Reels editing package',
-      imgSrc: 'https://picsum.photos/seed/vanta-motion/800/600',
-      link: '/case-study/video-editing'
-    }
-  ];
-
-  const projects = [...brandingProjects, ...dummyProjects];
 
   const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
 
@@ -123,21 +101,27 @@ const Work = () => {
             </div>
           </div>
 
-          {/* GRID */}
-          <div className="work-grid" aria-label="Projects">
-            {filteredProjects.map((project) => (
-              <NavLink to={project.link} className={`project-card work-item`} key={project.id}>
-                <div className="card-img">
-                  <img src={project.imgSrc} alt={project.title} loading="lazy" width="800" height="600" />
-                </div>
-                <div className="card-overlay">
-                  <h3 className="card-title">{project.title}</h3>
-                  <p className="card-sub">{project.sub}</p>
-                </div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-            ))}
-          </div>
+          {/* GRID OR EMPTY STATE */}
+          {filteredProjects.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '100px 0', gridColumn: '1 / -1' }}>
+              <p className="t-body-lg" style={{ color: 'var(--c-text-sec)', margin: 0 }}>No Work At The Moment</p>
+            </div>
+          ) : (
+            <div className="work-grid" aria-label="Projects">
+              {filteredProjects.map((project) => (
+                <NavLink to={project.link} className={`project-card work-item`} key={project.id}>
+                  <div className="card-img">
+                    <img src={project.imgSrc} alt={project.title} loading="lazy" width="800" height="600" />
+                  </div>
+                  <div className="card-overlay">
+                    <h3 className="card-title">{project.title}</h3>
+                    <p className="card-sub">{project.sub}</p>
+                  </div>
+                  <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
+                </NavLink>
+              ))}
+            </div>
+          )}
 
         </div>
       </div>
