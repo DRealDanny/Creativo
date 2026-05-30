@@ -49,7 +49,7 @@ const getVimeoEmbedUrl = (url: string) => {
   return url;
 };
 
-export default function BrandingPage() {
+export default function WebDevelopmentPage() {
   const [projectData, setProjectData] = useState<BrandProject | null>(null);
   const [originalProjectData, setOriginalProjectData] =
     useState<BrandProject | null>(null);
@@ -114,7 +114,7 @@ export default function BrandingPage() {
       }
     } catch (error) {
       console.error("Failed to fetch branding data", error);
-      toast.error("Failed to load branding data");
+      toast.error("Failed to load web development data");
     } finally {
       setIsLoading(false);
     }
@@ -217,14 +217,14 @@ export default function BrandingPage() {
           setBlockImagePreviews(updatedBlockPreviews);
           setBlockImageFiles(updatedBlockFiles);
 
-          toast.success("Branding updated successfully!");
+          toast.success("Web Development updated successfully!");
         }
       } else {
-        toast.error("Failed to update Branding.");
+        toast.error("Failed to update Web Development.");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Failed to update Branding.");
+      toast.error("Failed to update Web Development.");
     }
   };
 
@@ -454,18 +454,20 @@ export default function BrandingPage() {
             <div className={styles.imageUploader}>
               <div
                 className={styles.imagePreview}
-                style={{
-                  backgroundImage: gridImagePreview
-                    ? `url(${gridImagePreview})`
-                    : "none",
-                }}
                 onClick={() => gridImageRef.current?.click()}
               >
                 {!gridImagePreview && <span>Click to upload</span>}
                 {gridImagePreview && (
-                  <div className={styles.imagePreviewOverlay}>
-                    Change Upload
-                  </div>
+                  <>
+                    <img
+                      src={gridImagePreview}
+                      alt="Grid Preview"
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                    <div className={styles.imagePreviewOverlay}>
+                      Change Upload
+                    </div>
+                  </>
                 )}
               </div>
               <input
@@ -539,18 +541,20 @@ export default function BrandingPage() {
             <div className={styles.imageUploader}>
               <div
                 className={styles.imagePreview}
-                style={{
-                  backgroundImage: heroImagePreview
-                    ? `url(${heroImagePreview})`
-                    : "none",
-                }}
                 onClick={() => heroImageRef.current?.click()}
               >
                 {!heroImagePreview && <span>Click to upload</span>}
                 {heroImagePreview && (
-                  <div className={styles.imagePreviewOverlay}>
-                    Change Upload
-                  </div>
+                  <>
+                    <img
+                      src={heroImagePreview}
+                      alt="Hero Background Preview"
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                    <div className={styles.imagePreviewOverlay}>
+                      Change Upload
+                    </div>
+                  </>
                 )}
               </div>
               <input
@@ -744,11 +748,6 @@ export default function BrandingPage() {
                   <div className={styles.imageUploader}>
                     <div
                       className={styles.imagePreview}
-                      style={{
-                        backgroundImage: blockImagePreviews[block.blockId]
-                          ? `url(${blockImagePreviews[block.blockId]})`
-                          : "none",
-                      }}
                       onClick={() => {
                         const input = document.getElementById(
                           `blockImageFile_${block.blockId}`,
@@ -760,9 +759,16 @@ export default function BrandingPage() {
                         <span>Click to upload</span>
                       )}
                       {blockImagePreviews[block.blockId] && (
-                        <div className={styles.imagePreviewOverlay}>
-                          Change Upload
-                        </div>
+                        <>
+                          <img
+                            src={blockImagePreviews[block.blockId]}
+                            alt={`Block ${index + 1} Image Preview`}
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          />
+                          <div className={styles.imagePreviewOverlay}>
+                            Change Upload
+                          </div>
+                        </>
                       )}
                     </div>
                     <input

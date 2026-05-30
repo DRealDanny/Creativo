@@ -27,7 +27,7 @@ const CaseStudyResolver = () => {
         const webRes = await fetch('/data/web-development.json?t=' + new Date().getTime());
         if (webRes.ok) {
           const webJson = await webRes.json();
-          if (Array.isArray(webJson) && webJson.find(p => p.slug === slug)) {
+          if (Array.isArray(webJson) && webJson.find(p => p.slug === slug || (!p.slug && slug === 'web-development'))) {
             setProjectType('web');
             setLoading(false);
             return;

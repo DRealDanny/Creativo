@@ -4,27 +4,26 @@
     "projectCategory": "Web Development",
     "isFeaturedOnHome": false,
     "gridPreview": {
-      "gridImage": "https://placehold.co/800x600?text=Web+Preview",
-      "gridTitle": "Tazverde Website",
-      "gridNarrative": "A complete redesign."
+      "gridImage": "",
+      "gridTitle": "",
+      "gridNarrative": ""
     },
     "caseStudyHero": {
-      "heroBgImage": "https://placehold.co/1200x800?text=Hero",
-      "heroTitle": "Tazverde Website",
-      "heroSector": "Tech",
-      "heroWhatWeDid": "Web Design & Development",
-      "heroWebsiteLink": "https://tazverde.com",
-      "heroHookRichText": "<p>A fresh look for Tazverde.</p>"
+      "heroBgImage": "",
+      "heroTitle": "",
+      "heroSector": "",
+      "heroWhatWeDid": "",
+      "heroWebsiteLink": "",
+      "heroHookRichText": ""
     },
     "dynamicBlocks": [
       {
         "blockId": "block-1",
-        "blockHeading": "Design Process",
-        "blockSubHeading": "We started with wireframes.",
-        "blockImage": "https://placehold.co/800x600?text=Block+1",
+        "blockHeading": "",
+        "blockSubHeading": "",
+        "blockImage": "",
         "blockVimeoLink": ""
       }
-    ],
-    "slug": "tazverde-website"
+    ]
   }
 ]
