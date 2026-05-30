@@ -1,3 +1,4 @@
+import CaseStudyVideoEditing from './CaseStudyVideoEditing';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import CaseStudyBranding from './CaseStudyBranding';
@@ -34,6 +35,17 @@ const CaseStudyResolver = () => {
           }
         }
 
+        // Check Video Editing
+        const videoRes = await fetch('/data/video-editing.json?t=' + new Date().getTime());
+        if (videoRes.ok) {
+          const videoJson = await videoRes.json();
+          if (Array.isArray(videoJson) && videoJson.find(p => p.slug === slug || (!p.slug && slug === 'video-editing'))) {
+            setProjectType('video');
+            setLoading(false);
+            return;
+          }
+        }
+
         // If not found in either, redirect to work page
         navigate('/work');
       } catch (err) {
@@ -55,6 +67,10 @@ const CaseStudyResolver = () => {
 
   if (projectType === 'web') {
     return <CaseStudyWebDevelopment />;
+  }
+
+  if (projectType === 'video') {
+    return <CaseStudyVideoEditing />;
   }
 
   return null;
