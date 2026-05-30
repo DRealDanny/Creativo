@@ -17,6 +17,7 @@ interface CaseStudyHero {
   heroTitle: string;
   heroSector: string;
   heroDeliverables: string;
+  heroDeliverablesLink: string;
   heroHookRichText: string;
 }
 
@@ -377,7 +378,7 @@ export default function BrandingPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <label>Hero Title</label>
+            <label>Project Title</label>
             <input
               type="text"
               className={styles.input}
@@ -409,7 +410,7 @@ export default function BrandingPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <label>Deliverables</label>
+            <label>What We Did</label>
             <input
               type="text"
               className={styles.input}
@@ -421,6 +422,22 @@ export default function BrandingPage() {
                 })
               }
               placeholder="e.g. Brand Strategy · Visual Identity..."
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label>View Deliverables Link</label>
+            <input
+              type="url"
+              className={styles.input}
+              value={projectData.caseStudyHero.heroDeliverablesLink || ''}
+              onChange={(e) =>
+                setProjectData({
+                  ...projectData,
+                  caseStudyHero: { ...projectData.caseStudyHero, heroDeliverablesLink: e.target.value }
+                })
+              }
+              placeholder="https://..."
             />
           </div>
 
