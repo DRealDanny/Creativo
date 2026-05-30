@@ -1,0 +1,142 @@
+
+> admin@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Environments: .env.local
+✓ Ready in 559ms
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[next-auth][warn][NEXTAUTH_URL]
+https://next-auth.js.org/warnings#nextauth_url
+ GET /api/auth/signin 200 in 1257ms (next.js: 1197ms, application-code: 60ms)
+ GET /login 200 in 442ms (next.js: 135ms, application-code: 307ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+      <LoadingBoundary name="login/" loading={null}>
+        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url="/login" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+                <SegmentViewNode type="page" pagePath="login/page...">
+                  <SegmentTrieNode>
+                  <ClientPageRoot Component={function LoginPage} serverProvidedParams={{...}}>
+                    <LoginPage params={Promise} searchParams={Promise}>
+                      <div className="login-modu...">
+                        <div className="login-modu...">
+                          <h1>
+                          <p>
+                          <form className="login-modu..." onSubmit={function handleCredentialsLogin}>
+                            <div className="login-modu...">
+                              <label>
+                              <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                className="login-module__WEZH7G__input"
+                                value=""
+                                onChange={function onChange}
+                                required={true}
+-                               style={{caret-color:"transparent"}}
+                              >
+                            <div className="login-modu...">
+                              <label>
+                              <div className="login-modu...">
+                                <input
+                                  type="password"
+                                  id="password"
+                                  name="password"
+                                  className="login-module__WEZH7G__input"
+                                  value=""
+                                  onChange={function onChange}
+                                  required={true}
+-                                 style={{caret-color:"transparent"}}
+                                >
+                                ...
+                            ...
+                          ...
+                ...
+              ...
+
+ GET /login?callbackUrl=%2Fdashboard%2Fbranding 200 in 68ms (next.js: 6ms, application-code: 63ms)
+ GET /api/auth/signin 200 in 41ms (next.js: 23ms, application-code: 18ms)
+ GET /login 200 in 110ms (next.js: 7ms, application-code: 103ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+      <LoadingBoundary name="login/" loading={null}>
+        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+          <RedirectBoundary>
+            <RedirectErrorBoundary router={{...}}>
+              <InnerLayoutRouter url="/login" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+                <SegmentViewNode type="page" pagePath="login/page...">
+                  <SegmentTrieNode>
+                  <ClientPageRoot Component={function LoginPage} serverProvidedParams={{...}}>
+                    <LoginPage params={Promise} searchParams={Promise}>
+                      <div className="login-modu...">
+                        <div className="login-modu...">
+                          <h1>
+                          <p>
+                          <form className="login-modu..." onSubmit={function handleCredentialsLogin}>
+                            <div className="login-modu...">
+                              <label>
+                              <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                className="login-module__WEZH7G__input"
+                                value=""
+                                onChange={function onChange}
+                                required={true}
+-                               style={{caret-color:"transparent"}}
+                              >
+                            <div className="login-modu...">
+                              <label>
+                              <div className="login-modu...">
+                                <input
+                                  type="password"
+                                  id="password"
+                                  name="password"
+                                  className="login-module__WEZH7G__input"
+                                  value=""
+                                  onChange={function onChange}
+                                  required={true}
+-                                 style={{caret-color:"transparent"}}
+                                >
+                                ...
+                            ...
+                          ...
+                ...
+              ...
+
+ GET /api/auth/providers 200 in 32ms (next.js: 17ms, application-code: 15ms)
+ GET /api/auth/csrf 200 in 13ms (next.js: 4ms, application-code: 10ms)
+ POST /api/auth/callback/credentials 200 in 27ms (next.js: 4ms, application-code: 24ms)
+ GET /dashboard 200 in 1734ms (next.js: 1635ms, proxy.ts: 24ms, application-code: 75ms)
+ GET /dashboard/branding 200 in 2.3s (next.js: 1938ms, proxy.ts: 19ms, application-code: 329ms)
+ GET /api/branding 200 in 364ms (next.js: 355ms, application-code: 9ms)

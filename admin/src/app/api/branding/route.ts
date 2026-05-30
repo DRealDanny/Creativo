@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 const dataFilePath = path.join(process.cwd(), '..', 'frontend', 'public', 'data', 'branding.json');
+const imagesDirPath = path.join(process.cwd(), '..', 'frontend', 'public', 'images');
 
 export async function GET() {
   try {
@@ -47,16 +48,69 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const formData = await request.formData();
+
+    const projectDataString = formData.get('projectData');
+    if (!projectDataString || typeof projectDataString !== 'string') {
+        return NextResponse.json(
+            { error: 'Invalid project data' },
+            { status: 400 }
+        );
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let projectData: any = JSON.parse(projectDataString);
+
+    if (!fs.existsSync(imagesDirPath)) {
+        fs.mkdirSync(imagesDirPath, { recursive: true });
+    }
+
+    const saveFile = async (file: File, prefix: string): Promise<string> => {
+        const ext = path.extname(file.name) || '.jpg';
+        const fileName = `${prefix}-${Date.now()}${ext}`;
+        const filePath = path.join(imagesDirPath, fileName);
+
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        fs.writeFileSync(filePath, buffer);
+
+        return `/images/${fileName}`;
+    }
+
+    const gridImageFile = formData.get('gridImageFile') as File | null;
+    if (gridImageFile) {
+        const url = await saveFile(gridImageFile, 'grid-branding');
+        if (projectData.length > 0) {
+            projectData[0].gridPreview.gridImage = url;
+        }
+    }
+
+    const heroImageFile = formData.get('heroImageFile') as File | null;
+    if (heroImageFile) {
+        const url = await saveFile(heroImageFile, 'hero-branding');
+        if (projectData.length > 0) {
+            projectData[0].caseStudyHero.heroBgImage = url;
+        }
+    }
+
+    if (projectData.length > 0 && projectData[0].dynamicBlocks) {
+        for (let i = 0; i < projectData[0].dynamicBlocks.length; i++) {
+            const blockImageFile = formData.get(`blockImageFile_${i}`) as File | null;
+            if (blockImageFile) {
+                const url = await saveFile(blockImageFile, `block-branding-${i}`);
+                projectData[0].dynamicBlocks[i].blockImage = url;
+            }
+        }
+    }
 
     const dir = path.dirname(dataFilePath);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
 
-    fs.writeFileSync(dataFilePath, JSON.stringify(body, null, 2), 'utf8');
+    fs.writeFileSync(dataFilePath, JSON.stringify(projectData, null, 2), 'utf8');
 
-    return NextResponse.json({ success: true, data: body });
+    return NextResponse.json({ success: true, data: projectData });
   } catch (error) {
     console.error('Error writing branding data:', error);
     return NextResponse.json(

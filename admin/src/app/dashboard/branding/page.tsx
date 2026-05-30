@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./page.module.css";
 import { toast } from "react-hot-toast";
 import { useCommit } from "../components/CommitContext";
@@ -51,6 +51,18 @@ export default function BrandingPage() {
   const [projectData, setProjectData] = useState<BrandProject | null>(null);
   const [originalProjectData, setOriginalProjectData] = useState<BrandProject | null>(null);
 
+  // File objects for uploads
+  const [gridImageFile, setGridImageFile] = useState<File | null>(null);
+  const [heroImageFile, setHeroImageFile] = useState<File | null>(null);
+  const [blockImageFiles, setBlockImageFiles] = useState<{ [key: string]: File }>({});
+
+  const [gridImagePreview, setGridImagePreview] = useState<string | null>(null);
+  const [heroImagePreview, setHeroImagePreview] = useState<string | null>(null);
+  const [blockImagePreviews, setBlockImagePreviews] = useState<{ [key: string]: string }>({});
+
+  const gridImageRef = useRef<HTMLInputElement>(null);
+  const heroImageRef = useRef<HTMLInputElement>(null);
+
   const { setPendingCommits, registerCommitAllHandler } = useCommit();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -67,6 +79,21 @@ export default function BrandingPage() {
         if (data.length > 0) {
           setProjectData(data[0]);
           setOriginalProjectData(JSON.parse(JSON.stringify(data[0])));
+
+          if (data[0].gridPreview.gridImage) {
+            setGridImagePreview(data[0].gridPreview.gridImage);
+          }
+          if (data[0].caseStudyHero.heroBgImage) {
+            setHeroImagePreview(data[0].caseStudyHero.heroBgImage);
+          }
+
+          const initialBlockPreviews: { [key: string]: string } = {};
+          data[0].dynamicBlocks.forEach((block) => {
+            if (block.blockImage) {
+              initialBlockPreviews[block.blockId] = block.blockImage;
+            }
+          });
+          setBlockImagePreviews(initialBlockPreviews);
         }
       }
     } catch (error) {
@@ -77,9 +104,17 @@ export default function BrandingPage() {
     }
   };
 
-  const isGridDirty = JSON.stringify(projectData?.gridPreview) !== JSON.stringify(originalProjectData?.gridPreview);
-  const isHeroDirty = JSON.stringify(projectData?.caseStudyHero) !== JSON.stringify(originalProjectData?.caseStudyHero);
-  const isBlocksDirty = JSON.stringify(projectData?.dynamicBlocks) !== JSON.stringify(originalProjectData?.dynamicBlocks);
+  const isGridDirty =
+    gridImageFile !== null ||
+    JSON.stringify(projectData?.gridPreview) !== JSON.stringify(originalProjectData?.gridPreview);
+
+  const isHeroDirty =
+    heroImageFile !== null ||
+    JSON.stringify(projectData?.caseStudyHero) !== JSON.stringify(originalProjectData?.caseStudyHero);
+
+  const isBlocksDirty =
+    Object.keys(blockImageFiles).length > 0 ||
+    JSON.stringify(projectData?.dynamicBlocks) !== JSON.stringify(originalProjectData?.dynamicBlocks);
 
   useEffect(() => {
     let count = 0;
@@ -97,15 +132,30 @@ export default function BrandingPage() {
     };
     registerCommitAllHandler(handler);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isGridDirty, isHeroDirty, isBlocksDirty, projectData]);
+  }, [isGridDirty, isHeroDirty, isBlocksDirty, projectData, gridImageFile, heroImageFile, blockImageFiles]);
 
   const handleCommitAll = async () => {
     if (!projectData) return;
     try {
+      const formData = new FormData();
+      formData.append("projectData", JSON.stringify([projectData]));
+
+      if (gridImageFile) {
+        formData.append("gridImageFile", gridImageFile);
+      }
+      if (heroImageFile) {
+        formData.append("heroImageFile", heroImageFile);
+      }
+
+      projectData.dynamicBlocks.forEach((block, idx) => {
+        if (blockImageFiles[block.blockId]) {
+          formData.append(`blockImageFile_${idx}`, blockImageFiles[block.blockId]);
+        }
+      });
+
       const res = await fetch("/api/branding", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify([projectData]),
+        body: formData,
       });
 
       if (res.ok) {
@@ -113,6 +163,26 @@ export default function BrandingPage() {
         if (result.data && result.data.length > 0) {
           setOriginalProjectData(JSON.parse(JSON.stringify(result.data[0])));
           setProjectData(result.data[0]);
+
+          if (result.data[0].gridPreview.gridImage) {
+            setGridImagePreview(result.data[0].gridPreview.gridImage);
+          }
+          if (result.data[0].caseStudyHero.heroBgImage) {
+            setHeroImagePreview(result.data[0].caseStudyHero.heroBgImage);
+          }
+
+          const updatedBlockPreviews: { [key: string]: string } = {};
+          result.data[0].dynamicBlocks.forEach((block: DynamicBlock) => {
+            if (block.blockImage) {
+              updatedBlockPreviews[block.blockId] = block.blockImage;
+            }
+          });
+          setBlockImagePreviews(updatedBlockPreviews);
+
+          setGridImageFile(null);
+          setHeroImageFile(null);
+          setBlockImageFiles({});
+
           toast.success("Branding updated successfully!");
         }
       } else {
@@ -125,8 +195,34 @@ export default function BrandingPage() {
   };
 
   const handleCommitSection = async () => {
-    // Just commit all for simplicity, as they are part of one object
     await handleCommitAll();
+  };
+
+  const handleGridImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setGridImageFile(file);
+      const url = URL.createObjectURL(file);
+      setGridImagePreview(url);
+    }
+  };
+
+  const handleHeroImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setHeroImageFile(file);
+      const url = URL.createObjectURL(file);
+      setHeroImagePreview(url);
+    }
+  };
+
+  const handleBlockImageChange = (blockId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setBlockImageFiles({ ...blockImageFiles, [blockId]: file });
+      const url = URL.createObjectURL(file);
+      setBlockImagePreviews({ ...blockImagePreviews, [blockId]: url });
+    }
   };
 
   const addDynamicBlock = () => {
@@ -153,7 +249,19 @@ export default function BrandingPage() {
 
   const removeDynamicBlock = (index: number) => {
     if (!projectData) return;
+
+    const blockIdToRemove = projectData.dynamicBlocks[index].blockId;
     const newBlocks = projectData.dynamicBlocks.filter((_, i) => i !== index);
+
+    // Clean up blockImageFiles and blockImagePreviews for the removed blockId
+    const newFiles = { ...blockImageFiles };
+    delete newFiles[blockIdToRemove];
+    setBlockImageFiles(newFiles);
+
+    const newPreviews = { ...blockImagePreviews };
+    delete newPreviews[blockIdToRemove];
+    setBlockImagePreviews(newPreviews);
+
     setProjectData({ ...projectData, dynamicBlocks: newBlocks });
   };
 
@@ -178,19 +286,23 @@ export default function BrandingPage() {
 
         <div className={styles.content}>
           <div className={styles.formGroup}>
-            <label>Grid Image URL</label>
-            <input
-              type="text"
-              className={styles.input}
-              value={projectData.gridPreview.gridImage}
-              onChange={(e) =>
-                setProjectData({
-                  ...projectData,
-                  gridPreview: { ...projectData.gridPreview, gridImage: e.target.value }
-                })
-              }
-              placeholder="https://..."
-            />
+            <label>Grid Image</label>
+            <div className={styles.imageUploader}>
+              <div
+                className={styles.imagePreview}
+                style={{ backgroundImage: gridImagePreview ? `url(${gridImagePreview})` : 'none' }}
+                onClick={() => gridImageRef.current?.click()}
+              >
+                {!gridImagePreview && <span>Click to upload</span>}
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                ref={gridImageRef}
+                style={{ display: "none" }}
+                onChange={handleGridImageChange}
+              />
+            </div>
           </div>
 
           <div className={styles.formGroup}>
@@ -244,19 +356,23 @@ export default function BrandingPage() {
 
         <div className={styles.content}>
           <div className={styles.formGroup}>
-            <label>Hero Background Image URL</label>
-            <input
-              type="text"
-              className={styles.input}
-              value={projectData.caseStudyHero.heroBgImage}
-              onChange={(e) =>
-                setProjectData({
-                  ...projectData,
-                  caseStudyHero: { ...projectData.caseStudyHero, heroBgImage: e.target.value }
-                })
-              }
-              placeholder="https://..."
-            />
+            <label>Hero Background Image</label>
+            <div className={styles.imageUploader}>
+              <div
+                className={styles.imagePreview}
+                style={{ backgroundImage: heroImagePreview ? `url(${heroImagePreview})` : 'none' }}
+                onClick={() => heroImageRef.current?.click()}
+              >
+                {!heroImagePreview && <span>Click to upload</span>}
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                ref={heroImageRef}
+                style={{ display: "none" }}
+                onChange={handleHeroImageChange}
+              />
+            </div>
           </div>
 
           <div className={styles.formGroup}>
@@ -384,14 +500,26 @@ export default function BrandingPage() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>Block Image URL</label>
-                  <input
-                    type="text"
-                    className={styles.input}
-                    value={block.blockImage}
-                    onChange={(e) => updateDynamicBlock(index, 'blockImage', e.target.value)}
-                    placeholder="https://..."
-                  />
+                  <label>Block Image</label>
+                  <div className={styles.imageUploader}>
+                    <div
+                      className={styles.imagePreview}
+                      style={{ backgroundImage: blockImagePreviews[block.blockId] ? `url(${blockImagePreviews[block.blockId]})` : 'none' }}
+                      onClick={() => {
+                        const input = document.getElementById(`blockImageFile_${block.blockId}`) as HTMLInputElement;
+                        if (input) input.click();
+                      }}
+                    >
+                      {!blockImagePreviews[block.blockId] && <span>Click to upload</span>}
+                    </div>
+                    <input
+                      id={`blockImageFile_${block.blockId}`}
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={(e) => handleBlockImageChange(block.blockId, e)}
+                    />
+                  </div>
                 </div>
 
                 <div className={styles.formGroup}>
