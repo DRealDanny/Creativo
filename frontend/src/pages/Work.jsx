@@ -41,7 +41,7 @@ const Work = () => {
               category: 'Web Development',
               sub: p.gridPreview?.gridNarrative || '',
               imgSrc: p.gridPreview?.gridImage || '',
-              link: `/case-study/web/${p.slug || 'web-development'}`
+                link: `/case-study/${p.slug || 'web-development'}`
             }));
             allProjects = [...allProjects, ...mappedWebDev];
           }
