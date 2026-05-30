@@ -15,6 +15,25 @@ const CaseStudyVideoEditing = () => {
   const navigate = useNavigate();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [showreelUrl, setShowreelUrl] = useState('');
+
+  const openShowreel = () => {
+    if (project?.caseStudyHero?.heroWatchReelLink) {
+      let url = project.caseStudyHero.heroWatchReelLink;
+      const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+      if (match && match[1]) {
+        setShowreelUrl(`https://player.vimeo.com/video/${match[1]}?autoplay=1`);
+      } else {
+        setShowreelUrl(url);
+      }
+    }
+    setIsVideoModalOpen(true);
+  };
+
+  const closeShowreel = () => {
+    setIsVideoModalOpen(false);
+  };
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -52,6 +71,7 @@ const CaseStudyVideoEditing = () => {
   const { caseStudyHero, dynamicBlocks } = project;
 
   return (
+    <>
     <main>
 
       {/* HERO: Full bleed — consistent with all case studies */}
@@ -76,13 +96,13 @@ const CaseStudyVideoEditing = () => {
             <span className="cs-info-value">{caseStudyHero?.heroWhatWeDid || 'N/A'}</span>
           </div>
           {caseStudyHero?.heroWatchReelLink ? (
-            <a href={caseStudyHero.heroWatchReelLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
-              <span>Watch Reel</span><i className="ri-arrow-right-up-line"></i>
-            </a>
+            <button className="btn btn-primary cs-case-btn" onClick={openShowreel}>
+              <span>Watch Reel</span><i className="ri-play-line"></i>
+            </button>
           ) : (
-             <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn" style={{ opacity: 0.5, cursor: 'not-allowed' }} onClick={(e) => e.preventDefault()}>
-               <span>Watch Reel</span><i className="ri-arrow-right-up-line"></i>
-             </a>
+            <button className="btn btn-primary cs-case-btn" style={{ opacity: 0.5, cursor: 'not-allowed' }} disabled>
+              <span>Watch Reel</span><i className="ri-play-line"></i>
+            </button>
           )}
         </div>
       </section>
@@ -139,6 +159,18 @@ const CaseStudyVideoEditing = () => {
       </section>
 
     </main>
+
+    {isVideoModalOpen && (
+      <div id="showreelModal" className="modal-overlay is-open" role="dialog" aria-modal="true" aria-label="Showreel video">
+        <div className="modal-container">
+          <button className="modal-close" onClick={closeShowreel} aria-label="Close showreel"><i className="ri-close-line"></i></button>
+          <div className="modal-video-wrap">
+            <iframe id="vimeoPlayer" src={isVideoModalOpen ? showreelUrl : ""} frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen title="Creativo Showreel"></iframe>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 };
 
