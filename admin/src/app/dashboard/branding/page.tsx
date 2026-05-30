@@ -30,6 +30,7 @@ interface DynamicBlock {
 
 interface BrandProject {
   id: string;
+  slug?: string;
   projectCategory: string;
   isFeaturedOnHome: boolean;
   gridPreview: GridPreview;

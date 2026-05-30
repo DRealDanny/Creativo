@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const getVimeoEmbedUrl = (url) => {
   if (!url) return '';
@@ -12,6 +12,8 @@ const getVimeoEmbedUrl = (url) => {
 
 const CaseStudyBranding = () => {
   const [data, setData] = useState(null);
+  const [notFound, setNotFound] = useState(false);
+  const { slug } = useParams();
 
   useEffect(() => {
     const fetchBranding = async () => {
@@ -19,18 +21,28 @@ const CaseStudyBranding = () => {
         const response = await fetch('/data/branding.json?t=' + new Date().getTime());
         if (!response.ok) throw new Error('Failed to load');
         const json = await response.json();
-        // Assuming we take the first branding project for this template
-        if (json && json.length > 0) {
-          setData(json[0]);
+
+        if (json && Array.isArray(json)) {
+          const matchedProject = json.find(p => p.slug === slug || (!p.slug && slug === 'branding'));
+
+          if (matchedProject) {
+            setData(matchedProject);
+          } else {
+            setNotFound(true);
+          }
+        } else {
+          setNotFound(true);
         }
       } catch (err) {
         console.error('Error fetching branding data', err);
+        setNotFound(true);
       }
     };
     fetchBranding();
-  }, []);
+  }, [slug]);
 
-  if (!data) return <main style={{ padding: '100px 20px', textAlign: 'center' }}>Loading...</main>;
+  if (notFound) return <main style={{ padding: '200px 20px', textAlign: 'center' }}><p className="t-body-lg" style={{ color: 'var(--c-text-sec)', margin: 0 }}>Project Not Found</p><NavLink to="/work" className="btn btn-outline" style={{ marginTop: '30px', display: 'inline-flex' }}>Back to Work</NavLink></main>;
+  if (!data) return <main style={{ padding: '200px 20px', textAlign: 'center' }}><p className="t-body-lg" style={{ color: 'var(--c-text-sec)' }}>Loading...</p></main>;
 
   const { caseStudyHero, dynamicBlocks } = data;
 
@@ -58,9 +70,15 @@ const CaseStudyBranding = () => {
             <span className="cs-info-label">What We Did</span>
             <span className="cs-info-value">{caseStudyHero.heroDeliverables}</span>
           </div>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
-            <span>View Deliverables</span><i className="ri-arrow-right-up-line"></i>
-          </a>
+          {caseStudyHero.heroDeliverablesLink ? (
+            <a href={caseStudyHero.heroDeliverablesLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
+              <span>View Deliverables</span><i className="ri-arrow-right-up-line"></i>
+            </a>
+          ) : (
+            <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn" style={{ opacity: 0.5, cursor: 'not-allowed' }} onClick={(e) => e.preventDefault()}>
+              <span>View Deliverables</span><i className="ri-arrow-right-up-line"></i>
+            </a>
+          )}
         </div>
       </section>
 

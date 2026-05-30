@@ -28,6 +28,7 @@ export async function GET() {
             "heroTitle": "",
             "heroSector": "",
             "heroDeliverables": "",
+            "heroDeliverablesLink": "",
             "heroHookRichText": ""
           },
           "dynamicBlocks": [
@@ -58,8 +59,16 @@ export async function POST(request: Request) {
         );
     }
 
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let projectData: any = JSON.parse(projectDataString);
+
+    if (projectData.length > 0 && projectData[0].gridPreview && projectData[0].gridPreview.gridTitle) {
+        projectData[0].slug = projectData[0].gridPreview.gridTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    } else if (projectData.length > 0 && !projectData[0].slug) {
+        projectData[0].slug = 'branding-project';
+    }
+
 
     if (!fs.existsSync(imagesDirPath)) {
         fs.mkdirSync(imagesDirPath, { recursive: true });
