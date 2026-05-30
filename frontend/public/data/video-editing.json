@@ -1,6 +1,7 @@
 [
   {
     "id": "video-project-1",
+    "slug": "vanta",
     "projectCategory": "Video Editing",
     "isFeaturedOnHome": false,
     "gridPreview": {
@@ -10,20 +11,12 @@
     },
     "caseStudyHero": {
       "heroBgImage": "",
-      "heroTitle": "",
-      "heroSector": "",
-      "heroWhatWeDid": "",
-      "heroWatchReelLink": "",
+      "heroTitle": "Vanta Edit Reel",
+      "heroSector": "Tech",
+      "heroWhatWeDid": "Video Editing",
+      "heroWatchReelLink": "https://vimeo.com/video/123456789",
       "heroHookRichText": ""
     },
-    "dynamicBlocks": [
-      {
-        "blockId": "block-1",
-        "blockHeading": "",
-        "blockSubHeading": "",
-        "blockImage": "",
-        "blockVimeoLink": ""
-      }
-    ]
+    "dynamicBlocks": []
   }
 ]
