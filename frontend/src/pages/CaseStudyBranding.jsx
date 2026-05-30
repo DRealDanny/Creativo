@@ -1,17 +1,61 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
+
+const getVimeoEmbedUrl = (url) => {
+  if (!url) return '';
+  const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (match && match[1]) {
+    return `https://player.vimeo.com/video/${match[1]}`;
+  }
+  return url;
+};
 
 const CaseStudyBranding = () => {
+  const [data, setData] = useState(null);
+  const [notFound, setNotFound] = useState(false);
+  const { slug } = useParams();
+
+  useEffect(() => {
+    const fetchBranding = async () => {
+      try {
+        const response = await fetch('/data/branding.json?t=' + new Date().getTime());
+        if (!response.ok) throw new Error('Failed to load');
+        const json = await response.json();
+
+        if (json && Array.isArray(json)) {
+          const matchedProject = json.find(p => p.slug === slug || (!p.slug && slug === 'branding'));
+
+          if (matchedProject) {
+            setData(matchedProject);
+          } else {
+            setNotFound(true);
+          }
+        } else {
+          setNotFound(true);
+        }
+      } catch (err) {
+        console.error('Error fetching branding data', err);
+        setNotFound(true);
+      }
+    };
+    fetchBranding();
+  }, [slug]);
+
+  if (notFound) return <main style={{ padding: '200px 20px', textAlign: 'center' }}><p className="t-body-lg" style={{ color: 'var(--c-text-sec)', margin: 0 }}>Project Not Found</p><NavLink to="/work" className="btn btn-outline" style={{ marginTop: '30px', display: 'inline-flex' }}>Back to Work</NavLink></main>;
+  if (!data) return <main style={{ padding: '200px 20px', textAlign: 'center' }}><p className="t-body-lg" style={{ color: 'var(--c-text-sec)' }}>Loading...</p></main>;
+
+  const { caseStudyHero, dynamicBlocks } = data;
+
   return (
     <main>
 
       {/* HERO: Full bleed image + overlay */}
       <section className="cs-hero">
-        <div className="cs-hero-bg" style={{ backgroundImage: "url('https://picsum.photos/seed/apex-brand-hero/1600/900')" }}></div>
+        <div className="cs-hero-bg" style={{ backgroundImage: `url('${caseStudyHero.heroBgImage || ''}')` }}></div>
         <div className="cs-hero-overlay"></div>
         <div className="cs-hero-content">
           <div className="cs-hero-meta"><span className="cs-category">Branding</span></div>
-          <h1 className="cs-hero-title">Apex — Complete<br />Brand Identity</h1>
+          <h1 className="cs-hero-title" dangerouslySetInnerHTML={{ __html: caseStudyHero.heroTitle || 'Branding Project' }}></h1>
         </div>
       </section>
 
@@ -20,43 +64,63 @@ const CaseStudyBranding = () => {
         <div className="cs-info-bar-inner container">
           <div className="cs-info-tag">
             <span className="cs-info-label">Sector</span>
-            <span className="cs-info-value">Brand Identity</span>
+            <span className="cs-info-value">{caseStudyHero.heroSector}</span>
           </div>
           <div className="cs-info-tag">
             <span className="cs-info-label">What We Did</span>
-            <span className="cs-info-value">Brand Strategy · Visual Identity · Logo System · Brand Guidelines · Mockups</span>
+            <span className="cs-info-value">{caseStudyHero.heroDeliverables}</span>
           </div>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
-            <span>View Deliverables</span><i className="ri-arrow-right-up-line"></i>
-          </a>
+          {caseStudyHero.heroDeliverablesLink ? (
+            <a href={caseStudyHero.heroDeliverablesLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
+              <span>View Deliverables</span><i className="ri-arrow-right-up-line"></i>
+            </a>
+          ) : (
+            <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn" style={{ opacity: 0.5, cursor: 'not-allowed' }} onClick={(e) => e.preventDefault()}>
+              <span>View Deliverables</span><i className="ri-arrow-right-up-line"></i>
+            </a>
+          )}
         </div>
       </section>
 
       {/* CONTENT */}
       <article className="cs-content">
         <div className="container">
-          <div className="cs-text-block">
-            <p className="cs-lead">Apex came to us without a clear visual identity. They had a name, a vision, and an audience — but no system to communicate who they were. Our goal was to build a brand that felt premium without feeling cold, and strategic without feeling corporate.</p>
-            <p className="cs-body">The process started with a deep brand audit and positioning session. We mapped their competitive landscape, defined their tone of voice, and established a visual direction rooted in precision and clarity. The result was a comprehensive identity system built to scale across every touchpoint.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/apex-brand-01/1400/800" alt="Apex brand identity overview" loading="lazy" width="1400" height="800" />
-          </div>
-          <div className="cs-text-block">
-            <h2 className="cs-block-heading">The Visual Direction</h2>
-            <p className="cs-body">The logo system was built around a single geometric mark — a form that communicates both precision and forward motion. We developed three lockups: primary, secondary, and icon mark, each with clear usage guidelines documented in a 40-page brand bible.</p>
-            <p className="cs-body">Colour was chosen deliberately: a deep navy as the foundation, with a sharp copper accent that communicates value and expertise without the clichés of gold. Typography pairing of a geometric sans with a refined serif created contrast that felt considered, never forced.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/apex-brand-02/1400/800" alt="Apex colour and typography system" loading="lazy" width="1400" height="800" />
-          </div>
-          <div className="cs-text-block">
-            <h2 className="cs-block-heading">Real-World Application</h2>
-            <p className="cs-body">A brand identity only works when it holds across every application. We delivered mockup suites covering business stationery, digital assets, signage, and social media templates — every element designed to the same standard as the core identity.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/apex-brand-03/1400/800" alt="Apex brand mockups and applications" loading="lazy" width="1400" height="800" />
-          </div>
+
+          <div className="cs-text-block" dangerouslySetInnerHTML={{ __html: caseStudyHero.heroHookRichText || '' }}></div>
+
+          {dynamicBlocks && dynamicBlocks.map((block, index) => {
+            const embedUrl = getVimeoEmbedUrl(block.blockVimeoLink);
+            return (
+              <React.Fragment key={block.blockId || index}>
+                {(block.blockHeading || block.blockSubHeading) && (
+                  <div className="cs-text-block">
+                    {block.blockHeading && <h2 className="cs-block-heading">{block.blockHeading}</h2>}
+                    {block.blockSubHeading && <p className="cs-body" style={{ whiteSpace: 'pre-line' }}>{block.blockSubHeading}</p>}
+                  </div>
+                )}
+                {block.blockImage && (
+                  <div className="cs-image-block">
+                    <img src={block.blockImage} alt={block.blockHeading || `Branding block ${index}`} loading="lazy" width="1400" />
+                  </div>
+                )}
+                {embedUrl && (
+                  <div className="cs-video-block" style={{ marginTop: '40px', marginBottom: '40px' }}>
+                    <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                      <iframe
+                        src={embedUrl}
+                        frameBorder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowFullScreen
+                        title={`Video ${index}`}
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '8px' }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </React.Fragment>
+            )
+          })}
+
         </div>
       </article>
 
