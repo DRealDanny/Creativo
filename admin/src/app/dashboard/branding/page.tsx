@@ -230,8 +230,130 @@ export default function BrandingPage() {
     }
   };
 
-  const handleCommitSection = async () => {
-    await handleCommitAll();
+  const handleCommitGrid = async () => {
+    if (!projectData) return;
+    try {
+      const formData = new FormData();
+      formData.append("updateSection", "gridPreview");
+      formData.append("projectData", JSON.stringify([projectData]));
+
+      if (gridImageFile) {
+        formData.append("gridImageFile", gridImageFile);
+      }
+
+      const res = await fetch("/api/branding", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        if (result.data && result.data.length > 0) {
+          setOriginalProjectData(JSON.parse(JSON.stringify(result.data[0])));
+          setProjectData(result.data[0]);
+
+          if (result.data[0].gridPreview.gridImage) {
+            setGridImagePreview(result.data[0].gridPreview.gridImage);
+            setGridImageFile(result.data[0].gridPreview.gridImage);
+          } else {
+            setGridImageFile(null);
+          }
+
+          toast.success("Grid Preview updated successfully!");
+        }
+      } else {
+        toast.error("Failed to update Grid Preview.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update Grid Preview.");
+    }
+  };
+
+  const handleCommitHero = async () => {
+    if (!projectData) return;
+    try {
+      const formData = new FormData();
+      formData.append("updateSection", "caseStudyHero");
+      formData.append("projectData", JSON.stringify([projectData]));
+
+      if (heroImageFile) {
+        formData.append("heroImageFile", heroImageFile);
+      }
+
+      const res = await fetch("/api/branding", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        if (result.data && result.data.length > 0) {
+          setOriginalProjectData(JSON.parse(JSON.stringify(result.data[0])));
+          setProjectData(result.data[0]);
+
+          if (result.data[0].caseStudyHero.heroBgImage) {
+            setHeroImagePreview(result.data[0].caseStudyHero.heroBgImage);
+            setHeroImageFile(result.data[0].caseStudyHero.heroBgImage);
+          } else {
+            setHeroImageFile(null);
+          }
+
+          toast.success("Hero Entry updated successfully!");
+        }
+      } else {
+        toast.error("Failed to update Hero Entry.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update Hero Entry.");
+    }
+  };
+
+  const handleCommitBlocks = async () => {
+    if (!projectData) return;
+    try {
+      const formData = new FormData();
+      formData.append("updateSection", "dynamicBlocks");
+      formData.append("projectData", JSON.stringify([projectData]));
+
+      projectData.dynamicBlocks.forEach((block, idx) => {
+        if (blockImageFiles[block.blockId]) {
+          formData.append(`blockImageFile_${idx}`, blockImageFiles[block.blockId]);
+        }
+      });
+
+      const res = await fetch("/api/branding", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        if (result.data && result.data.length > 0) {
+          setOriginalProjectData(JSON.parse(JSON.stringify(result.data[0])));
+          setProjectData(result.data[0]);
+
+          const updatedBlockPreviews: { [key: string]: string } = {};
+          const updatedBlockFiles: { [key: string]: string } = {};
+          result.data[0].dynamicBlocks.forEach((block: DynamicBlock) => {
+            if (block.blockImage) {
+              updatedBlockPreviews[block.blockId] = block.blockImage;
+              updatedBlockFiles[block.blockId] = block.blockImage;
+            }
+          });
+          setBlockImagePreviews(updatedBlockPreviews);
+          setBlockImageFiles(updatedBlockFiles);
+
+          toast.success("Dynamic Blocks updated successfully!");
+        }
+      } else {
+        toast.error("Failed to update Dynamic Blocks.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update Dynamic Blocks.");
+    }
   };
 
   const handleGridImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -320,7 +442,7 @@ export default function BrandingPage() {
             className={`${styles.btn} ${styles.btnCommit} ${
               isGridDirty ? styles.btnDirty : ""
             }`}
-            onClick={handleCommitSection}
+            onClick={handleCommitGrid}
             disabled={!isGridDirty}
           >
             Commit
@@ -400,7 +522,7 @@ export default function BrandingPage() {
             className={`${styles.btn} ${styles.btnCommit} ${
               isHeroDirty ? styles.btnDirty : ""
             }`}
-            onClick={handleCommitSection}
+            onClick={handleCommitHero}
             disabled={!isHeroDirty}
           >
             Commit
@@ -534,7 +656,7 @@ export default function BrandingPage() {
             className={`${styles.btn} ${styles.btnCommit} ${
               isBlocksDirty ? styles.btnDirty : ""
             }`}
-            onClick={handleCommitSection}
+            onClick={handleCommitBlocks}
             disabled={!isBlocksDirty}
           >
             Commit

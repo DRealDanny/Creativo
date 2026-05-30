@@ -61,7 +61,33 @@ export async function POST(request: Request) {
 
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let projectData: any = JSON.parse(projectDataString);
+    let incomingData: any = JSON.parse(projectDataString);
+
+    let existingData: any = [];
+    try {
+        if (fs.existsSync(dataFilePath)) {
+            const fileContents = fs.readFileSync(dataFilePath, 'utf8');
+            existingData = JSON.parse(fileContents);
+        }
+    } catch (e) {
+        // ignore read errors
+    }
+
+    const updateSection = formData.get('updateSection') as string | null;
+
+    let projectData: any = incomingData;
+
+    if (updateSection && existingData.length > 0 && incomingData.length > 0) {
+        // Partial merge
+        projectData = [...existingData];
+        if (updateSection === 'gridPreview') {
+            projectData[0].gridPreview = incomingData[0].gridPreview;
+        } else if (updateSection === 'caseStudyHero') {
+            projectData[0].caseStudyHero = incomingData[0].caseStudyHero;
+        } else if (updateSection === 'dynamicBlocks') {
+            projectData[0].dynamicBlocks = incomingData[0].dynamicBlocks;
+        }
+    }
 
     if (projectData.length > 0 && projectData[0].gridPreview && projectData[0].gridPreview.gridTitle) {
         projectData[0].slug = projectData[0].gridPreview.gridTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
@@ -90,28 +116,34 @@ export async function POST(request: Request) {
         return typeof value === 'object' && value !== null && 'size' in value && 'name' in value;
     };
 
-    const gridImageFile = formData.get('gridImageFile');
-    if (isFile(gridImageFile)) {
-        const url = await saveFile(gridImageFile, 'grid-branding');
-        if (projectData.length > 0) {
-            projectData[0].gridPreview.gridImage = url;
+    if (!updateSection || updateSection === 'gridPreview') {
+        const gridImageFile = formData.get('gridImageFile');
+        if (isFile(gridImageFile)) {
+            const url = await saveFile(gridImageFile, 'grid-branding');
+            if (projectData.length > 0) {
+                projectData[0].gridPreview.gridImage = url;
+            }
         }
     }
 
-    const heroImageFile = formData.get('heroImageFile');
-    if (isFile(heroImageFile)) {
-        const url = await saveFile(heroImageFile, 'hero-branding');
-        if (projectData.length > 0) {
-            projectData[0].caseStudyHero.heroBgImage = url;
+    if (!updateSection || updateSection === 'caseStudyHero') {
+        const heroImageFile = formData.get('heroImageFile');
+        if (isFile(heroImageFile)) {
+            const url = await saveFile(heroImageFile, 'hero-branding');
+            if (projectData.length > 0) {
+                projectData[0].caseStudyHero.heroBgImage = url;
+            }
         }
     }
 
-    if (projectData.length > 0 && projectData[0].dynamicBlocks) {
-        for (let i = 0; i < projectData[0].dynamicBlocks.length; i++) {
-            const blockImageFile = formData.get(`blockImageFile_${i}`);
-            if (isFile(blockImageFile)) {
-                const url = await saveFile(blockImageFile, `block-branding-${i}`);
-                projectData[0].dynamicBlocks[i].blockImage = url;
+    if (!updateSection || updateSection === 'dynamicBlocks') {
+        if (projectData.length > 0 && projectData[0].dynamicBlocks) {
+            for (let i = 0; i < projectData[0].dynamicBlocks.length; i++) {
+                const blockImageFile = formData.get(`blockImageFile_${i}`);
+                if (isFile(blockImageFile)) {
+                    const url = await saveFile(blockImageFile, `block-branding-${i}`);
+                    projectData[0].dynamicBlocks[i].blockImage = url;
+                }
             }
         }
     }
