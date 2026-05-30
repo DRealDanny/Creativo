@@ -1,23 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Work = () => {
   const [filter, setFilter] = useState('All');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [brandingProjects, setBrandingProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchBranding = async () => {
+      try {
+        const response = await fetch('/data/branding.json?t=' + new Date().getTime());
+        if (!response.ok) throw new Error('Failed to load branding data');
+        const json = await response.json();
+        if (json && Array.isArray(json)) {
+          const mappedProjects = json.map(p => ({
+            id: p.id,
+            title: p.gridPreview?.gridTitle || 'Branding Project',
+            category: 'Branding',
+            sub: p.gridPreview?.gridNarrative || '',
+            imgSrc: p.gridPreview?.gridImage || 'https://picsum.photos/800/600',
+            link: '/case-study/branding'
+          }));
+          setBrandingProjects(mappedProjects);
+        }
+      } catch (err) {
+        console.error('Error fetching branding data', err);
+      }
+    };
+    fetchBranding();
+  }, []);
 
   const categories = ['All', 'Branding', 'Web Development', 'Video Editing'];
 
-  const projects = [
+  // Temporary dummy data for other disciplines until they are built
+  const dummyProjects = [
     {
-      id: 1,
-      title: 'Apex — Brand Identity',
-      category: 'Branding',
-      sub: 'Visual system for a premium consulting firm',
-      imgSrc: 'https://picsum.photos/seed/apex-brand/800/600',
-      link: '/case-study/branding'
-    },
-    {
-      id: 2,
+      id: 'dummy-2',
       title: 'Luminal — Website',
       category: 'Web Development',
       sub: 'Custom coded site with GSAP animations',
@@ -25,62 +43,16 @@ const Work = () => {
       link: '/case-study/web-development'
     },
     {
-      id: 3,
+      id: 'dummy-3',
       title: 'Vanta — Edit Reel',
       category: 'Video Editing',
       sub: 'Long-form & Reels editing package',
       imgSrc: 'https://picsum.photos/seed/vanta-motion/800/600',
       link: '/case-study/video-editing'
-    },
-    {
-      id: 4,
-      title: 'Mesh Co. — Identity',
-      category: 'Branding',
-      sub: 'Visual identity for a creative studio',
-      imgSrc: 'https://picsum.photos/seed/mesh-co/800/600',
-      link: '/case-study/branding'
-    },
-    {
-      id: 5,
-      title: 'Vortex — Landing Page',
-      category: 'Web Development',
-      sub: 'Custom codebase, scroll animations',
-      imgSrc: 'https://picsum.photos/seed/vortex-web/800/600',
-      link: '/case-study/web-development'
-    },
-    {
-      id: 6,
-      title: 'Nova — Content Package',
-      category: 'Video Editing',
-      sub: 'YouTube & Reels editing series',
-      imgSrc: 'https://picsum.photos/seed/nova-mkt/800/600',
-      link: '/case-study/video-editing'
-    },
-    {
-      id: 7,
-      title: 'Rova — Brand Refresh',
-      category: 'Branding',
-      sub: 'Identity redesign · Brand strategy',
-      imgSrc: 'https://picsum.photos/seed/rova-brand/800/600',
-      link: '/case-study/branding'
-    },
-    {
-      id: 8,
-      title: 'Crest Studio — Portfolio',
-      category: 'Web Development',
-      sub: 'Custom HTML/CSS/JS · CMS integration',
-      imgSrc: 'https://picsum.photos/seed/crest-web/800/600',
-      link: '/case-study/web-development'
-    },
-    {
-      id: 9,
-      title: 'Klave — YouTube Series',
-      category: 'Video Editing',
-      sub: 'Long-form editing · Thumbnails · SEO',
-      imgSrc: 'https://picsum.photos/seed/klave-deck/800/600',
-      link: '/case-study/video-editing'
     }
   ];
+
+  const projects = [...brandingProjects, ...dummyProjects];
 
   const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
 
