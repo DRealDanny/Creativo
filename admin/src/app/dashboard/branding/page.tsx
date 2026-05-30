@@ -167,19 +167,17 @@ export default function BrandingPage() {
       const formData = new FormData();
       formData.append("projectData", JSON.stringify([projectData]));
 
-      if (gridImageFile) {
+      if (gridImageFile && typeof gridImageFile !== "string") {
         formData.append("gridImageFile", gridImageFile);
       }
-      if (heroImageFile) {
+      if (heroImageFile && typeof heroImageFile !== "string") {
         formData.append("heroImageFile", heroImageFile);
       }
 
       projectData.dynamicBlocks.forEach((block, idx) => {
-        if (blockImageFiles[block.blockId]) {
-          formData.append(
-            `blockImageFile_${idx}`,
-            blockImageFiles[block.blockId],
-          );
+        const blockFile = blockImageFiles[block.blockId];
+        if (blockFile && typeof blockFile !== "string") {
+          formData.append(`blockImageFile_${idx}`, blockFile);
         }
       });
 
@@ -237,7 +235,7 @@ export default function BrandingPage() {
       formData.append("updateSection", "gridPreview");
       formData.append("projectData", JSON.stringify([projectData]));
 
-      if (gridImageFile) {
+      if (gridImageFile && typeof gridImageFile !== "string") {
         formData.append("gridImageFile", gridImageFile);
       }
 
@@ -277,7 +275,7 @@ export default function BrandingPage() {
       formData.append("updateSection", "caseStudyHero");
       formData.append("projectData", JSON.stringify([projectData]));
 
-      if (heroImageFile) {
+      if (heroImageFile && typeof heroImageFile !== "string") {
         formData.append("heroImageFile", heroImageFile);
       }
 
@@ -318,8 +316,9 @@ export default function BrandingPage() {
       formData.append("projectData", JSON.stringify([projectData]));
 
       projectData.dynamicBlocks.forEach((block, idx) => {
-        if (blockImageFiles[block.blockId]) {
-          formData.append(`blockImageFile_${idx}`, blockImageFiles[block.blockId]);
+        const blockFile = blockImageFiles[block.blockId];
+        if (blockFile && typeof blockFile !== "string") {
+          formData.append(`blockImageFile_${idx}`, blockFile);
         }
       });
 
@@ -463,6 +462,11 @@ export default function BrandingPage() {
                 onClick={() => gridImageRef.current?.click()}
               >
                 {!gridImagePreview && <span>Click to upload</span>}
+                {gridImagePreview && (
+                  <div className={styles.imagePreviewOverlay}>
+                    Change Upload
+                  </div>
+                )}
               </div>
               <input
                 type="file"
@@ -543,6 +547,11 @@ export default function BrandingPage() {
                 onClick={() => heroImageRef.current?.click()}
               >
                 {!heroImagePreview && <span>Click to upload</span>}
+                {heroImagePreview && (
+                  <div className={styles.imagePreviewOverlay}>
+                    Change Upload
+                  </div>
+                )}
               </div>
               <input
                 type="file"
@@ -749,6 +758,11 @@ export default function BrandingPage() {
                     >
                       {!blockImagePreviews[block.blockId] && (
                         <span>Click to upload</span>
+                      )}
+                      {blockImagePreviews[block.blockId] && (
+                        <div className={styles.imagePreviewOverlay}>
+                          Change Upload
+                        </div>
                       )}
                     </div>
                     <input
