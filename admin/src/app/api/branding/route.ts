@@ -86,16 +86,20 @@ export async function POST(request: Request) {
         return `/images/${fileName}`;
     }
 
-    const gridImageFile = formData.get('gridImageFile') as File | null;
-    if (gridImageFile) {
+    const isFile = (value: unknown): value is File => {
+        return typeof value === 'object' && value !== null && 'size' in value && 'name' in value;
+    };
+
+    const gridImageFile = formData.get('gridImageFile');
+    if (isFile(gridImageFile)) {
         const url = await saveFile(gridImageFile, 'grid-branding');
         if (projectData.length > 0) {
             projectData[0].gridPreview.gridImage = url;
         }
     }
 
-    const heroImageFile = formData.get('heroImageFile') as File | null;
-    if (heroImageFile) {
+    const heroImageFile = formData.get('heroImageFile');
+    if (isFile(heroImageFile)) {
         const url = await saveFile(heroImageFile, 'hero-branding');
         if (projectData.length > 0) {
             projectData[0].caseStudyHero.heroBgImage = url;
@@ -104,8 +108,8 @@ export async function POST(request: Request) {
 
     if (projectData.length > 0 && projectData[0].dynamicBlocks) {
         for (let i = 0; i < projectData[0].dynamicBlocks.length; i++) {
-            const blockImageFile = formData.get(`blockImageFile_${i}`) as File | null;
-            if (blockImageFile) {
+            const blockImageFile = formData.get(`blockImageFile_${i}`);
+            if (isFile(blockImageFile)) {
                 const url = await saveFile(blockImageFile, `block-branding-${i}`);
                 projectData[0].dynamicBlocks[i].blockImage = url;
             }

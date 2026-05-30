@@ -66,9 +66,13 @@ export async function POST(request: Request) {
       }
     }
 
+    const isFile = (value: unknown): value is File => {
+      return typeof value === 'object' && value !== null && 'size' in value && 'name' in value;
+    };
+
     // Process image file
-    const imageFile = formData.get('imageFile') as File | null;
-    if (imageFile) {
+    const imageFile = formData.get('imageFile');
+    if (isFile(imageFile)) {
       try {
         if (!fs.existsSync(imagesDirPath)) {
           fs.mkdirSync(imagesDirPath, { recursive: true });
