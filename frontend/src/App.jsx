@@ -17,9 +17,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
 import Work from './pages/Work';
-import CaseStudyBranding from './pages/CaseStudyBranding';
+import CaseStudyResolver from './pages/CaseStudyResolver';
 import CaseStudyVideoEditing from './pages/CaseStudyVideoEditing';
-import CaseStudyWebDevelopment from './pages/CaseStudyWebDevelopment';
 
 import { AnimatePresence } from 'framer-motion';
 
@@ -41,9 +40,8 @@ function App() {
           <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
           <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
           <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
-          <Route path="/case-study/:slug" element={<PageTransition><CaseStudyBranding /></PageTransition>} />
+          <Route path="/case-study/:slug" element={<PageTransition><CaseStudyResolver /></PageTransition>} />
           <Route path="/case-study/video-editing" element={<PageTransition><CaseStudyVideoEditing /></PageTransition>} />
-          <Route path="/case-study/web-development" element={<PageTransition><CaseStudyWebDevelopment /></PageTransition>} />
         </Routes>
       </AnimatePresence>
     </Layout>

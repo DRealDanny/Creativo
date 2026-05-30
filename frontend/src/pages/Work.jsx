@@ -7,27 +7,53 @@ const Work = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    const fetchBranding = async () => {
+    const fetchProjects = async () => {
+      let allProjects = [];
+
       try {
         const response = await fetch('/data/branding.json?t=' + new Date().getTime());
-        if (!response.ok) throw new Error('Failed to load branding data');
-        const json = await response.json();
-        if (json && Array.isArray(json)) {
-          const mappedProjects = json.map(p => ({
-            id: p.id,
-            title: p.gridPreview?.gridTitle || 'Branding Project',
-            category: 'Branding',
-            sub: p.gridPreview?.gridNarrative || '',
-            imgSrc: p.gridPreview?.gridImage || '',
-            link: `/case-study/${p.slug || 'branding'}`
-          }));
-          setProjects(mappedProjects);
+        if (response.ok) {
+          const json = await response.json();
+          if (json && Array.isArray(json)) {
+            const mappedBranding = json.map(p => ({
+              id: p.id,
+              title: p.gridPreview?.gridTitle || 'Branding Project',
+              category: 'Branding',
+              sub: p.gridPreview?.gridNarrative || '',
+              imgSrc: p.gridPreview?.gridImage || '',
+              link: `/case-study/${p.slug || 'branding'}`
+            }));
+            allProjects = [...allProjects, ...mappedBranding];
+          }
         }
       } catch (err) {
         console.error('Error fetching branding data', err);
       }
+
+      try {
+        const response = await fetch('/data/web-development.json?t=' + new Date().getTime());
+        if (response.ok) {
+          const json = await response.json();
+          if (json && Array.isArray(json)) {
+            const mappedWebDev = json.map(p => ({
+              id: p.id,
+              title: p.gridPreview?.gridTitle || 'Web Development Project',
+              category: 'Web Development',
+              sub: p.gridPreview?.gridNarrative || '',
+              imgSrc: p.gridPreview?.gridImage || '',
+                link: `/case-study/${p.slug || 'web-development'}`
+            }));
+            allProjects = [...allProjects, ...mappedWebDev];
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching web development data', err);
+      }
+
+      setProjects(allProjects);
     };
-    fetchBranding();
+
+    fetchProjects();
   }, []);
 
   const categories = ['All', 'Branding', 'Web Development', 'Video Editing'];
