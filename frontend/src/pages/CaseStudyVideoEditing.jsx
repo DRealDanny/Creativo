@@ -1,17 +1,66 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
+
+const getVimeoEmbedUrl = (url) => {
+  if (!url) return '';
+  const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (match && match[1]) {
+    return `https://player.vimeo.com/video/${match[1]}`;
+  }
+  return url;
+};
 
 const CaseStudyVideoEditing = () => {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const response = await fetch('/data/video-editing.json?t=' + new Date().getTime());
+        if (!response.ok) throw new Error('Failed to load data');
+        const json = await response.json();
+
+        if (json && Array.isArray(json)) {
+          const foundProject = json.find(p => p.slug === slug || (!p.slug && slug === 'video-editing'));
+          if (foundProject) {
+            setProject(foundProject);
+          } else {
+            // navigate to 404 or work
+            navigate('/work');
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching video-editing project:', err);
+        navigate('/work');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [slug, navigate]);
+
+  if (loading) {
+    return <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>Loading...</main>;
+  }
+
+  if (!project) return null;
+
+  const { caseStudyHero, dynamicBlocks } = project;
+
   return (
     <main>
 
       {/* HERO: Full bleed — consistent with all case studies */}
       <section className="cs-hero">
-        <div className="cs-hero-bg" style={{ backgroundImage: "url('https://picsum.photos/seed/vanta-hero/1600/900')" }}></div>
+        <div className="cs-hero-bg" style={{ backgroundImage: `url('${caseStudyHero?.heroBgImage || ''}')` }}></div>
         <div className="cs-hero-overlay"></div>
         <div className="cs-hero-content">
-          <div className="cs-hero-meta"><span className="cs-category">Video Editing</span></div>
-          <h1 className="cs-hero-title">Vanta<br />— Edit Reel</h1>
+          <div className="cs-hero-meta"><span className="cs-category">{project.projectCategory || 'Video Editing'}</span></div>
+          <h1 className="cs-hero-title" dangerouslySetInnerHTML={{ __html: caseStudyHero?.heroTitle || 'Video Editing Project' }}></h1>
         </div>
       </section>
 
@@ -20,43 +69,57 @@ const CaseStudyVideoEditing = () => {
         <div className="cs-info-bar-inner container">
           <div className="cs-info-tag">
             <span className="cs-info-label">Sector</span>
-            <span className="cs-info-value">Video Editing</span>
+            <span className="cs-info-value">{caseStudyHero?.heroSector || 'N/A'}</span>
           </div>
           <div className="cs-info-tag">
             <span className="cs-info-label">What We Did</span>
-            <span className="cs-info-value">Long-form Editing · Reels &amp; Shorts · Color Grading · Sound Design · Thumbnails</span>
+            <span className="cs-info-value">{caseStudyHero?.heroWhatWeDid || 'N/A'}</span>
           </div>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
-            <span>Watch Reel</span><i className="ri-arrow-right-up-line"></i>
-          </a>
+          {caseStudyHero?.heroWatchReelLink ? (
+            <a href={caseStudyHero.heroWatchReelLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
+              <span>Watch Reel</span><i className="ri-arrow-right-up-line"></i>
+            </a>
+          ) : (
+             <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn" style={{ opacity: 0.5, cursor: 'not-allowed' }} onClick={(e) => e.preventDefault()}>
+               <span>Watch Reel</span><i className="ri-arrow-right-up-line"></i>
+             </a>
+          )}
         </div>
       </section>
 
       {/* CONTENT */}
       <article className="cs-content">
         <div className="container">
-          <div className="cs-text-block">
-            <p className="cs-lead">Vanta is a content creator with a growing YouTube channel and Instagram presence. The footage was strong — the editing wasn't keeping up. The brief was to build an editing style that matched the quality of the content and gave the channel a consistent, recognisable look.</p>
-            <p className="cs-body">We started by studying the top 10 performing videos on the channel and identifying what made the audience stay — and what made them leave. Every editing decision that followed was built around those findings.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/vanta-edit-01/1400/800" alt="Vanta YouTube video edit" loading="lazy" width="1400" height="800" />
-          </div>
-          <div className="cs-text-block">
-            <h2 className="cs-block-heading">Long-Form YouTube Editing</h2>
-            <p className="cs-body">The long-form content required a pacing system — not just cutting to music, but building a rhythm that pulled viewers through 20+ minute videos without dropping retention. We built a custom intro sequence, lower thirds, and chapter transitions that felt native to the content.</p>
-            <p className="cs-body">Color grading was consistent across every video: a warm, high-contrast grade that felt premium without looking over-processed. Sound design filled the gaps between speech and music with ambient layers that kept energy high without being distracting.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/vanta-edit-02/1400/800" alt="Vanta color grading and sound design" loading="lazy" width="1400" height="800" />
-          </div>
-          <div className="cs-text-block">
-            <h2 className="cs-block-heading">Reels &amp; Short-Form Content</h2>
-            <p className="cs-body">The same footage, re-cut for short-form. Instagram Reels and YouTube Shorts demand a completely different approach — the hook lives in the first two seconds, and every frame needs to earn its place. We built a content repurposing system that turned one long-form video into four platform-ready Reels per week.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/vanta-edit-03/1400/800" alt="Vanta Reels and Shorts editing" loading="lazy" width="1400" height="800" />
-          </div>
+          {caseStudyHero?.heroHookRichText && (
+            <div className="cs-text-block">
+               <div dangerouslySetInnerHTML={{ __html: caseStudyHero.heroHookRichText }}></div>
+            </div>
+          )}
+
+          {dynamicBlocks && dynamicBlocks.map((block, index) => (
+             <React.Fragment key={block.blockId || index}>
+                {(block.blockHeading || block.blockSubHeading) && (
+                   <div className="cs-text-block">
+                     {block.blockHeading && <h2 className="cs-block-heading">{block.blockHeading}</h2>}
+                     {block.blockSubHeading && <p className="cs-body" style={{ whiteSpace: 'pre-line' }}>{block.blockSubHeading}</p>}
+                   </div>
+                )}
+
+                {block.blockVimeoLink && (
+                  <div className="cs-video-block" style={{ marginTop: '40px', marginBottom: '40px' }}>
+                    <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                      <iframe src={getVimeoEmbedUrl(block.blockVimeoLink)} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '8px' }} frameBorder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title={`Vimeo Video ${index}`}></iframe>
+                    </div>
+                  </div>
+                )}
+
+                {block.blockImage && !block.blockVimeoLink && (
+                   <div className="cs-image-block">
+                      <img src={block.blockImage} alt={block.blockHeading || `Project visual ${index + 1}`} loading="lazy" width="1400" />
+                   </div>
+                )}
+             </React.Fragment>
+          ))}
         </div>
       </article>
 

@@ -8,14 +8,20 @@ const Work = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      let allProjects = [];
-
       try {
-        const response = await fetch('/data/branding.json?t=' + new Date().getTime());
-        if (response.ok) {
-          const json = await response.json();
-          if (json && Array.isArray(json)) {
-            const mappedBranding = json.map(p => ({
+        const timestamp = new Date().getTime();
+        const [brandingRes, webDevRes, videoRes] = await Promise.all([
+          fetch(`/data/branding.json?t=${timestamp}`),
+          fetch(`/data/web-development.json?t=${timestamp}`),
+          fetch(`/data/video-editing.json?t=${timestamp}`)
+        ]);
+
+        let allProjects = [];
+
+        if (brandingRes.ok) {
+          const brandingJson = await brandingRes.json();
+          if (Array.isArray(brandingJson)) {
+            const mappedBranding = brandingJson.map(p => ({
               id: p.id,
               title: p.gridPreview?.gridTitle || 'Branding Project',
               category: 'Branding',
@@ -25,32 +31,48 @@ const Work = () => {
             }));
             allProjects = [...allProjects, ...mappedBranding];
           }
+        } else {
+          console.error('Error fetching branding data: response not ok');
         }
-      } catch (err) {
-        console.error('Error fetching branding data', err);
-      }
 
-      try {
-        const response = await fetch('/data/web-development.json?t=' + new Date().getTime());
-        if (response.ok) {
-          const json = await response.json();
-          if (json && Array.isArray(json)) {
-            const mappedWebDev = json.map(p => ({
+        if (webDevRes.ok) {
+          const webDevJson = await webDevRes.json();
+          if (Array.isArray(webDevJson)) {
+            const mappedWebDev = webDevJson.map(p => ({
               id: p.id,
               title: p.gridPreview?.gridTitle || 'Web Development Project',
               category: 'Web Development',
               sub: p.gridPreview?.gridNarrative || '',
               imgSrc: p.gridPreview?.gridImage || '',
-                link: `/case-study/${p.slug || 'web-development'}`
+              link: `/case-study/${p.slug || 'web-development'}`
             }));
             allProjects = [...allProjects, ...mappedWebDev];
           }
+        } else {
+          console.error('Error fetching web development data: response not ok');
         }
-      } catch (err) {
-        console.error('Error fetching web development data', err);
-      }
 
-      setProjects(allProjects);
+        if (videoRes.ok) {
+          const videoJson = await videoRes.json();
+          if (Array.isArray(videoJson)) {
+            const mappedVideo = videoJson.map(p => ({
+              id: p.id,
+              title: p.gridPreview?.gridTitle || 'Video Editing Project',
+              category: 'Video Editing',
+              sub: p.gridPreview?.gridNarrative || '',
+              imgSrc: p.gridPreview?.gridImage || '',
+              link: `/case-study/${p.slug || 'video-editing'}`
+            }));
+            allProjects = [...allProjects, ...mappedVideo];
+          }
+        } else {
+          console.error('Error fetching video editing data: response not ok');
+        }
+
+        setProjects(allProjects);
+      } catch (err) {
+        console.error('Error fetching project data', err);
+      }
     };
 
     fetchProjects();

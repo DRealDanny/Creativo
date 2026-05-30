@@ -1,0 +1,29 @@
+[
+  {
+    "id": "video-project-1",
+    "projectCategory": "Video Editing",
+    "isFeaturedOnHome": false,
+    "gridPreview": {
+      "gridImage": "",
+      "gridTitle": "",
+      "gridNarrative": ""
+    },
+    "caseStudyHero": {
+      "heroBgImage": "",
+      "heroTitle": "",
+      "heroSector": "",
+      "heroWhatWeDid": "",
+      "heroWatchReelLink": "",
+      "heroHookRichText": ""
+    },
+    "dynamicBlocks": [
+      {
+        "blockId": "block-1",
+        "blockHeading": "",
+        "blockSubHeading": "",
+        "blockImage": "",
+        "blockVimeoLink": ""
+      }
+    ]
+  }
+]
