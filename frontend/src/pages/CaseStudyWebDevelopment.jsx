@@ -1,17 +1,66 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
+
+const getVimeoEmbedUrl = (url) => {
+  if (!url) return '';
+  const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (match && match[1]) {
+    return `https://player.vimeo.com/video/${match[1]}`;
+  }
+  return url;
+};
 
 const CaseStudyWebDevelopment = () => {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const response = await fetch('/data/web-development.json?t=' + new Date().getTime());
+        if (!response.ok) throw new Error('Failed to load data');
+        const json = await response.json();
+
+        if (json && Array.isArray(json)) {
+          const foundProject = json.find(p => p.slug === slug);
+          if (foundProject) {
+            setProject(foundProject);
+          } else {
+            // navigate to 404 or work
+            navigate('/work');
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching web-development project:', err);
+        navigate('/work');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [slug, navigate]);
+
+  if (loading) {
+    return <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>Loading...</main>;
+  }
+
+  if (!project) return null;
+
+  const { caseStudyHero, dynamicBlocks } = project;
+
   return (
     <main>
 
       {/* HERO: Full bleed — consistent with all case studies */}
       <section className="cs-hero">
-        <div className="cs-hero-bg" style={{ backgroundImage: "url('https://picsum.photos/seed/luminal-hero/1600/900')" }}></div>
+        <div className="cs-hero-bg" style={{ backgroundImage: `url('${caseStudyHero?.heroBgImage || ''}')` }}></div>
         <div className="cs-hero-overlay"></div>
         <div className="cs-hero-content">
-          <div className="cs-hero-meta"><span className="cs-category">Web Development</span></div>
-          <h1 className="cs-hero-title">Luminal<br />— Website</h1>
+          <div className="cs-hero-meta"><span className="cs-category">{project.projectCategory || 'Web Development'}</span></div>
+          <h1 className="cs-hero-title" dangerouslySetInnerHTML={{ __html: caseStudyHero?.heroTitle || 'Project Title' }}></h1>
         </div>
       </section>
 
@@ -20,43 +69,51 @@ const CaseStudyWebDevelopment = () => {
         <div className="cs-info-bar-inner container">
           <div className="cs-info-tag">
             <span className="cs-info-label">Sector</span>
-            <span className="cs-info-value">Web Development</span>
+            <span className="cs-info-value">{caseStudyHero?.heroSector || 'N/A'}</span>
           </div>
           <div className="cs-info-tag">
             <span className="cs-info-label">What We Did</span>
-            <span className="cs-info-value">Creative Web Design &amp; UI · Web Development · SEO · CMS Integration</span>
+            <span className="cs-info-value">{caseStudyHero?.heroWhatWeDid || 'N/A'}</span>
           </div>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
-            <span>Visit Website</span><i className="ri-arrow-right-up-line"></i>
-          </a>
+          {caseStudyHero?.heroWebsiteLink && (
+            <a href={caseStudyHero.heroWebsiteLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
+              <span>Visit Website</span><i className="ri-arrow-right-up-line"></i>
+            </a>
+          )}
         </div>
       </section>
 
       {/* CONTENT */}
       <article className="cs-content">
         <div className="container">
-          <div className="cs-text-block">
-            <p className="cs-lead">Luminal needed a website that matched the quality of their product — fast, intentional, and completely custom. Off-the-shelf templates weren't on the table. The brief was clear: build something that earns attention and keeps it.</p>
-            <p className="cs-body">The architecture was built on a custom HTML/CSS/JS codebase with a PHP/JSON headless CMS for content management. This gave the client full control over their content without locking them into a heavy platform. Performance was non-negotiable from the start.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/luminal-web-01/1400/800" alt="Luminal website homepage" loading="lazy" width="1400" height="800" />
-          </div>
-          <div className="cs-text-block">
-            <h2 className="cs-block-heading">Animation &amp; Motion</h2>
-            <p className="cs-body">GSAP ScrollTrigger drove all scroll-based animations — each section reveals with a purposeful transition that guides the eye without distracting from the content. The hero features a custom Three.js wireframe element that responds to mouse movement.</p>
-            <p className="cs-body">Every animation was performance-tested before shipping. No layout-triggering properties. No will-change abuse. Smooth 60fps on mid-range Android devices.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/luminal-web-02/1400/800" alt="Luminal website animation detail" loading="lazy" width="1400" height="800" />
-          </div>
-          <div className="cs-text-block">
-            <h2 className="cs-block-heading">Mobile &amp; Performance</h2>
-            <p className="cs-body">Mobile was designed first, not adapted last. Every breakpoint was considered as its own layout problem. The result is a site that feels native to whatever screen it's on — not a desktop site that was squished to fit a phone.</p>
-          </div>
-          <div className="cs-image-block">
-            <img src="https://picsum.photos/seed/luminal-web-03/1400/800" alt="Luminal website mobile view" loading="lazy" width="1400" height="800" />
-          </div>
+          {caseStudyHero?.heroHookRichText && (
+            <div className="cs-text-block">
+               <div dangerouslySetInnerHTML={{ __html: caseStudyHero.heroHookRichText }}></div>
+            </div>
+          )}
+
+          {dynamicBlocks && dynamicBlocks.map((block, index) => (
+             <React.Fragment key={block.blockId || index}>
+                {(block.blockHeading || block.blockSubHeading) && (
+                   <div className="cs-text-block">
+                     {block.blockHeading && <h2 className="cs-block-heading">{block.blockHeading}</h2>}
+                     {block.blockSubHeading && <p className="cs-body">{block.blockSubHeading}</p>}
+                   </div>
+                )}
+
+                {block.blockVimeoLink && (
+                  <div className="cs-image-block" style={{ padding: '56.25% 0 0 0', position: 'relative' }}>
+                    <iframe src={getVimeoEmbedUrl(block.blockVimeoLink)} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} frameBorder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title={`Vimeo Video ${index}`}></iframe>
+                  </div>
+                )}
+
+                {block.blockImage && !block.blockVimeoLink && (
+                   <div className="cs-image-block">
+                      <img src={block.blockImage} alt={block.blockHeading || `Project visual ${index + 1}`} loading="lazy" width="1400" height="800" />
+                   </div>
+                )}
+             </React.Fragment>
+          ))}
         </div>
       </article>
 

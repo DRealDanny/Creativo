@@ -42,8 +42,8 @@ function App() {
           <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
           <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
           <Route path="/case-study/:slug" element={<PageTransition><CaseStudyBranding /></PageTransition>} />
+          <Route path="/case-study/web/:slug" element={<PageTransition><CaseStudyWebDevelopment /></PageTransition>} />
           <Route path="/case-study/video-editing" element={<PageTransition><CaseStudyVideoEditing /></PageTransition>} />
-          <Route path="/case-study/web-development" element={<PageTransition><CaseStudyWebDevelopment /></PageTransition>} />
         </Routes>
       </AnimatePresence>
     </Layout>
