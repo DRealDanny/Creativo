@@ -33,12 +33,9 @@ export default function Sidebar() {
 
         <hr className={styles.divider} />
 
-        <div className={styles.sectionHeading}>
+        <Link href="/dashboard/work" className={`${styles.navLinkSectionHeading} ${pathname === "/dashboard/work" ? styles.navLinkActive : ''}`} onClick={closeMobileMenu}>
           <i className="ri-briefcase-line"></i>
           <span>WORK</span>
-        </div>
-        <Link href="/dashboard/work" className={pathname === "/dashboard/work" ? styles.navLinkActive : styles.navLink} onClick={closeMobileMenu}>
-          <span>All Work</span>
         </Link>
         <Link href="/dashboard/branding" className={pathname === "/dashboard/branding" ? styles.navLinkActive : styles.navLink} onClick={closeMobileMenu}>
           <span>Branding</span>

@@ -112,6 +112,7 @@ export default function WorkDashboardPage() {
         <p>Manage and feature projects across all categories.</p>
       </div>
 
+      <div className={styles.section}>
       {projects.length === 0 ? (
         <div className={styles.emptyState}>
           <p>No projects found. Add projects from the specific category pages.</p>
@@ -153,6 +154,7 @@ export default function WorkDashboardPage() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }
