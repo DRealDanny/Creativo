@@ -1,6 +1,9 @@
 "use client";
+import { Suspense } from 'react';
+
 
 import React, { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 import { toast } from "react-hot-toast";
 import { useCommit } from "../components/CommitContext";
@@ -49,7 +52,10 @@ const getVimeoEmbedUrl = (url: string) => {
   return url;
 };
 
-export default function WebDevelopmentPage() {
+function WebDevelopmentPageContent() {
+  const searchParams = useSearchParams();
+  const editSlug = searchParams.get('slug');
+
   const [projectData, setProjectData] = useState<BrandProject | null>(null);
   const [originalProjectData, setOriginalProjectData] =
     useState<BrandProject | null>(null);
@@ -88,21 +94,27 @@ export default function WebDevelopmentPage() {
       if (res.ok) {
         const data: BrandProject[] = await res.json();
         if (data.length > 0) {
-          setProjectData(data[0]);
-          setOriginalProjectData(JSON.parse(JSON.stringify(data[0])));
-
-          if (data[0].gridPreview.gridImage) {
-            setGridImagePreview(data[0].gridPreview.gridImage);
-            setGridImageFile(data[0].gridPreview.gridImage);
+          let selectedProject = data[0];
+          if (editSlug) {
+              const found = data.find((p: any) => p.slug === editSlug || p.id === editSlug);
+              if (found) selectedProject = found;
           }
-          if (data[0].caseStudyHero.heroBgImage) {
-            setHeroImagePreview(data[0].caseStudyHero.heroBgImage);
-            setHeroImageFile(data[0].caseStudyHero.heroBgImage);
+
+          setProjectData(selectedProject);
+          setOriginalProjectData(JSON.parse(JSON.stringify(selectedProject)));
+
+          if (selectedProject.gridPreview.gridImage) {
+            setGridImagePreview(selectedProject.gridPreview.gridImage);
+            setGridImageFile(selectedProject.gridPreview.gridImage);
+          }
+          if (selectedProject.caseStudyHero.heroBgImage) {
+            setHeroImagePreview(selectedProject.caseStudyHero.heroBgImage);
+            setHeroImageFile(selectedProject.caseStudyHero.heroBgImage);
           }
 
           const initialBlockPreviews: { [key: string]: string } = {};
           const initialBlockFiles: { [key: string]: string } = {};
-          data[0].dynamicBlocks.forEach((block) => {
+          selectedProject.dynamicBlocks.forEach((block: any) => {
             if (block.blockImage) {
               initialBlockPreviews[block.blockId] = block.blockImage;
               initialBlockFiles[block.blockId] = block.blockImage;
@@ -847,5 +859,14 @@ export default function WebDevelopmentPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+
+export default function WebDevelopmentPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <WebDevelopmentPageContent />
+    </Suspense>
   );
 }

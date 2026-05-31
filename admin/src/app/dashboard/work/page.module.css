@@ -1,0 +1,111 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.header {
+  margin-bottom: 24px;
+}
+.header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.header p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.projectList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.projectRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  gap: 16px;
+}
+.projectInfo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.projectTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.projectSub {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.projectCategory {
+  font-size: 12px;
+  background-color: #E5E7EB;
+  color: #374151;
+  padding: 2px 8px;
+  border-radius: 12px;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.projectActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+.toggleBtn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+.toggleFeatured {
+  background-color: #10B981;
+  color: white;
+}
+.toggleUnfeatured {
+  background-color: #9CA3AF;
+  color: white;
+}
+.editBtn {
+  background-color: #2060FF;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+.deleteBtn {
+  background-color: #EF4444;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+}
+.emptyState {
+  text-align: center;
+  padding: 48px;
+  color: var(--text-secondary);
+  background-color: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
