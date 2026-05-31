@@ -53,6 +53,7 @@ export const authOptions: AuthOptions = {
       },
     },
   },
+  secret: process.env.NEXTAUTH_SECRET || "fallback_secret_for_local_development",
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "credentials") {
