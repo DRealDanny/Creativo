@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "slug": "branding",
+    "projectCategory": "Branding",
+    "caseStudyHero": {
+      "heroTitle": "Brand Guidelines",
+      "heroBgImage": "https://placehold.co/1920x1080",
+      "heroSector": "Tech",
+      "heroDeliverables": "Brand Identity, Strategy",
+      "heroDeliverablesLink": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    },
+    "dynamicBlocks": []
+  }
+]
