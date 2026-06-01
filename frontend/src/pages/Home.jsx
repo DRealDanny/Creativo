@@ -4,8 +4,10 @@ import { NavLink } from 'react-router-dom';
 const Home = () => {
   const [isShowreelOpen, setIsShowreelOpen] = useState(false);
   const [showreelUrl, setShowreelUrl] = useState('');
+  const [featuredWork, setFeaturedWork] = useState([]);
 
   useEffect(() => {
+    // Fetch showreel
     fetch('/data/showreel.json?t=' + new Date().getTime())
       .then(res => res.json())
       .then(data => {
@@ -19,6 +21,40 @@ const Home = () => {
         }
       })
       .catch(err => console.error('Error fetching showreel:', err));
+
+    // Fetch featured work
+    const fetchFeaturedWork = async () => {
+      try {
+        const timestamp = new Date().getTime();
+        const [brandingRes, webDevRes, videoRes] = await Promise.all([
+          fetch(`/data/branding.json?t=${timestamp}`),
+          fetch(`/data/web-development.json?t=${timestamp}`),
+          fetch(`/data/video-editing.json?t=${timestamp}`)
+        ]);
+
+        let allWork = [];
+
+        if (brandingRes.ok) {
+          const data = await brandingRes.json();
+          if (Array.isArray(data)) allWork = [...allWork, ...data.map(i => ({...i, category: 'branding'}))];
+        }
+        if (webDevRes.ok) {
+          const data = await webDevRes.json();
+          if (Array.isArray(data)) allWork = [...allWork, ...data.map(i => ({...i, category: 'web-development'}))];
+        }
+        if (videoRes.ok) {
+          const data = await videoRes.json();
+          if (Array.isArray(data)) allWork = [...allWork, ...data.map(i => ({...i, category: 'video-editing'}))];
+        }
+
+        const featured = allWork.filter(item => item.isFeaturedOnHome);
+        setFeaturedWork(featured);
+      } catch (err) {
+        console.error('Error fetching featured work:', err);
+      }
+    };
+
+    fetchFeaturedWork();
   }, []);
 
   const openShowreel = () => {
@@ -104,54 +140,30 @@ const Home = () => {
               </div>
             </div>
             <div className="work-grid-home">
-              {/* Row 1 */}
-              <NavLink to="/case-study/branding" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/apex-brand/800/600" alt="Apex Brand Identity" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Apex — Brand Identity</h3><p className="card-sub">Visual system for a premium consulting firm</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-              <NavLink to="/case-study/web-development" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/luminal-web/800/600" alt="Luminal Website" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Luminal — Website</h3><p className="card-sub">Custom coded site with GSAP animations</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-              <NavLink to="/case-study/video-editing" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/vanta-motion/800/600" alt="Vanta Edit Reel" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Vanta — Edit Reel</h3><p className="card-sub">Long-form &amp; Reels editing package</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-              {/* Row 2 — slightly taller via CSS nth-child */}
-              <NavLink to="/case-study/branding" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/mesh-co/800/600" alt="Mesh Co Identity" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Mesh Co. — Identity</h3><p className="card-sub">Visual identity for a creative studio</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-              <NavLink to="/case-study/web-development" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/vortex-web/800/600" alt="Vortex Landing Page" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Vortex — Landing Page</h3><p className="card-sub">Custom codebase, scroll animations</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-              <NavLink to="/case-study/video-editing" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/nova-mkt/800/600" alt="Nova Content Package" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Nova — Content Package</h3><p className="card-sub">YouTube &amp; Reels editing series</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-              {/* Row 3 */}
-              <NavLink to="/case-study/branding" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/rova-brand/800/600" alt="Rova Brand Refresh" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Rova — Brand Refresh</h3><p className="card-sub">Identity redesign · Brand strategy</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-              <NavLink to="/case-study/web-development" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/crest-web/800/600" alt="Crest Studio Portfolio" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Crest Studio — Portfolio</h3><p className="card-sub">Custom HTML/CSS/JS · CMS integration</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
-              <NavLink to="/case-study/video-editing" className="project-card">
-                <div className="card-img"><img src="https://picsum.photos/seed/klave-deck/800/600" alt="Klave YouTube Series" loading="lazy" width="800" height="600" /></div>
-                <div className="card-overlay"><h3 className="card-title">Klave — YouTube Series</h3><p className="card-sub">Long-form editing · Thumbnails · SEO</p></div>
-                <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
-              </NavLink>
+              {featuredWork.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '60px 0', gridColumn: '1 / -1' }}>
+                  <p className="t-body-lg" style={{ color: 'var(--c-text-sec)', margin: 0 }}>No featured work at the moment</p>
+                </div>
+              ) : (
+                featuredWork.map((project) => (
+                  <NavLink to={`/case-study/${project.slug || project.category}`} className="project-card" key={project.id}>
+                    <div className="card-img">
+                      <img
+                        src={project.gridPreview?.gridImage || `https://picsum.photos/seed/${project.id}/800/600`}
+                        alt={project.gridPreview?.gridTitle || project.id}
+                        loading="lazy"
+                        width="800"
+                        height="600"
+                      />
+                    </div>
+                    <div className="card-overlay">
+                      <h3 className="card-title">{project.gridPreview?.gridTitle || project.id}</h3>
+                      <p className="card-sub">{project.gridPreview?.gridNarrative || project.projectCategory}</p>
+                    </div>
+                    <div className="card-view-btn" aria-hidden="true"><i className="ri-arrow-right-up-line"></i></div>
+                  </NavLink>
+                ))
+              )}
             </div>
           </div>
         </section>
