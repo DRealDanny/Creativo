@@ -75,24 +75,32 @@ export async function POST(request: Request) {
 
     const updateSection = formData.get('updateSection') as string | null;
 
-    let projectData: any = incomingData;
+    let incomingObj = incomingData.length > 0 ? incomingData[0] : incomingData;
+    let existingIndex = existingData.findIndex((item: any) => item.id === incomingObj.id);
 
-    if (updateSection && existingData.length > 0 && incomingData.length > 0) {
-        // Partial merge
-        projectData = [...existingData];
-        if (updateSection === 'gridPreview') {
-            projectData[0].gridPreview = incomingData[0].gridPreview;
-        } else if (updateSection === 'caseStudyHero') {
-            projectData[0].caseStudyHero = incomingData[0].caseStudyHero;
-        } else if (updateSection === 'dynamicBlocks') {
-            projectData[0].dynamicBlocks = incomingData[0].dynamicBlocks;
+    let projectData = [...existingData];
+
+    if (existingIndex >= 0) {
+        if (updateSection) {
+            if (updateSection === 'gridPreview') {
+                projectData[existingIndex].gridPreview = incomingObj.gridPreview;
+            } else if (updateSection === 'caseStudyHero') {
+                projectData[existingIndex].caseStudyHero = incomingObj.caseStudyHero;
+            } else if (updateSection === 'dynamicBlocks') {
+                projectData[existingIndex].dynamicBlocks = incomingObj.dynamicBlocks;
+            }
+        } else {
+            projectData[existingIndex] = incomingObj;
         }
+    } else {
+        projectData.push(incomingObj);
+        existingIndex = projectData.length - 1;
     }
 
-    if (projectData.length > 0 && projectData[0].gridPreview && projectData[0].gridPreview.gridTitle) {
-        projectData[0].slug = projectData[0].gridPreview.gridTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-    } else if (projectData.length > 0 && !projectData[0].slug) {
-        projectData[0].slug = 'web-development-project';
+    if (projectData[existingIndex].gridPreview && projectData[existingIndex].gridPreview.gridTitle) {
+        projectData[existingIndex].slug = projectData[existingIndex].gridPreview.gridTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    } else if (!projectData[existingIndex].slug) {
+        projectData[existingIndex].slug = 'web-development-project';
     }
 
 
@@ -120,9 +128,7 @@ export async function POST(request: Request) {
         const gridImageFile = formData.get('gridImageFile');
         if (isFile(gridImageFile)) {
             const url = await saveFile(gridImageFile, 'grid-web-dev');
-            if (projectData.length > 0) {
-                projectData[0].gridPreview.gridImage = url;
-            }
+            projectData[existingIndex].gridPreview.gridImage = url;
         }
     }
 
@@ -130,23 +136,24 @@ export async function POST(request: Request) {
         const heroImageFile = formData.get('heroImageFile');
         if (isFile(heroImageFile)) {
             const url = await saveFile(heroImageFile, 'hero-web-dev');
-            if (projectData.length > 0) {
-                projectData[0].caseStudyHero.heroBgImage = url;
-            }
+            projectData[existingIndex].caseStudyHero.heroBgImage = url;
         }
     }
 
     if (!updateSection || updateSection === 'dynamicBlocks') {
-        if (projectData.length > 0 && projectData[0].dynamicBlocks) {
-            for (let i = 0; i < projectData[0].dynamicBlocks.length; i++) {
+        if (projectData[existingIndex].dynamicBlocks) {
+            for (let i = 0; i < projectData[existingIndex].dynamicBlocks.length; i++) {
                 const blockImageFile = formData.get(`blockImageFile_${i}`);
                 if (isFile(blockImageFile)) {
                     const url = await saveFile(blockImageFile, `block-web-dev-${i}`);
-                    projectData[0].dynamicBlocks[i].blockImage = url;
+                    projectData[existingIndex].dynamicBlocks[i].blockImage = url;
                 }
             }
         }
     }
+
+    const resultDataToReturn = [projectData[existingIndex]];
+
 
     const dir = path.dirname(dataFilePath);
     if (!fs.existsSync(dir)) {
@@ -155,7 +162,7 @@ export async function POST(request: Request) {
 
     fs.writeFileSync(dataFilePath, JSON.stringify(projectData, null, 2), 'utf8');
 
-    return NextResponse.json({ success: true, data: projectData });
+    return NextResponse.json({ success: true, data: resultDataToReturn });
   } catch (error) {
     console.error('Error writing web-development data:', error);
     return NextResponse.json(

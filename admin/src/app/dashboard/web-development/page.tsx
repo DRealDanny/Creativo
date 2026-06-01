@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 import { toast } from "react-hot-toast";
 import { useCommit } from "../components/CommitContext";
@@ -49,7 +50,7 @@ const getVimeoEmbedUrl = (url: string) => {
   return url;
 };
 
-export default function WebDevelopmentPage() {
+function WebDevelopmentPageContent() {
   const [projectData, setProjectData] = useState<BrandProject | null>(null);
   const [originalProjectData, setOriginalProjectData] =
     useState<BrandProject | null>(null);
@@ -77,39 +78,65 @@ export default function WebDevelopmentPage() {
   const { setPendingCommits, registerCommitAllHandler } = useCommit();
   const [isLoading, setIsLoading] = useState(true);
 
+  const searchParams = useSearchParams();
+  const slug = searchParams.get('slug');
+
+  const getEmptyState = (): BrandProject => ({
+    id: crypto.randomUUID(),
+    projectCategory: "Web Development",
+    isFeaturedOnHome: false,
+    gridPreview: { gridImage: "", gridTitle: "", gridNarrative: "" },
+    caseStudyHero: {
+      heroBgImage: "", heroTitle: "", heroSector: "", heroWhatWeDid: "", heroWebsiteLink: "", heroHookRichText: ""
+    },
+    dynamicBlocks: []
+  });
+
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [slug]);
 
   const fetchData = async () => {
     try {
       const res = await fetch("/api/web-development");
       if (res.ok) {
         const data: BrandProject[] = await res.json();
-        if (data.length > 0) {
-          setProjectData(data[0]);
-          setOriginalProjectData(JSON.parse(JSON.stringify(data[0])));
 
-          if (data[0].gridPreview.gridImage) {
-            setGridImagePreview(data[0].gridPreview.gridImage);
-            setGridImageFile(data[0].gridPreview.gridImage);
-          }
-          if (data[0].caseStudyHero.heroBgImage) {
-            setHeroImagePreview(data[0].caseStudyHero.heroBgImage);
-            setHeroImageFile(data[0].caseStudyHero.heroBgImage);
-          }
+        if (!slug) {
+          // Add New Mode
+          const empty = getEmptyState();
+          setProjectData(empty);
+          setOriginalProjectData(JSON.parse(JSON.stringify(empty)));
+        } else {
+          // Edit Mode
+          const project = data.find((p: BrandProject) => p.id === slug);
+          if (project) {
+            setProjectData(project);
+            setOriginalProjectData(JSON.parse(JSON.stringify(project)));
 
-          const initialBlockPreviews: { [key: string]: string } = {};
-          const initialBlockFiles: { [key: string]: string } = {};
-          data[0].dynamicBlocks.forEach((block) => {
-            if (block.blockImage) {
-              initialBlockPreviews[block.blockId] = block.blockImage;
-              initialBlockFiles[block.blockId] = block.blockImage;
+            if (project.gridPreview?.gridImage) {
+              setGridImagePreview(project.gridPreview.gridImage);
+              setGridImageFile(project.gridPreview.gridImage);
             }
-          });
-          setBlockImagePreviews(initialBlockPreviews);
-          setBlockImageFiles(initialBlockFiles);
+            if (project.caseStudyHero?.heroBgImage) {
+              setHeroImagePreview(project.caseStudyHero.heroBgImage);
+              setHeroImageFile(project.caseStudyHero.heroBgImage);
+            }
+
+            const initialBlockPreviews: { [key: string]: string } = {};
+            const initialBlockFiles: { [key: string]: string } = {};
+            if (project.dynamicBlocks) {
+              project.dynamicBlocks.forEach((block: DynamicBlock) => {
+                if (block.blockImage) {
+                  initialBlockPreviews[block.blockId] = block.blockImage;
+                  initialBlockFiles[block.blockId] = block.blockImage;
+                }
+              });
+            }
+            setBlockImagePreviews(initialBlockPreviews);
+            setBlockImageFiles(initialBlockFiles);
+          }
         }
       }
     } catch (error) {
@@ -431,8 +458,11 @@ export default function WebDevelopmentPage() {
 
   if (isLoading || !projectData) return <div>Loading...</div>;
 
+  const pageTitle = slug ? `Edit: ${projectData.caseStudyHero.heroTitle || projectData.gridPreview.gridTitle || 'Project'}` : "Create New Web Development Project";
+
   return (
     <div className={styles.container}>
+      <h2 style={{ marginBottom: "24px", fontSize: "24px", fontWeight: "bold" }}>{pageTitle}</h2>
       {/* SECTION 1: THE GRID HOOK */}
       <div className={styles.section}>
         <div className={styles.sectionHeader}>
@@ -847,5 +877,13 @@ export default function WebDevelopmentPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function WebDevelopmentPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <WebDevelopmentPageContent />
+    </Suspense>
   );
 }

@@ -100,11 +100,15 @@ export default function WorkDashboard() {
     }
   };
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   if (isLoading) {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>All Work</h1>
+          <div className={styles.headerTitleRow}>
+            <h1 className={styles.title}>All Work</h1>
+          </div>
           <p className={styles.subtitle}>Loading projects...</p>
         </div>
       </div>
@@ -114,7 +118,24 @@ export default function WorkDashboard() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>All Work</h1>
+        <div className={styles.headerTitleRow}>
+          <h1 className={styles.title}>All Work</h1>
+          <div className={styles.addNewWrapper}>
+            <button
+              className={styles.addNewBtn}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              + Add New Project
+            </button>
+            {isDropdownOpen && (
+              <div className={styles.dropdownMenu}>
+                <Link href="/dashboard/branding" className={styles.dropdownItem} onClick={() => setIsDropdownOpen(false)}>Branding</Link>
+                <Link href="/dashboard/web-development" className={styles.dropdownItem} onClick={() => setIsDropdownOpen(false)}>Web Development</Link>
+                <Link href="/dashboard/video-editing" className={styles.dropdownItem} onClick={() => setIsDropdownOpen(false)}>Video Editing</Link>
+              </div>
+            )}
+          </div>
+        </div>
         <p className={styles.subtitle}>Manage all your projects from one central dashboard.</p>
       </div>
 
