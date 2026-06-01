@@ -1,0 +1,146 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #6B7280;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 16px 0;
+}
+
+.rowLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.projectTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.badge {
+  background-color: #F3F4F6;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+.rowRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* CSS Toggle Switch */
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.toggleLabel {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.toggleSwitch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: #D1D5DB;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+}
+
+.toggleSwitch.active {
+  background-color: #10B981;
+}
+
+.toggleCircle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.toggleSwitch.active .toggleCircle {
+  transform: translateX(20px);
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: #EF4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.deleteBtn:hover {
+  background-color: #FEE2E2;
+}
+
+.emptyState {
+  padding: 40px 0;
+  text-align: center;
+  color: #6B7280;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 10px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .rowRight {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
