@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { toast } from "react-hot-toast";
 import styles from "./page.module.css";
 import { useCommit } from "../components/CommitContext";
@@ -143,6 +144,15 @@ export default function WorkDashboard() {
                       <div className={styles.toggleCircle}></div>
                     </div>
                   </div>
+
+                  <Link
+                    href={`/dashboard/${item.categoryFile.replace('.json', '')}?slug=${item.id}`}
+                    className={styles.actionBtn}
+                    aria-label="Edit project"
+                    title="Edit project"
+                  >
+                    <i className="ri-pencil-line" style={{ fontSize: '18px' }}></i>
+                  </Link>
 
                   <button
                     className={styles.deleteBtn}

@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 const DATA_DIR = path.join(process.cwd(), '..', 'frontend', 'public', 'data');
+const ALLOWED_FILES = ['branding.json', 'web-development.json', 'video-editing.json'];
 
 async function readJsonFile(filename: string) {
   try {
@@ -60,10 +63,19 @@ export async function GET() {
 
 export async function PATCH(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id, isFeaturedOnHome, categoryFile } = await request.json();
 
     if (!id || !categoryFile) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    if (!ALLOWED_FILES.includes(categoryFile)) {
+      return NextResponse.json({ error: "Invalid category file" }, { status: 400 });
     }
 
     const items = await readJsonFile(categoryFile);
@@ -86,10 +98,19 @@ export async function PATCH(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id, categoryFile } = await request.json();
 
     if (!id || !categoryFile) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    if (!ALLOWED_FILES.includes(categoryFile)) {
+      return NextResponse.json({ error: "Invalid category file" }, { status: 400 });
     }
 
     const items = await readJsonFile(categoryFile);
