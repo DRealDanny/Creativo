@@ -1261,14 +1261,9 @@ input, textarea, select {
 
 /* Phase 20 PDF Modal Container Override */
 .pdf-modal-container {
-  position: relative;
   width: 95vw !important;
   max-width: 1152px !important;
   height: 90vh !important;
-  background-color: #0f172a !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
 }
 
 @media (min-width: 768px) {
@@ -1277,8 +1272,20 @@ input, textarea, select {
   }
 }
 
-.pdf-iframe {
-  width: 100% !important;
-  height: 100% !important;
-  border: none !important;
+.modal-pdf-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--surface);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.modal-pdf-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
 }

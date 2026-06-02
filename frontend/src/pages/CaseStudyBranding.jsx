@@ -30,6 +30,17 @@ const CaseStudyBranding = () => {
   };
 
   useEffect(() => {
+    if (isPdfModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isPdfModalOpen]);
+
+  useEffect(() => {
     const fetchBranding = async () => {
       try {
         const response = await fetch('/data/branding.json?t=' + new Date().getTime());
@@ -160,7 +171,9 @@ const CaseStudyBranding = () => {
       <div className="modal-overlay is-open" role="dialog" aria-modal="true" aria-label="PDF Document">
         <div className="modal-container pdf-modal-container">
           <button className="modal-close" onClick={closePdfModal} aria-label="Close PDF"><i className="ri-close-line"></i></button>
-          <iframe src={pdfUrl} className="pdf-iframe" title="PDF Document Viewer"></iframe>
+          <div className="modal-pdf-wrap">
+            <iframe src={pdfUrl} title="PDF Document Viewer"></iframe>
+          </div>
         </div>
       </div>
     )}
