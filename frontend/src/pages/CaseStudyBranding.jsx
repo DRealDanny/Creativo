@@ -14,6 +14,31 @@ const CaseStudyBranding = () => {
   const [data, setData] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const { slug } = useParams();
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState('');
+
+  const openPdfModal = (e, url) => {
+    e.preventDefault();
+    if (url) {
+      setPdfUrl(url);
+      setIsPdfModalOpen(true);
+    }
+  };
+
+  const closePdfModal = () => {
+    setIsPdfModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (isPdfModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isPdfModalOpen]);
 
   useEffect(() => {
     const fetchBranding = async () => {
@@ -47,6 +72,7 @@ const CaseStudyBranding = () => {
   const { caseStudyHero, dynamicBlocks } = data;
 
   return (
+    <>
     <main>
 
       {/* HERO: Full bleed image + overlay */}
@@ -71,13 +97,13 @@ const CaseStudyBranding = () => {
             <span className="cs-info-value">{caseStudyHero.heroDeliverables}</span>
           </div>
           {caseStudyHero.heroDeliverablesLink ? (
-            <a href={caseStudyHero.heroDeliverablesLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn">
+            <button onClick={(e) => openPdfModal(e, caseStudyHero.heroDeliverablesLink)} className="btn btn-primary cs-case-btn">
               <span>View Deliverables</span><i className="ri-arrow-right-up-line"></i>
-            </a>
+            </button>
           ) : (
-            <a href="#" target="_blank" rel="noopener noreferrer" className="btn btn-primary cs-case-btn" style={{ opacity: 0.5, cursor: 'not-allowed' }} onClick={(e) => e.preventDefault()}>
+            <button className="btn btn-primary cs-case-btn" style={{ opacity: 0.5, cursor: 'not-allowed' }} disabled>
               <span>View Deliverables</span><i className="ri-arrow-right-up-line"></i>
-            </a>
+            </button>
           )}
         </div>
       </section>
@@ -140,6 +166,18 @@ const CaseStudyBranding = () => {
       </section>
 
     </main>
+
+    {isPdfModalOpen && (
+      <div className="modal-overlay is-open" role="dialog" aria-modal="true" aria-label="PDF Document">
+        <div className="modal-container pdf-modal-container">
+          <button className="modal-close" onClick={closePdfModal} aria-label="Close PDF"><i className="ri-close-line"></i></button>
+          <div className="modal-pdf-wrap">
+            <iframe src={pdfUrl} title="PDF Document Viewer"></iframe>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 };
 
