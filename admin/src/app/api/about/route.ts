@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp';
 
 const dataFilePath = path.join(process.cwd(), '..', 'frontend', 'public', 'data', 'about.json');
 const imagesDirPath = path.join(process.cwd(), '..', 'frontend', 'public', 'images');
@@ -78,13 +79,16 @@ export async function POST(request: Request) {
           fs.mkdirSync(imagesDirPath, { recursive: true });
         }
 
-        const ext = path.extname(imageFile.name) || '.jpg';
+        const ext = '.webp';
         const fileName = `profile-${Date.now()}${ext}`;
         const filePath = path.join(imagesDirPath, fileName);
 
         const arrayBuffer = await imageFile.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        fs.writeFileSync(filePath, buffer);
+
+        await sharp(buffer)
+          .webp({ quality: 80 })
+          .toFile(filePath);
 
         currentData.identityCard.image = `/images/${fileName}`;
       } catch (err) {

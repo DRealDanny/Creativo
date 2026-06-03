@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp';
 
 const dataFilePath = path.join(process.cwd(), '..', 'frontend', 'public', 'data', 'video-editing.json');
 const imagesDirPath = path.join(process.cwd(), '..', 'frontend', 'public', 'images');
@@ -109,13 +110,16 @@ export async function POST(request: Request) {
     }
 
     const saveFile = async (file: File, prefix: string): Promise<string> => {
-        const ext = path.extname(file.name) || '.jpg';
+        const ext = '.webp';
         const fileName = `${prefix}-${Date.now()}${ext}`;
         const filePath = path.join(imagesDirPath, fileName);
 
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        fs.writeFileSync(filePath, buffer);
+
+        await sharp(buffer)
+          .webp({ quality: 80 })
+          .toFile(filePath);
 
         return `/images/${fileName}`;
     }
