@@ -196,13 +196,17 @@
 }
 
 .social-link {
-  display: flex;
+  display: flex !important; /* The !important ensures no rogue mobile query overrides this */
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
   align-items: center;
   gap: 12px;
   font-size: 14px;
   color: var(--text-muted);
   transition: color var(--t-fast), gap var(--t-fast);
   margin-bottom: 10px;
+  white-space: nowrap; /* THIS is the magic bullet - prevents text from breaking to a new line */
+  width: max-content; /* Prevents the container from shrinking and squishing the content */
 }
 
 .social-link:last-child { margin-bottom: 0; }

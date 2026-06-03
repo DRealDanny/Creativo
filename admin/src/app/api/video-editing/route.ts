@@ -127,6 +127,14 @@ export async function POST(request: Request) {
     if (!updateSection || updateSection === 'gridPreview') {
         const gridImageFile = formData.get('gridImageFile');
         if (isFile(gridImageFile)) {
+            const oldUrl = projectData[existingIndex].gridPreview?.gridImage;
+            if (oldUrl && oldUrl.startsWith('/images/')) {
+                const oldFileName = oldUrl.replace('/images/', '');
+                const oldFilePath = path.join(imagesDirPath, oldFileName);
+                if (fs.existsSync(oldFilePath)) {
+                    fs.unlinkSync(oldFilePath);
+                }
+            }
             const url = await saveFile(gridImageFile, 'grid-video-editing');
             projectData[existingIndex].gridPreview.gridImage = url;
         }
@@ -135,6 +143,14 @@ export async function POST(request: Request) {
     if (!updateSection || updateSection === 'caseStudyHero') {
         const heroImageFile = formData.get('heroImageFile');
         if (isFile(heroImageFile)) {
+            const oldUrl = projectData[existingIndex].caseStudyHero?.heroBgImage;
+            if (oldUrl && oldUrl.startsWith('/images/')) {
+                const oldFileName = oldUrl.replace('/images/', '');
+                const oldFilePath = path.join(imagesDirPath, oldFileName);
+                if (fs.existsSync(oldFilePath)) {
+                    fs.unlinkSync(oldFilePath);
+                }
+            }
             const url = await saveFile(heroImageFile, 'hero-video-editing');
             projectData[existingIndex].caseStudyHero.heroBgImage = url;
         }
@@ -145,6 +161,14 @@ export async function POST(request: Request) {
             for (let i = 0; i < projectData[existingIndex].dynamicBlocks.length; i++) {
                 const blockImageFile = formData.get(`blockImageFile_${i}`);
                 if (isFile(blockImageFile)) {
+                    const oldUrl = projectData[existingIndex].dynamicBlocks[i].blockImage;
+                    if (oldUrl && oldUrl.startsWith('/images/')) {
+                        const oldFileName = oldUrl.replace('/images/', '');
+                        const oldFilePath = path.join(imagesDirPath, oldFileName);
+                        if (fs.existsSync(oldFilePath)) {
+                            fs.unlinkSync(oldFilePath);
+                        }
+                    }
                     const url = await saveFile(blockImageFile, `block-video-editing-${i}`);
                     projectData[existingIndex].dynamicBlocks[i].blockImage = url;
                 }

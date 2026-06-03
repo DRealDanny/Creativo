@@ -115,6 +115,30 @@ export async function DELETE(request: Request) {
 
     const items = await readJsonFile(categoryFile);
 
+    const itemToDelete = items.find((item: any) => item.id === id);
+    if (itemToDelete) {
+      const imagesToDelete = [];
+      if (itemToDelete.gridPreview?.gridImage) imagesToDelete.push(itemToDelete.gridPreview.gridImage);
+      if (itemToDelete.caseStudyHero?.heroBgImage) imagesToDelete.push(itemToDelete.caseStudyHero.heroBgImage);
+      if (itemToDelete.dynamicBlocks && Array.isArray(itemToDelete.dynamicBlocks)) {
+        itemToDelete.dynamicBlocks.forEach((block: any) => {
+          if (block.blockImage) imagesToDelete.push(block.blockImage);
+        });
+      }
+
+      for (const imgUrl of imagesToDelete) {
+        if (imgUrl && imgUrl.startsWith('/images/')) {
+          const fileName = imgUrl.replace('/images/', '');
+          const imgPath = path.join(process.cwd(), '..', 'frontend', 'public', 'images', fileName);
+          try {
+            await fs.unlink(imgPath);
+          } catch (e) {
+            console.error(`Error deleting image ${imgPath}:`, e);
+          }
+        }
+      }
+    }
+
     const updatedItems = items.filter((item: any) => item.id !== id);
 
     await writeJsonFile(categoryFile, updatedItems);
