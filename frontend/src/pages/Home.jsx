@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import homeHeroImg from '../assets/home-hero.webp';
 
 const Home = () => {
   const [isShowreelOpen, setIsShowreelOpen] = useState(false);
@@ -100,7 +101,9 @@ const Home = () => {
                 <NavLink to="/about" className="btn btn-outline">About Creativo</NavLink>
               </div>
             </div>
-            <div id="heroCanvas" aria-hidden="true"></div>
+            <div className="hero-visual">
+              <img src={homeHeroImg} alt="" className="hero-anchor-img" />
+            </div>
             <div className="hero-scroll" aria-hidden="true">
               <div className="hero-scroll-indicator">
                 <div className="hero-scroll-line"></div>

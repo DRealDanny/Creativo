@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import servicesHeroImg from '../assets/services-hero.webp';
 
 const Services = () => {
   return (
@@ -8,12 +9,17 @@ const Services = () => {
       {/* HERO */}
       <section className="services-hero" aria-labelledby="services-heading">
         <div className="services-hero-inner">
-          <div className="page-eyebrow">
-            <span className="page-eyebrow-line" aria-hidden="true"></span>
-            <span className="t-label">What I Offer</span>
+          <div className="hero-text">
+            <div className="page-eyebrow">
+              <span className="page-eyebrow-line" aria-hidden="true"></span>
+              <span className="t-label">What I Offer</span>
+            </div>
+            <h1 id="services-heading">From first<br />sketch to<br /><em>final pixel.</em></h1>
+            <p className="t-body-lg services-hero-sub">Full-spectrum creative execution across three disciplines. Every service is built to deliver work that is intentional, polished, and built to last.</p>
           </div>
-          <h1 id="services-heading">From first<br />sketch to<br /><em>final pixel.</em></h1>
-          <p className="t-body-lg services-hero-sub">Full-spectrum creative execution across three disciplines. Every service is built to deliver work that is intentional, polished, and built to last.</p>
+          <div className="hero-visual">
+            <img src={servicesHeroImg} alt="" className="hero-anchor-img" />
+          </div>
         </div>
         <div className="page-hero-bottom" aria-hidden="true"></div>
       </section>

@@ -13,6 +13,10 @@
 .services-hero-inner {
   max-width: var(--container);
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
 }
 
 .page-eyebrow {

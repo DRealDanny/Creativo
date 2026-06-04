@@ -1,4 +1,5 @@
 import React from 'react';
+import contactHeroImg from '../assets/contact-hero.webp';
 
 const Contact = () => {
   return (
@@ -7,11 +8,16 @@ const Contact = () => {
       {/* HERO */}
       <section className="contact-hero" aria-labelledby="contact-heading">
         <div className="contact-hero-inner">
-          <div className="page-eyebrow">
-            <span className="page-eyebrow-line" aria-hidden="true"></span>
-            <span className="t-label">Get In Touch</span>
+          <div className="hero-text">
+            <div className="page-eyebrow">
+              <span className="page-eyebrow-line" aria-hidden="true"></span>
+              <span className="t-label">Get In Touch</span>
+            </div>
+            <h1 id="contact-heading">Got a<br />project?<br />Let's make<br /><em>it real.</em></h1>
           </div>
-          <h1 id="contact-heading">Got a<br />project?<br />Let's make<br /><em>it real.</em></h1>
+          <div className="hero-visual">
+            <img src={contactHeroImg} alt="" className="hero-anchor-img" />
+          </div>
         </div>
         <div className="page-hero-bottom" aria-hidden="true"></div>
       </section>

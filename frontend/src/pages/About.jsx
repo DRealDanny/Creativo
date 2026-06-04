@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import aboutHeroImg from '../assets/about-hero.webp';
 
 const About = () => {
   const [activeTab, setActiveTab] = useState('design');
@@ -56,12 +57,17 @@ const About = () => {
       {/* HERO */}
       <section className="about-hero" aria-labelledby="about-heading">
         <div className="about-hero-inner">
-          <div className="page-eyebrow">
-            <span className="page-eyebrow-line" aria-hidden="true"></span>
-            <span className="t-label">The Person Behind the Work</span>
+          <div className="hero-text">
+            <div className="page-eyebrow">
+              <span className="page-eyebrow-line" aria-hidden="true"></span>
+              <span className="t-label">The Person Behind the Work</span>
+            </div>
+            <h1 id="about-heading">Built to<br /><em>Build</em><br />Brands.</h1>
+            <p className="t-body-lg about-hero-sub">I'm Creativo — A Brand Structuralist. I design the systems and experiences that make brands impossible to ignore. From identity to interface, strategy to screen.</p>
           </div>
-          <h1 id="about-heading">Built to<br /><em>Build</em><br />Brands.</h1>
-          <p className="t-body-lg about-hero-sub">I'm Creativo — A Brand Structuralist. I design the systems and experiences that make brands impossible to ignore. From identity to interface, strategy to screen.</p>
+          <div className="hero-visual">
+            <img src={aboutHeroImg} alt="" className="hero-anchor-img" />
+          </div>
         </div>
         <div className="page-hero-bottom" aria-hidden="true"></div>
       </section>

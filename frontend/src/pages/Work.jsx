@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import workHeroImg from '../assets/work-hero.webp';
 
 const Work = () => {
   const [filter, setFilter] = useState('All');
@@ -88,12 +89,17 @@ const Work = () => {
       {/* ── HERO ── */}
       <section className="work-hero" aria-labelledby="work-heading">
         <div className="work-hero-inner">
-          <div className="page-eyebrow">
-            <span className="page-eyebrow-line" aria-hidden="true"></span>
-            <span className="t-label">Selected Projects</span>
+          <div className="hero-text">
+            <div className="page-eyebrow">
+              <span className="page-eyebrow-line" aria-hidden="true"></span>
+              <span className="t-label">Selected Projects</span>
+            </div>
+            <h1 id="work-heading">Three<br />disciplines.<br /><em>One</em> standard.</h1>
+            <p className="t-body-lg work-hero-sub">Every project here is a case of problem-solving, craft, and intentional execution — from the first brief to the final pixel.</p>
           </div>
-          <h1 id="work-heading">Three<br />disciplines.<br /><em>One</em> standard.</h1>
-          <p className="t-body-lg work-hero-sub">Every project here is a case of problem-solving, craft, and intentional execution — from the first brief to the final pixel.</p>
+          <div className="hero-visual">
+            <img src={workHeroImg} alt="" className="hero-anchor-img" />
+          </div>
         </div>
         <div className="page-hero-bottom" aria-hidden="true"></div>
       </section>
