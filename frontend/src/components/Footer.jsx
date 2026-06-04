@@ -53,8 +53,8 @@ const Footer = () => {
           <div className="footer-grid">
             <div className="footer-brand">
               <NavLink to="/" className="footer-logo">Creativo<span>.</span></NavLink>
-              <p className="footer-tagline">Brand Structuralist &amp; Video Editor</p>
-              <p className="footer-desc">Design that thinks. Work that lasts.<br />Based in Lagos, Nigeria.</p>
+              <p className="footer-tagline">Brand Structuralist</p>
+              <p className="footer-desc">Design that thinks. Work that lasts.<br />Experiences that make brands</p>
               <div className="footer-socials">
                 {socials.instagram && <a href={socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social"><i className="ri-instagram-line"></i></a>}
                 {socials.behance && <a href={socials.behance} target="_blank" rel="noopener noreferrer" aria-label="Behance" className="footer-social"><i className="ri-behance-line"></i></a>}

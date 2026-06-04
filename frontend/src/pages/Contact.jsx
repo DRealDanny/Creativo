@@ -96,7 +96,7 @@ const Contact = () => {
                 <h5>Find Me On</h5>
                 <a href="https://instagram.com/creativocreates" className="social-link" target="_blank" rel="noopener noreferrer">
                   <span className="social-link-icon"><i className="ri-instagram-line"></i></span>
-                  @creativocreates
+                  creativocreates
                 </a>
                 <a href="https://behance.net/creativocreates" className="social-link" target="_blank" rel="noopener noreferrer">
                   <span className="social-link-icon"><i className="ri-behance-line"></i></span>

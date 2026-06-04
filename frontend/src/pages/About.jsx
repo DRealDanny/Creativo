@@ -61,7 +61,7 @@ const About = () => {
             <span className="t-label">The Person Behind the Work</span>
           </div>
           <h1 id="about-heading">Built to<br /><em>Build</em><br />Brands.</h1>
-          <p className="t-body-lg about-hero-sub">I'm Creativo — a Brand Structuralist and Video Editor based in Lagos. I design the systems and experiences that make brands impossible to ignore. From identity to interface, strategy to screen.</p>
+          <p className="t-body-lg about-hero-sub">I'm Creativo — A Brand Structuralist. I design the systems and experiences that make brands impossible to ignore. From identity to interface, strategy to screen.</p>
         </div>
         <div className="page-hero-bottom" aria-hidden="true"></div>
       </section>
@@ -118,7 +118,7 @@ const About = () => {
             <div className="discipline-item" role="listitem">
               <p className="discipline-num">02</p>
               <p className="discipline-name">Web Development</p>
-              <p className="discipline-desc">I build websites with clean code, considered motion, and performance baked in. Whether it's a fully custom codebase or a WordPress build, every line is written with intention. Shortcuts show up eventually — I don't take them.</p>
+              <p className="discipline-desc">I build websites with clean code, considered motion, and performance baked in. Whether it's a fully custom codebase or a landing page, every line is written with intention. Shortcuts show up eventually — I don't take them.</p>
             </div>
             <div className="discipline-item" role="listitem">
               <p className="discipline-num">03</p>
