@@ -632,6 +632,7 @@ input, textarea, select {
 
 .scroll-to-top:hover {
   background-color: var(--text);
+  color: #2060FF;
   transform: translateY(-4px) !important;
 }
 
